@@ -1,4 +1,4 @@
-# Darshan Naidu — Complete Website Copy
+# Darshan Naidu - Complete Website Copy
 ### A minimal, personal portfolio for video editing, visual design & social media
 
 **Website:** https://darshannaidu.vercel.app/  
@@ -6,7 +6,7 @@
 
 ## The voice
 
-The writing should feel like Darshan talking about his work — not a marketing agency describing itself.
+The writing should feel like Darshan talking about his work - not a marketing agency describing itself.
 
 - Keep sentences short and conversational.
 - Let the work do the talking. Avoid big claims like “transforming the world,” “visionary,” “revolutionary,” “world-class,” or “cutting-edge.”
@@ -43,26 +43,26 @@ Keep the navigation simple. “For Startups” sounds like a specialist agency o
 ## Browser title and SEO
 
 **Homepage title**  
-`Darshan Naidu — Video Editor & Visual Creative`
+`Darshan Naidu - Video Editor & Visual Creative`
 
 **Homepage meta description**  
 `I'm Darshan, a video editor and visual creative making videos, designs, and social content with care, rhythm, and a little personality.`
 
 **About page title**  
-`About Darshan Naidu — Creative Portfolio`
+`About Darshan Naidu - Creative Portfolio`
 
 **Services page title**  
-`What I Do — Video Editing, Design & Social Media | Darshan Naidu`
+`What I Do - Video Editing, Design & Social Media | Darshan Naidu`
 
 **Work page title**  
-`Selected Work — Darshan Naidu`
+`Selected Work - Darshan Naidu`
 
 **Contact page title**  
-`Let's Talk — Darshan Naidu`
+`Let's Talk - Darshan Naidu`
 
 ---
 
-# 2. Homepage — `/`
+# 2. Homepage - `/`
 
 ## A. Hero
 
@@ -80,7 +80,7 @@ Keep the navigation simple. “For Startups” sounds like a specialist agency o
 **Small intro / eyebrow**  
 `HEY, I'M DARSHAN.`
 
-**Main headline — recommended**  
+**Main headline - recommended**  
 `I make things look, sound, and feel right.`
 
 **Alternative headline if you want something more direct**  
@@ -100,7 +100,7 @@ Use only the roles that genuinely describe your work. If the animation is narrow
 **Secondary button**  
 `A Little About Me`
 
-**Optional availability note — show only if accurate**  
+**Optional availability note - show only if accurate**  
 `Open to interesting projects and collaborations.`
 
 ### Another hero version (more playful, still minimal)
@@ -139,11 +139,11 @@ Use only the roles that genuinely describe your work. If the animation is narrow
 ## C. Selected work
 
 ### Current copy
-- “Basilica — The next evolution of the internet”
-- “Across — Revolutionizing enterprise processes with AI”
-- “Roomie — Empowering people to design & shop for their new home”
-- “Obvio — AI-driven road safety solution”
-- “Rendezvu — Redefining how people connect via skiing”
+- “Basilica - The next evolution of the internet”
+- “Across - Revolutionizing enterprise processes with AI”
+- “Roomie - Empowering people to design & shop for their new home”
+- “Obvio - AI-driven road safety solution”
+- “Rendezvu - Redefining how people connect via skiing”
 - Project categories such as “Brand”, “Websites”, “Brand & website”, and “Product”
 
 ### New copy
@@ -155,7 +155,7 @@ Use only the roles that genuinely describe your work. If the animation is narrow
 `Work, in different forms.`
 
 **Supporting line**  
-`A mix of edits, visuals, and social content — each with its own little brief to solve.`
+`A mix of edits, visuals, and social content - each with its own little brief to solve.`
 
 **Project card copy format**  
 - **Project name:** Use the real project or campaign name.
@@ -213,7 +213,7 @@ Don't use made-up project names, clients, results, or sample descriptions as if 
 **Short service tags:** `Social Posts` · `Carousels` · `Thumbnails` · `Posters & Banners`
 
 ### Social media
-`Helping content feel consistent from post to post — from planning what goes out to making sure the visuals fit the page.`
+`Helping content feel consistent from post to post - from planning what goes out to making sure the visuals fit the page.`
 
 **Short service tags:** `Content Planning` · `Creative Posts` · `Scheduling Support` · `Page Consistency`
 
@@ -230,7 +230,7 @@ Only keep deliverables you actually offer. If you don't manage scheduling, analy
 
 ### Current copy
 - “About Darshan”
-- “Behind Deztopa is a power couple pushing the boundaries of design—one visionary project at a time.”
+- “Behind Deztopa is a power couple pushing the boundaries of design-one visionary project at a time.”
 - “Learn more about us”
 
 ### New copy
@@ -239,7 +239,7 @@ Only keep deliverables you actually offer. If you don't manage scheduling, analy
 `A little about the person behind the screen.`
 
 **Body**  
-`I’m Darshan — a creative who enjoys editing, designing, and figuring out how to make an idea work visually. I care about the details, but I also like keeping things simple. The aim is always to make something that feels right for the people it's made for.`
+`I’m Darshan - a creative who enjoys editing, designing, and figuring out how to make an idea work visually. I care about the details, but I also like keeping things simple. The aim is always to make something that feels right for the people it's made for.`
 
 **Button:** `More About Me`
 
@@ -256,7 +256,7 @@ Only keep deliverables you actually offer. If you don't manage scheduling, analy
 `Got something in mind?`
 
 **Body**  
-`A video, a design, a social page, or an idea you're still figuring out — I'm happy to hear about it.`
+`A video, a design, a social page, or an idea you're still figuring out - I'm happy to hear about it.`
 
 **Button:** `Let's Talk`
 
@@ -276,7 +276,7 @@ Only keep deliverables you actually offer. If you don't manage scheduling, analy
 `LinkedIn`  
 `Behance` *(only if you use it)*
 
-**Footer sign-off — choose one**
+**Footer sign-off - choose one**
 - `Made with care by Darshan.`
 - `A little creativity goes a long way.`
 - `Thanks for stopping by.`
@@ -291,7 +291,7 @@ Remove Twitter / X or any other social link if you don't actively use it. Replac
 
 ---
 
-# 3. About page — `/about-me`
+# 3. About page - `/about-me`
 
 ## A. Hero
 
@@ -313,7 +313,7 @@ Remove Twitter / X or any other social link if you don't actively use it. Replac
 `I like making things.`
 
 **Body**  
-`Videos, visuals, social content — I enjoy the process of taking an idea and working through the details until it feels right. Sometimes the answer is a cleaner edit. Sometimes it's a simpler layout. Usually, it's a few rounds of trying things, changing things, and making it better.`
+`Videos, visuals, social content - I enjoy the process of taking an idea and working through the details until it feels right. Sometimes the answer is a cleaner edit. Sometimes it's a simpler layout. Usually, it's a few rounds of trying things, changing things, and making it better.`
 
 **Button:** `See My Work`
 
@@ -330,7 +330,7 @@ Remove Twitter / X or any other social link if you don't actively use it. Replac
 `How I got into the creative side of things`
 
 **Body**  
-`I've always been interested in how visuals come together — how a cut can change the mood of a video, how a layout can make a message easier to understand, or how a social post can feel like it belongs to a brand.`
+`I've always been interested in how visuals come together - how a cut can change the mood of a video, how a layout can make a message easier to understand, or how a social post can feel like it belongs to a brand.`
 
 `That curiosity led me into video editing, design, and social media. I enjoy trying different approaches, learning new tools, and finding a better way to get an idea across. I'm still learning as I go, and that's part of what keeps the work interesting.`
 
@@ -356,7 +356,7 @@ Remove Twitter / X or any other social link if you don't actively use it. Replac
 `A design or edit shouldn't make people work too hard to get the point. I try to keep the message clear and the unnecessary bits out of the way.`
 
 ### `Get the details right`
-`Timing, spacing, type, colour, sound — small choices can change the whole feel of a piece. I like giving those choices attention.`
+`Timing, spacing, type, colour, sound - small choices can change the whole feel of a piece. I like giving those choices attention.`
 
 ### `Stay curious`
 `There is always another technique to learn or a different way to approach a brief. Experimenting keeps the work fresh.`
@@ -400,7 +400,7 @@ List software (such as Premiere Pro, After Effects, Photoshop, Illustrator, Canv
 
 ---
 
-# 4. What I Do / Services page — `/service`
+# 4. What I Do / Services page - `/service`
 
 ## A. Hero
 
@@ -421,7 +421,7 @@ List software (such as Premiere Pro, After Effects, Photoshop, Illustrator, Canv
 **Body**  
 `Some projects start with a folder full of clips. Others start with a blank canvas or a social page that needs a bit of direction. I help shape those starting points into clear, finished creative work.`
 
-## B. Service 1 — Video editing
+## B. Service 1 - Video editing
 
 **Heading**  
 `Video editing`
@@ -439,13 +439,13 @@ List software (such as Premiere Pro, After Effects, Photoshop, Illustrator, Canv
 **Small line**  
 `From the first cut to the final export.`
 
-## C. Service 2 — Graphic & visual design
+## C. Service 2 - Graphic & visual design
 
 **Heading**  
 `Graphic & visual design`
 
 **Description**  
-`I make visuals for the places people spend their time online — social posts, thumbnails, banners, posters, and campaign graphics. The goal is simple: make the message easy to get and the design easy to remember.`
+`I make visuals for the places people spend their time online - social posts, thumbnails, banners, posters, and campaign graphics. The goal is simple: make the message easy to get and the design easy to remember.`
 
 **Services / deliverables**
 - Social media posts and carousels
@@ -457,7 +457,7 @@ List software (such as Premiere Pro, After Effects, Photoshop, Illustrator, Canv
 **Small line**  
 `Clear message. Thoughtful design. No extra noise.`
 
-## D. Service 3 — Social media management
+## D. Service 3 - Social media management
 
 **Heading**  
 `Social media`
@@ -475,13 +475,13 @@ List software (such as Premiere Pro, After Effects, Photoshop, Illustrator, Canv
 **Small line**  
 `A page that feels like it belongs to you.`
 
-## E. Service 4 — Creative content
+## E. Service 4 - Creative content
 
 **Heading**  
 `Content & creative ideas`
 
 **Description**  
-`Sometimes the hardest part is knowing what to make. I can help shape an idea into a format that fits — a short video, a set of posts, a visual concept, or a small content series.`
+`Sometimes the hardest part is knowing what to make. I can help shape an idea into a format that fits - a short video, a set of posts, a visual concept, or a small content series.`
 
 **Services / deliverables**
 - Content concepts
@@ -507,13 +507,13 @@ List software (such as Premiere Pro, After Effects, Photoshop, Illustrator, Canv
 **Heading**  
 `Nothing complicated. Just a good process.`
 
-### `01 — Talk it through`
+### `01 - Talk it through`
 `We start with what you need, who it's for, and what you want it to feel like. References are welcome; a rough idea is enough to begin.`
 
-### `02 — Make a first version`
+### `02 - Make a first version`
 `I put the edit or design together, try a few directions where needed, and focus on getting the main idea right before polishing the details.`
 
-### `03 — Fine-tune it`
+### `03 - Fine-tune it`
 `We review the work, make the agreed changes, and get the final files ready for the format or platform you need.`
 
 **Optional note:** Explain your actual revision policy, turnaround, and delivery formats only after deciding how you want to work.
@@ -524,7 +524,7 @@ List software (such as Premiere Pro, After Effects, Photoshop, Illustrator, Canv
 `Have a project in mind?`
 
 **Body**  
-`Tell me a little about it. It doesn't need to be perfectly planned — we can start with the idea.`
+`Tell me a little about it. It doesn't need to be perfectly planned - we can start with the idea.`
 
 **Button:** `Let's Talk`
 
@@ -587,7 +587,7 @@ Only include filters that have work to show.
 - `The approach:` [A few lines about the creative decisions]
 - `The final piece:` [What was delivered]
 
-**Reflection — optional:**  
+**Reflection - optional:**  
 `The part I enjoyed most was [real detail]. It was a good reminder that [short, honest takeaway].`
 
 **Navigation:**  
@@ -597,7 +597,7 @@ Don't force a long case study onto every project. For a simple reel or poster, t
 
 ---
 
-# 6. For Startups page — `/for-startups`
+# 6. For Startups page - `/for-startups`
 
 ## Recommendation
 This page is currently built around startup strategy, brand identity, product design, investor decks, and launch materials. That content doesn't match the personal creative portfolio positioning.
@@ -615,7 +615,7 @@ If you keep the URL and repurpose the content, use the copy below.
 `Have a brand, a page, or an idea that needs a creative hand?`
 
 **Description**  
-`I work on the visual side of things — editing videos, designing content, and helping social pages feel more consistent. Whether you've got a clear brief or just a starting point, we can figure out what makes sense.`
+`I work on the visual side of things - editing videos, designing content, and helping social pages feel more consistent. Whether you've got a clear brief or just a starting point, we can figure out what makes sense.`
 
 ## Three ways I can help
 
@@ -623,7 +623,7 @@ If you keep the URL and repurpose the content, use the copy below.
 `Let's turn the clips you've collected into a video with a clear flow and a reason to keep watching.`
 
 ### `You need visuals`
-`Posts, thumbnails, banners, or campaign graphics — let's give the idea a look that fits.`
+`Posts, thumbnails, banners, or campaign graphics - let's give the idea a look that fits.`
 
 ### `Your content needs direction`
 `We can map out a few content ideas and give your page a more consistent visual feel.`
@@ -642,7 +642,7 @@ If you keep the URL and repurpose the content, use the copy below.
 
 ---
 
-# 7. Contact page — `/contact`
+# 7. Contact page - `/contact`
 
 ## A. Hero
 
@@ -669,13 +669,13 @@ If you don't actually use a booking calendar, remove “Book a call.” Don't le
 
 Replace startup and product-design options with:
 
-**Field 1 — Name**  
+**Field 1 - Name**  
 Placeholder: `What should I call you?`
 
-**Field 2 — Email**  
+**Field 2 - Email**  
 Placeholder: `Where can I reach you?`
 
-**Field 3 — What do you need?**  
+**Field 3 - What do you need?**  
 Options:
 - `Video editing`
 - `Graphic / visual design`
@@ -684,7 +684,7 @@ Options:
 - `Content ideas`
 - `Something else`
 
-**Field 4 — Tell me about it**  
+**Field 4 - Tell me about it**  
 Placeholder: `What's the idea? Share as much or as little as you like.`
 
 **Submit button:**  
@@ -745,7 +745,7 @@ Don't add an empty-state message if the section isn't empty. Don't show “Email
 ## Open Graph / link preview
 
 **Title**  
-`Darshan Naidu — Creative Portfolio`
+`Darshan Naidu - Creative Portfolio`
 
 **Description**  
 `Video edits, visual design, and social content. A little look at what I make.`
@@ -760,7 +760,7 @@ Use a real portfolio screenshot or a strong piece of Darshan's own work as the s
 
 ## Optional short profile intro
 
-`I'm Darshan — a video editor and visual creative working across design and social content. I like clean visuals, good pacing, and work that feels like itself.`
+`I'm Darshan - a video editor and visual creative working across design and social content. I like clean visuals, good pacing, and work that feels like itself.`
 
 Only use these if they match how you want to present yourself on those platforms.
 
@@ -817,11 +817,11 @@ Only use these if they match how you want to present yourself on those platforms
 
 # 11. Recommended final site structure
 
-1. **Home** — A short introduction, role ticker, selected work, services preview, and a simple contact CTA.
-2. **Work** — Actual videos, designs, and social content. Keep project descriptions short.
-3. **What I Do** — The four main services and a straightforward process.
-4. **About** — A human introduction, your approach, and your creative toolkit.
-5. **Contact** — A short form and real contact links.
+1. **Home** - A short introduction, role ticker, selected work, services preview, and a simple contact CTA.
+2. **Work** - Actual videos, designs, and social content. Keep project descriptions short.
+3. **What I Do** - The four main services and a straightforward process.
+4. **About** - A human introduction, your approach, and your creative toolkit.
+5. **Contact** - A short form and real contact links.
 
 The existing `/for-startups` page can be repurposed as a services page or removed from the navigation if it doesn't add anything useful.
 

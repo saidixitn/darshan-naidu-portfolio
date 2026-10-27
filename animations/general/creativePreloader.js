@@ -20,7 +20,7 @@ export function initCreativePreloader() {
   const subtitleEl = document.getElementById("preloader-subtitle");
   const curtainBg = preloader.querySelector(".preloader-curtain");
 
-  const textToType = "darshan—naidu";
+  const textToType = "darshan-naidu";
   const progressObj = { value: 0, charCount: 0 };
 
   // Lock scroll during intro
@@ -39,7 +39,7 @@ export function initCreativePreloader() {
     },
   });
 
-  // 1. Kinetic typewriter typing out darshan—naidu
+  // 1. Kinetic typewriter typing out darshan-naidu
   tl.to(
     progressObj,
     {
@@ -51,8 +51,8 @@ export function initCreativePreloader() {
         const count = Math.round(progressObj.charCount);
         const typed = textToType.slice(0, count);
         typewriterEl.innerHTML = typed.replace(
-          "—",
-          '<span style="opacity:0.4">—</span>'
+          "-",
+          '<span style="opacity:0.4">-</span>'
         );
       },
     },

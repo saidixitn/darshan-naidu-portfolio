@@ -9,6 +9,7 @@ let lerp, wheelMultiplier, touchMultiplier;
     ((lerp = 0.5), (wheelMultiplier = 0.7), (touchMultiplier = 0));
   }));
 const lenis = new Lenis({ lerp, wheelMultiplier, touchMultiplier });
+window.lenis = lenis;
 mm.add(isDesktop, () => {
   (lenis.on("scroll", ScrollTrigger.update),
     gsap.ticker.add((e) => {

@@ -94,10 +94,38 @@ export function initBackToTop() {
     const btn = e.target.closest(".footer_back_to_top, a[href='#navigation']");
     if (btn) {
       e.preventDefault();
-      if (window.lenis && typeof window.lenis.scrollTo === "function") {
-        window.lenis.scrollTo(0, { duration: 1.2 });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+      e.stopPropagation();
+
+      // 1. Resume and scroll via Lenis with force: true
+      if (window.lenis) {
+        try {
+          if (typeof window.lenis.start === "function") {
+            window.lenis.start();
+          }
+          if (typeof window.lenis.scrollTo === "function") {
+            window.lenis.scrollTo(0, {
+              duration: 1.2,
+              force: true,
+              immediate: false,
+            });
+          }
+        } catch (err) {
+          console.warn("Lenis scrollTo error:", err);
+        }
+      }
+
+      // 2. Animate with GSAP ScrollToPlugin (works across all browsers and devices)
+      try {
+        gsap.to(window, {
+          scrollTo: { y: 0, autoKill: false },
+          duration: 1.2,
+          ease: "power3.inOut",
+        });
+      } catch (err) {
+        // 3. Fallback native scroll
+        try {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } catch (e2) {}
       }
     }
   });
@@ -125,15 +153,34 @@ window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 };
 
+barba.hooks.beforeEnter((e) => {
+  // Prune any duplicate containers from the DOM
+  document.querySelectorAll('[data-barba="container"]').forEach((c) => {
+    if (c !== e.next.container) {
+      c.remove();
+    }
+  });
+});
+
 barba.hooks.afterEnter((e) => {
   cleanupCurrentModule();
   resetWebflow(e);
   try {
     menu.close();
   } catch (err) {}
+  document.querySelectorAll('[data-barba="container"]').forEach((c) => {
+    if (c !== e.next.container) {
+      c.remove();
+    }
+  });
 });
 
 barba.hooks.after((e) => {
+  document.querySelectorAll('[data-barba="container"]').forEach((c) => {
+    if (c !== e.next.container) {
+      c.remove();
+    }
+  });
   const o = e.next.namespace;
   updateCurrentNavLink();
   loadPageModule(o);

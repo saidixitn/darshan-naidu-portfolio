@@ -12,102 +12,89 @@ import { gsap, barba, ScrollTrigger, Flip } from "./vendor.js";
 gsap.registerPlugin(ScrollTrigger);
 const mm = gsap.matchMedia();
 barba.init({
-  preventRunning: !0,
+  preventRunning: true,
   transitions: [
     {
       name: "default-transition",
-      sync: !0,
+      sync: false,
       leave(e) {
-        const t = this.async();
+        const done = this.async();
         closeMenu();
-        const a = document.querySelector("[data-navigation=wrap]"),
-          o = document.querySelector("[data-overlay=transition]"),
-          r = gsap.timeline({
-            onStart: () => {
-              gsap.set(o, { display: "block" });
-            },
-            onComplete: () => {
-              gsap.to(window, { scrollTo: 0, duration: 0 });
-            },
-            defaults: { duration: 1, ease: "power1.inOut" },
-          });
-        ((proxy.pageReady = !1),
-          r
-            .fromTo(
-              e.current.container,
-              { scaleX: 1 },
-              { scaleX: 0.95, y: "-5%" },
-            )
-            .fromTo(
-              a,
-              { opacity: 1, y: 0, scale: 1 },
-              { opacity: 0, y: "-7rem", scale: 0.9, ease: "power2.inOut" },
-              "<-0.1",
-            )
-            .fromTo(o, { opacity: 0 }, { opacity: 0.75 }, "<")
-            .call(() => t(), [], ">"));
+        const nav = document.querySelector("[data-navigation=wrap]");
+        const overlay = document.querySelector("[data-overlay=transition]");
+        const tl = gsap.timeline({
+          defaults: { duration: 0.35, ease: "power2.inOut" },
+          onComplete: () => {
+            done();
+          },
+        });
+        proxy.pageReady = false;
+        if (overlay) {
+          gsap.set(overlay, { display: "block" });
+          tl.fromTo(overlay, { opacity: 0 }, { opacity: 0.8 }, 0);
+        }
+        tl.fromTo(
+          e.current.container,
+          { opacity: 1, scale: 1 },
+          { opacity: 0, scale: 0.98 },
+          0
+        );
+        if (nav) {
+          tl.fromTo(nav, { opacity: 1 }, { opacity: 0, duration: 0.2 }, 0);
+        }
       },
       enter(e) {
-        const t = this.async(),
-          a = document.querySelector("[data-navigation=wrap]"),
-          o = gsap.timeline({
-            defaults: { duration: 0.5, delay: 0.25, ease: "power3.out" },
-            onStart: () => {
-              gsap.to(window, { scrollTo: 0, duration: 0 });
-            },
-          }),
-          r = window.innerHeight;
-        o.fromTo(
+        const done = this.async();
+        const nav = document.querySelector("[data-navigation=wrap]");
+
+        // Scroll to top instantly before revealing the new page
+        window.scrollTo(0, 0);
+        if (window.lenis && typeof window.lenis.scrollTo === "function") {
+          try {
+            window.lenis.scrollTo(0, { immediate: true, force: true });
+          } catch (err) {}
+        }
+
+        const tl = gsap.timeline({
+          defaults: { duration: 0.5, ease: "power3.out" },
+          onComplete: () => {
+            gsap.set(e.next.container, { clearProps: "all" });
+            if (window.lenis && typeof window.lenis.resize === "function") {
+              window.lenis.resize();
+            }
+            ScrollTrigger.refresh();
+            done();
+          },
+        });
+
+        tl.fromTo(
           e.next.container,
-          {
-            clipPath: `polygon(0px ${r}px, 100% ${r}px, 100% ${r}px, 0px ${r}px)`,
-          },
-          {
-            clipPath: `polygon(0px 0px, 100% 0px, 100% ${r}px, 0px ${r}px)`,
-            ease: "expo.out",
-            duration: 1,
-            onComplete: () => {
-              gsap.set(e.next.container, { clearProps: "all" });
-              if (window.lenis && typeof window.lenis.resize === "function") {
-                window.lenis.resize();
-              }
-              ScrollTrigger.refresh();
-              t();
-            },
-          },
+          { opacity: 0, y: 25 },
+          { opacity: 1, y: 0, duration: 0.5 }
         )
           .call(
             () => {
               createSplitTypes.init(e.next.container);
             },
             [],
-            "<",
+            "<"
           )
           .call(
             () => {
               handlePageEnterAnimation(e.next.container).play();
             },
             [],
-            "<+0.25",
-          )
-          .fromTo(
-            a,
-            { opacity: 0, y: "0rem", scale: 1 },
-            {
-              opacity: 1,
-              y: "0rem",
-              scale: 1,
-              duration: 0.25,
-              ease: "power1.inOut",
-            },
-            "<+0.5",
+            "<+0.1"
           );
-      },
-      before(e) {
-        e.next.container.classList.add("is-animating");
-      },
-      after(e) {
-        e.next.container.classList.remove("is-animating");
+
+        if (nav) {
+          tl.fromTo(
+            nav,
+            { opacity: 0 },
+            { opacity: 1, duration: 0.3, ease: "power1.inOut" },
+            "<+0.1"
+          );
+        }
       },
     },
   ],

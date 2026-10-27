@@ -1158,6 +1158,10 @@ html[data-theme="light"] .contact_send_mail_input {
 /* Back to top cursor and hover */
 .footer_back_to_top {
   cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10 !important;
+  user-select: none;
   transition: color 0.25s ease, transform 0.25s ease;
 }
 

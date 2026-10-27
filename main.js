@@ -47,8 +47,7 @@ function getBaseUrl() {
 }
 
 function loadPageModule(e) {
-  const o = getBaseUrl();
-  import(`${o}pages/${e}.js`)
+  import(`/pages/${e}.js`)
     .then((r) => {
       currentAnimationModule = r.default || {};
       if ("function" == typeof currentAnimationModule.init) {
@@ -64,9 +63,19 @@ function loadPageModule(e) {
       setTimeout(refreshScroll, 400);
       setTimeout(refreshScroll, 1000);
     })
-    .catch((o) => {
-      console.error(`Failed to load module for page: ${e}`, o);
-      currentAnimationModule = {};
+    .catch((err) => {
+      const o = getBaseUrl();
+      import(`${o}pages/${e}.js`)
+        .then((r) => {
+          currentAnimationModule = r.default || {};
+          if ("function" == typeof currentAnimationModule.init) {
+            currentAnimationModule.init();
+          }
+        })
+        .catch((fallbackErr) => {
+          console.error(`Failed to load module for page: ${e}`, fallbackErr);
+          currentAnimationModule = {};
+        });
     });
 }
 

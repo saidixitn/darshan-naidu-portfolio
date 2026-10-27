@@ -61,10 +61,18 @@ barba.init({
           } catch (err) {}
         }
 
+        const nextOverlay = e.next.container.querySelector("[data-overlay=transition]");
+        if (nextOverlay) {
+          gsap.set(nextOverlay, { display: "none" });
+        }
+
         const tl = gsap.timeline({
           defaults: { duration: 0.5, ease: "power3.out" },
           onComplete: () => {
             gsap.set(e.next.container, { clearProps: "all" });
+            if (nextOverlay) {
+              gsap.set(nextOverlay, { display: "none" });
+            }
             if (window.lenis && typeof window.lenis.resize === "function") {
               window.lenis.resize();
             }
@@ -110,4 +118,5 @@ barba.init({
     { namespace: "contact", beforeEnter({ next: e }) {} },
   ],
 });
+window.barba = barba;
 export default barba;

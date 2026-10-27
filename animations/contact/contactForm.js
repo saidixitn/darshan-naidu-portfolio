@@ -28,6 +28,7 @@ function init() {
     t = document.querySelector("[data-contact=drawer-wrap]"),
     a = document.querySelector("[data-contact=cta][data-open=mail-wrap]"),
     r = document.querySelector("[data-contact=cta][data-close=mail-wrap]");
+  if (!a || !r) return;
   ((a.disabled = !0),
     a.classList.add("is-disabled"),
     a.querySelectorAll("*").forEach((e) => {

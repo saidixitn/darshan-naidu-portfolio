@@ -18,10 +18,10 @@ export default function handlePageEnterAnimation(t) {
     l = t.querySelectorAll("[data-enter-page=visual]"),
     p = t.querySelectorAll("[data-enter-page=text-element]");
   if (a.length > 0) {
-    const t = new SplitType(a, { types: "lines" });
+    const stTitle = new SplitType(a, { types: "lines" });
     (mm.add(isTablet, () => {
       e.fromTo(
-        t.lines,
+        stTitle.lines,
         { opacity: 0 },
         { opacity: 1, ease: "power4.out", duration: 1.25 },
         "<+0.1",
@@ -29,7 +29,7 @@ export default function handlePageEnterAnimation(t) {
     }),
       mm.add(isDesktop, () => {
         e.fromTo(
-          t.lines,
+          stTitle.lines,
           { y: "200%" },
           { y: 0, stagger: 0.2, ease: "power4.out", duration: 1.25 },
           "<+0.1",
@@ -37,10 +37,10 @@ export default function handlePageEnterAnimation(t) {
       }));
   }
   if (o.length > 0) {
-    const t = new SplitType(o, { types: "lines" });
+    const stText = new SplitType(o, { types: "lines" });
     (mm.add(isDesktop, () => {
       e.fromTo(
-        t.lines,
+        stText.lines,
         { clipPath: topClipPath, y: "100%" },
         { clipPath: fullClipPath, y: 0, stagger: 0.05 },
         "<+0.25",

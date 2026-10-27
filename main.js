@@ -108,6 +108,17 @@ export function initNavbarScroll() {
   updateScrolled(window.scrollY);
 }
 
+// Global click feedback for brand logo
+if (typeof document !== "undefined") {
+  document.addEventListener("click", (e) => {
+    const logoLink = e.target.closest(".navigation_logo_link");
+    if (logoLink) {
+      logoLink.classList.add("is-clicked");
+      setTimeout(() => logoLink.classList.remove("is-clicked"), 500);
+    }
+  });
+}
+
 let isBackToTopBound = false;
 export function scrollToTop(e) {
   if (e) {

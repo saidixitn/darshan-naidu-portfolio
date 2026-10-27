@@ -83,17 +83,18 @@ export default function handlePageEnterAnimation(t) {
   }
 
   if (l.length > 0) {
+    const pos = e.getChildren().length > 0 ? "<+0.25" : 0;
     e.fromTo(
       l,
-      { y: "5rem", opacity: 0 },
+      { y: "2.5rem", opacity: 0 },
       {
         y: 0,
         opacity: 1,
-        duration: 1,
+        duration: 0.8,
         ease: "expo.out",
         stagger: { from: "random", amount: 0.1 },
       },
-      "<+0.25",
+      pos,
     );
   }
 

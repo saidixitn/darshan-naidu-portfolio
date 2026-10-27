@@ -272,9 +272,7 @@ Only keep deliverables you actually offer. If you don't manage scheduling, analy
 `Contact`
 
 **Connect column**  
-`Instagram`  
-`LinkedIn`  
-`Behance` *(only if you use it)*
+`Instagram`: https://www.instagram.com/fxdarshan/  
 
 **Footer sign-off - choose one**
 - `Made with care by Darshan.`
@@ -710,7 +708,7 @@ Make sure the form's success message appears only after the form submission actu
 **Email:** `[YOUR REAL EMAIL ADDRESS]`
 
 **Label:** `Elsewhere on the internet`  
-Links: `Instagram` · `LinkedIn` · `Behance` *(only the platforms you use)*
+Links: `Instagram`: https://www.instagram.com/fxdarshan/
 
 ---
 

@@ -1274,34 +1274,53 @@ html[data-theme="light"] .is-scroll-text .is-black {
 /* ========================================================
    BUG FIX 2: CONTACT FORM TRIGGERS & DRAWER (LIGHT & DARK)
    ======================================================== */
+/* Hide client logo strip across all themes */
+.testimonial_logo_wrap,
+[data-testimonial="logos-wrap"],
+.testimonial_logo_inner {
+  display: none !important;
+}
+
+/* Contact page interactive trigger fields - orange in both light and dark mode */
 [data-contact="trigger"],
-.contact-trigger {
-  color: var(--theme-text, #ffffff) !important;
+.contact-trigger,
+html[data-theme="dark"] [data-contact="trigger"],
+html[data-theme="dark"] .contact-trigger,
+html:not([data-theme="light"]) [data-contact="trigger"],
+html:not([data-theme="light"]) .contact-trigger,
+html[data-theme="light"] [data-contact="trigger"],
+html[data-theme="light"] .contact-trigger {
+  color: #ff5500 !important;
   text-decoration: underline !important;
   text-decoration-color: #ff5500 !important;
   text-decoration-thickness: 3px !important;
   text-underline-offset: 8px !important;
   cursor: pointer !important;
-  transition: color 0.25s ease, text-decoration-color 0.25s ease, opacity 0.25s ease;
+  transition: color 0.25s ease, text-decoration-color 0.25s ease, opacity 0.25s ease, transform 0.2s ease;
   display: inline-block;
+  font-weight: inherit;
 }
 
 [data-contact="trigger"]:hover,
-.contact-trigger:hover {
+.contact-trigger:hover,
+html[data-theme="light"] [data-contact="trigger"]:hover,
+html[data-theme="light"] .contact-trigger:hover,
+html[data-theme="dark"] [data-contact="trigger"]:hover,
+html[data-theme="dark"] .contact-trigger:hover {
   color: #ff5500 !important;
   text-decoration-color: #ff5500 !important;
+  opacity: 0.85;
 }
 
 [data-contact="trigger"].text-swapped,
-.contact-trigger.text-swapped {
+.contact-trigger.text-swapped,
+html[data-theme="light"] [data-contact="trigger"].text-swapped,
+html[data-theme="light"] .contact-trigger.text-swapped,
+html[data-theme="dark"] [data-contact="trigger"].text-swapped,
+html[data-theme="dark"] .contact-trigger.text-swapped {
   color: #ff5500 !important;
   text-decoration-color: #ff5500 !important;
-}
-
-html[data-theme="light"] [data-contact="trigger"],
-html[data-theme="light"] .contact-trigger {
-  color: #0b0b0c !important;
-  text-decoration-color: #ff5500 !important;
+  opacity: 1 !important;
 }
 
 /* Base Drawer Wrap */
@@ -1331,33 +1350,32 @@ html:not([data-theme="light"]) .contact_drawer_checkbox_label {
   cursor: pointer !important;
 }
 
-html[data-theme="dark"] .contact_drawer_line,
-html:not([data-theme="light"]) .contact_drawer_line {
-  background-color: #ff5500 !important;
-}
-
 /* Light Mode Drawer */
 html[data-theme="light"] .contact_drawer_wrap {
   background-color: #ffffff !important;
   border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.08) !important;
 }
 
 html[data-theme="light"] .contact_drawer_radio_label,
 html[data-theme="light"] .contact_drawer_checkbox_label {
-  color: #0b0b0c !important;
+  color: #111113 !important;
   cursor: pointer !important;
 }
 
+/* Drawer option indicator line: ALWAYS signature orange #ff5500 in both modes */
+.contact_drawer_line,
+html[data-theme="dark"] .contact_drawer_line,
+html:not([data-theme="light"]) .contact_drawer_line,
 html[data-theme="light"] .contact_drawer_line {
   background-color: #ff5500 !important;
 }
 
-/* Hover & Selected states for drawer options */
+/* Hover & Selected states for drawer options in BOTH dark & light mode */
 .contact_drawer_radio_wrap,
 .contact_drawer_checkbox_wrap {
   cursor: pointer !important;
-  opacity: 0.65;
+  opacity: 0.7;
   transition: opacity 0.25s ease, transform 0.25s ease;
   user-select: none;
 }
@@ -1370,13 +1388,39 @@ html[data-theme="light"] .contact_drawer_line {
   transform: translateX(4px);
 }
 
+/* Selected option text in orange */
 .contact_drawer_radio_wrap.is-selected .contact_drawer_radio_label,
-.contact_drawer_checkbox_wrap.is-selected .contact_drawer_checkbox_label {
+.contact_drawer_checkbox_wrap.is-selected .contact_drawer_checkbox_label,
+html[data-theme="light"] .contact_drawer_radio_wrap.is-selected .contact_drawer_radio_label,
+html[data-theme="light"] .contact_drawer_checkbox_wrap.is-selected .contact_drawer_checkbox_label,
+html[data-theme="dark"] .contact_drawer_radio_wrap.is-selected .contact_drawer_radio_label,
+html[data-theme="dark"] .contact_drawer_checkbox_wrap.is-selected .contact_drawer_checkbox_label,
+html:not([data-theme="light"]) .contact_drawer_radio_wrap.is-selected .contact_drawer_radio_label,
+html:not([data-theme="light"]) .contact_drawer_checkbox_wrap.is-selected .contact_drawer_checkbox_label {
+  color: #ff5500 !important;
+  font-weight: 600;
+}
+
+/* Hovered option text in orange */
+.contact_drawer_radio_wrap:hover .contact_drawer_radio_label,
+.contact_drawer_checkbox_wrap:hover .contact_drawer_checkbox_label,
+html[data-theme="light"] .contact_drawer_radio_wrap:hover .contact_drawer_radio_label,
+html[data-theme="light"] .contact_drawer_checkbox_wrap:hover .contact_drawer_checkbox_label,
+html[data-theme="dark"] .contact_drawer_radio_wrap:hover .contact_drawer_radio_label,
+html[data-theme="dark"] .contact_drawer_checkbox_wrap:hover .contact_drawer_checkbox_label,
+html:not([data-theme="light"]) .contact_drawer_radio_wrap:hover .contact_drawer_radio_label,
+html:not([data-theme="light"]) .contact_drawer_checkbox_wrap:hover .contact_drawer_checkbox_label {
   color: #ff5500 !important;
 }
 
-.contact_drawer_radio_wrap:hover .contact_drawer_radio_label,
-.contact_drawer_checkbox_wrap:hover .contact_drawer_checkbox_label {
+/* Drawer confirm button */
+.checkbox-confirm .btn_text_line,
+html[data-theme="light"] .checkbox-confirm .btn_text_line {
+  background-color: #ff5500 !important;
+}
+
+.checkbox-confirm:hover .btn_text_text,
+html[data-theme="light"] .checkbox-confirm:hover .btn_text_text {
   color: #ff5500 !important;
 }
 

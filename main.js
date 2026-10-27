@@ -16,12 +16,20 @@ import { isDesktop } from "./utilities/variables.js";
 import { initThemeToggle } from "./utilities/theme.js";
 import preloader from "./animations/general/preloader.js";
 
-console.log("--> MAIN.JS MODULE EXECUTION START <--");
+console.log("--> MAIN.JS START <--");
 gsap.registerPlugin(ScrollTrigger);
 menu.init();
 
 const mm = gsap.matchMedia();
 let currentAnimationModule = null;
+
+// 1. Preloader and Theme Toggle run IMMEDIATELY
+try {
+  initThemeToggle();
+  preloader.init();
+} catch (err) {
+  console.error("Preloader init error:", err);
+}
 
 function resetWebflow(e) {
   let o = new DOMParser().parseFromString(e.next.html, "text/html"),
@@ -51,11 +59,8 @@ function loadPageModule(e) {
   import(`${o}pages/${e}.js`)
     .then((r) => {
       currentAnimationModule = r.default || {};
-      console.log(`${o}pages/${e}.js`);
       if ("function" == typeof currentAnimationModule.init) {
         currentAnimationModule.init();
-      } else {
-        console.warn(`Module for page ${e} does not have an init function.`);
       }
     })
     .catch((o) => {
@@ -68,28 +73,14 @@ const initialPageName =
   document.querySelector('[data-barba="container"]')?.dataset.barbaNamespace ||
   "home";
 
-function isSafari() {
-  var e = navigator.userAgent.toLowerCase();
-  return -1 !== e.indexOf("safari") && -1 === e.indexOf("chrome");
-}
-
+// 2. Initialize remaining page modules
 try {
-  console.log("--> Calling createSplitTypes...");
   createSplitTypes.init(document);
-  console.log("--> Calling loadPageModule...");
   loadPageModule(initialPageName);
-  console.log("--> Calling handleResponsiveElements...");
   handleResponsiveElements();
-  console.log("--> Calling reinitWebflowFeatures...");
   reinitWebflowFeatures();
-
-  // Initialize Theme Toggle & Creative Loading Animation
-  console.log("--> Calling initThemeToggle...");
-  initThemeToggle();
-  console.log("--> Calling preloader.init()...");
-  preloader.init();
 } catch (err) {
-  console.error("FATAL ERROR IN MAIN INIT:", err);
+  console.error("Page setup error:", err);
 }
 
 window.onbeforeunload = function () {

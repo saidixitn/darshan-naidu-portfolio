@@ -125,7 +125,15 @@
       <div class="preloader_contain u-container">
         <div class="preloader_layout u-hflex-between-bottom">
           <div class="preloader_logo_wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 320 76" fill="none" data-preloader="logo" class="navigation_logo is-preloader"><g data-preloader="logo-char"><text x="0" y="58" font-size="64" font-weight="700" font-family="Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff">D</text></g><g data-preloader="logo-char"><text x="48" y="58" font-size="64" font-weight="700" font-family="Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff">a</text></g><g data-preloader="logo-char"><text x="88" y="58" font-size="64" font-weight="700" font-family="Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff">r</text></g><g data-preloader="logo-char"><text x="116" y="58" font-size="64" font-weight="700" font-family="Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff">s</text></g><g data-preloader="logo-char"><text x="150" y="58" font-size="64" font-weight="700" font-family="Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff">h</text></g><g data-preloader="logo-char"><text x="190" y="58" font-size="64" font-weight="700" font-family="Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff">a</text></g><g data-preloader="logo-char"><text x="230" y="58" font-size="64" font-weight="700" font-family="Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff">n</text></g></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 320 76" fill="none" data-preloader="logo" class="navigation_logo is-preloader">
+              <text x="0" y="58" font-size="64" font-weight="700" font-family="'FK Grotesk', Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff" data-preloader="logo-char">D</text>
+              <text x="48" y="58" font-size="64" font-weight="700" font-family="'FK Grotesk', Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff" data-preloader="logo-char">a</text>
+              <text x="88" y="58" font-size="64" font-weight="700" font-family="'FK Grotesk', Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff" data-preloader="logo-char">r</text>
+              <text x="116" y="58" font-size="64" font-weight="700" font-family="'FK Grotesk', Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff" data-preloader="logo-char">s</text>
+              <text x="150" y="58" font-size="64" font-weight="700" font-family="'FK Grotesk', Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff" data-preloader="logo-char">h</text>
+              <text x="190" y="58" font-size="64" font-weight="700" font-family="'FK Grotesk', Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff" data-preloader="logo-char">a</text>
+              <text x="230" y="58" font-size="64" font-weight="700" font-family="'FK Grotesk', Fkgrotesk, -apple-system, sans-serif" letter-spacing="-0.03em" fill="#ffffff" data-preloader="logo-char">n</text>
+            </svg>
           </div>
           <div class="preloader_text_wrap">
             <div data-split-type="lines" data-preloader="text" class="preloader_text u-text-large">
@@ -553,9 +561,7 @@
               }
             }
 
-            [data-preloader="logo"] [data-preloader="logo-char"] {
-              transform: translate(0, 100%);
-            }
+            /* logo-char animation handled by GSAP */
 
             [data-preloader="text"],
             [data-preloader="text"] .line {

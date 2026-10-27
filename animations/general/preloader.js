@@ -50,87 +50,73 @@ function init() {
 
     const lines = r && r.lines && r.lines.length ? r.lines : a;
 
-    if (i) {
-      if (o.length) {
-        p.fromTo(
-          o,
-          { yPercent: 100 },
-          { yPercent: 0, delay: 0.5, stagger: 0.035, ease: "expo.out" },
-          0
-        );
-      }
-      if (lines) {
-        p.fromTo(
-          [lines, a],
-          { clipPath: topClipPath, y: "100%" },
-          { clipPath: fullClipPath, y: "0%", stagger: 0.1 },
-          "<"
-        );
-      }
-    } else {
-      if (o.length) {
-        p.fromTo(
-          o,
-          { yPercent: 100 },
-          { yPercent: 0, delay: 0.5, stagger: 0.035, ease: "expo.out" },
-          0
-        );
-      }
-      if (lines) {
-        p.fromTo(
-          [lines, a],
-          { clipPath: topClipPath, y: "100%" },
-          { clipPath: fullClipPath, y: "0%", stagger: 0.1 },
-          "<"
-        ).fromTo(
-          lines,
-          { clipPath: fullClipPath, y: "0%" },
-          { clipPath: bottomClipPath, y: "-100%", stagger: 0.1 }
-        );
-      }
-      if (l) {
-        p.to(
-          l,
-          {
-            scaleY: 0,
-            transformOrigin: "top",
-            duration: 1.5,
-            ease: "expo.inOut",
-          },
-          "<+50%"
-        );
-      }
-      if (e) {
-        p.call(
-          () => {
-            const navLogo = document.querySelector("[data-navigation=logo]");
-            if (!navLogo || !e) return;
-            const state = Flip.getState(e, { props: "color, width, height" });
-            navLogo.replaceWith(e);
-            e.classList.toggle("is-preloader");
-            Flip.from(state, {
-              duration: 1.5,
-              toggleClass: "is-flipping",
-              ease: "expo.inOut",
-            });
-          },
-          [],
-          "<"
-        );
-      }
+    if (o && o.length > 0) {
+      p.fromTo(
+        o,
+        { y: 76, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, delay: 0.2, stagger: 0.05, ease: "expo.out" },
+        0
+      );
+    }
+
+    if (lines) {
+      p.fromTo(
+        [lines, a],
+        { clipPath: topClipPath, y: "100%" },
+        { clipPath: fullClipPath, y: "0%", stagger: 0.1 },
+        "<"
+      ).fromTo(
+        lines,
+        { clipPath: fullClipPath, y: "0%" },
+        { clipPath: bottomClipPath, y: "-100%", stagger: 0.1 }
+      );
+    }
+
+    if (l) {
+      p.to(
+        l,
+        {
+          scaleY: 0,
+          transformOrigin: "top",
+          duration: 1.4,
+          ease: "expo.inOut",
+        },
+        "<+50%"
+      );
+    }
+
+    if (e) {
       p.call(
         () => {
-          try {
-            handlePageEnterAnimation(document).play();
-          } catch (err) {
-            console.error("Hero page enter animation error:", err);
-          }
+          const navLogo = document.querySelector("[data-navigation=logo]");
+          if (!navLogo || !e) return;
+          const state = Flip.getState(e, { props: "color, width, height" });
+          navLogo.replaceWith(e);
+          e.classList.toggle("is-preloader");
+          Flip.from(state, {
+            duration: 1.4,
+            toggleClass: "is-flipping",
+            ease: "expo.inOut",
+          });
         },
         [],
-        "<+1"
+        "<"
       );
-      p.set(t, { display: "none" }, ">+0.5");
     }
+
+    p.call(
+      () => {
+        try {
+          handlePageEnterAnimation(document).play();
+        } catch (err) {
+          console.error("Hero page enter animation error:", err);
+        }
+      },
+      [],
+      "<+1"
+    );
+
+    p.set(t, { display: "none" }, ">+0.4");
   });
 }
 

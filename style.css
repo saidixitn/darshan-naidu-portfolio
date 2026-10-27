@@ -240,31 +240,36 @@ html[data-theme="light"] .g_h_divider {
   background-color: #e2e2e6 !important;
 }
 
-/* Minimal Theme Toggle Button */
+/* Clean, Minimal & Subtle Theme Toggle */
 .theme_toggle_btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  background: transparent;
-  border: 1px solid currentColor;
-  opacity: 0.8;
-  color: currentColor;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   padding: 0;
-  margin-left: 0.75rem;
-  transition: all 0.3s ease;
+  margin: 0 0.25rem 0 0.5rem;
+  color: var(--theme-text, #f5f5f7) !important;
+  opacity: 0.6;
+  cursor: pointer !important;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   position: relative;
   overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.theme_toggle_btn:hover {
-  border-color: #ff5500 !important;
-  color: #ff5500 !important;
-  opacity: 1;
-  box-shadow: 0 0 12px rgba(255, 85, 0, 0.4);
-  transform: scale(1.05);
+@media (hover: hover) and (pointer: fine) {
+  .theme_toggle_btn:hover {
+    opacity: 1;
+    transform: scale(1.08);
+    box-shadow: none !important;
+    border: none !important;
+  }
 }
 
 .theme_icon_wrap {
@@ -278,6 +283,9 @@ html[data-theme="light"] .g_h_divider {
 
 .theme_icon_svg {
   position: absolute;
+  width: 15px;
+  height: 15px;
+  stroke-width: 1.75;
   transition:
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -653,20 +661,21 @@ html:not([data-theme="light"]) .footer_target {
   letter-spacing: -0.025em;
   white-space: nowrap;
   color: var(--wordmark, rgba(255, 255, 255, 0.08));
-  opacity: 0.55;
+  opacity: 0.45;
   text-align: center;
   user-select: none;
   pointer-events: auto !important;
   cursor: pointer !important;
-  transition: color 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.45s ease;
+  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s ease;
 }
 
-/* Hover on Darshan: change color and transparency */
-.footer-wordmark:hover {
-  color: #ff5500 !important;
-  opacity: 1 !important;
-  transform: translateY(-4px);
-  text-shadow: 0 0 45px rgba(255, 85, 0, 0.35);
+/* Hover on Darshan: change color and transparency (desktop fine pointer only) */
+@media (hover: hover) and (pointer: fine) {
+  .footer-wordmark:hover {
+    color: #ff5500 !important;
+    opacity: 1 !important;
+    transform: translateY(-3px);
+  }
 }
 
 .footer-wordmark > span {

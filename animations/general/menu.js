@@ -21,28 +21,53 @@ function init() {
     mm.add(isTablet, () => {
       timeline = gsap.timeline({
         paused: true,
-        defaults: { duration: 0.8, ease: "power3.inOut" },
+        defaults: { duration: 0.7, ease: "power3.inOut" },
+        onReverseComplete: () => {
+          if (!i.classList.contains("is-active")) {
+            e.style.display = "none";
+          }
+        },
       });
 
       timeline.set(e, { display: "flex" });
       if (a) {
-        timeline.to(
+        timeline.fromTo(
           a,
-          { yPercent: -100, duration: 0.4, willChange: "transform" },
+          { yPercent: 0 },
+          {
+            yPercent: -100,
+            duration: 0.35,
+            ease: "power3.inOut",
+            willChange: "transform",
+          },
           0
         );
       }
       if (r) {
-        timeline.from(
+        timeline.fromTo(
           r,
-          { scaleY: 0, transformOrigin: "50% 0%", duration: 0.8 },
-          "<+0.1"
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            transformOrigin: "50% 0%",
+            duration: 0.7,
+            ease: "power3.inOut",
+          },
+          "<"
         );
       }
       if (t.length > 0) {
-        timeline.from(
+        timeline.fromTo(
           t,
-          { yPercent: 125, stagger: 0.05, willChange: "transform" },
+          { yPercent: 125, opacity: 0 },
+          {
+            yPercent: 0,
+            opacity: 1,
+            stagger: 0.05,
+            duration: 0.7,
+            ease: "power3.out",
+            willChange: "transform, opacity",
+          },
           "<+0.1"
         );
       }
@@ -50,7 +75,7 @@ function init() {
       const closeMenu = () => {
         if (i.classList.contains("is-active")) {
           i.classList.remove("is-active");
-          timeline.timeScale(1.6).reverse();
+          timeline.timeScale(1.8).reverse();
           try {
             lenis.start();
           } catch (err) {}
@@ -59,6 +84,7 @@ function init() {
 
       const openMenu = () => {
         i.classList.add("is-active");
+        e.style.display = "flex";
         timeline.timeScale(1).play();
         try {
           lenis.stop();

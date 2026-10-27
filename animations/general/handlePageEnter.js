@@ -21,10 +21,14 @@ export default function handlePageEnterAnimation(t) {
     p = t.querySelectorAll("[data-enter-page=text-element]");
 
   if (a.length > 0) {
-    const stTitle = new SplitType(a, { types: "lines" });
+    let lines = t.querySelectorAll("[data-enter-page=title] .line");
+    if (!lines || lines.length === 0) {
+      const stTitle = new SplitType(a, { types: "lines" });
+      lines = stTitle.lines;
+    }
     mm.add(isTablet, () => {
       e.fromTo(
-        stTitle.lines,
+        lines,
         { opacity: 0 },
         { opacity: 1, ease: "power4.out", duration: 1.25 },
         "<+0.1",
@@ -32,7 +36,7 @@ export default function handlePageEnterAnimation(t) {
     });
     mm.add(isDesktop, () => {
       e.fromTo(
-        stTitle.lines,
+        lines,
         { y: "200%" },
         { y: 0, stagger: 0.2, ease: "power4.out", duration: 1.25 },
         "<+0.1",
@@ -41,10 +45,14 @@ export default function handlePageEnterAnimation(t) {
   }
 
   if (o.length > 0) {
-    const stText = new SplitType(o, { types: "lines" });
+    let lines = t.querySelectorAll("[data-enter-page=text] .line");
+    if (!lines || lines.length === 0) {
+      const stText = new SplitType(o, { types: "lines" });
+      lines = stText.lines;
+    }
     mm.add(isDesktop, () => {
       e.fromTo(
-        stText.lines,
+        lines,
         { clipPath: topClipPath, y: "100%" },
         { clipPath: fullClipPath, y: 0, stagger: 0.05 },
         "<+0.25",

@@ -311,67 +311,91 @@ html:not([data-theme="light"]) .icon_moon {
 }
 
 /* ========================================================
-   DEZTOPIA SIGNATURE PRELOADER (CINEMATIC OPENING)
+   DEZTOPIA SIGNATURE PRELOADER (1:1 PARITY WITH DEZTOPIA.COM)
    ======================================================== */
 .preloader_wrap {
-  position: fixed !important;
-  inset: 0% !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  z-index: 999999 !important;
+  z-index: 10000;
+  width: 100dvw;
+  height: 100dvh;
+  display: none;
+  position: fixed;
+  inset: 0%;
+  pointer-events: none;
+}
+
+html:not(.site-scrollbar) [data-preloader="section"] {
   display: block;
   pointer-events: all;
-  background-color: transparent !important;
 }
 
 .preloader_bg {
-  position: absolute !important;
-  inset: 0% !important;
-  width: 100% !important;
-  height: 100% !important;
-  background-color: #0b0b0c !important;
-  z-index: 1 !important;
+  z-index: 1;
+  background-color: var(--swatch--dark, #0b0b0c);
+  position: absolute;
+  inset: 0%;
   transform-origin: top center;
 }
 
 .preloader_contain {
-  position: relative !important;
-  z-index: 2 !important;
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-end !important;
-  padding-bottom: 3.5rem !important;
-  color: #ffffff !important;
+  z-index: 2;
+  height: 100%;
+  position: relative;
+}
+
+.preloader_contain.u-container {
+  color: var(--swatch--light, #ffffff);
 }
 
 .preloader_layout {
-  width: 100% !important;
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: flex-end !important;
+  height: 100%;
 }
 
 .preloader_logo_wrap {
-  overflow: hidden !important;
-  line-height: 1 !important;
-  display: block !important;
+  overflow: hidden;
+  line-height: 1;
+  display: block;
 }
 
 .navigation_logo {
   width: 8.5rem;
-  height: 2.6rem;
+  height: auto;
   display: block;
   color: currentColor;
   transition: color 0.3s ease;
 }
 
 .navigation_logo.is-preloader {
-  width: clamp(280px, 45vw, 640px) !important;
-  height: auto !important;
-  display: block !important;
-  color: #ffffff !important;
-  mix-blend-mode: normal !important;
+  mix-blend-mode: difference;
+  width: 36rem;
+  height: auto;
+  display: block;
+}
+
+@media screen and (max-width: 991px) {
+  .navigation_logo.is-preloader {
+    width: 30rem;
+  }
+  .preloader_layout.u-hflex-between-bottom {
+    flex-flow: column-reverse;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .preloader_text_wrap {
+    max-width: none;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .navigation_logo.is-preloader {
+    width: 22rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .navigation_logo.is-preloader {
+    width: 16rem;
+  }
 }
 
 [data-preloader="logo"] [data-preloader="logo-char"] {
@@ -383,28 +407,24 @@ html:not([data-theme="light"]) .icon_moon {
 [data-preloader="text"],
 [data-preloader="text"] .line {
   transform: translate(0, -100%);
-}
-
-.preloader_text_wrap {
-  max-width: 14rem !important;
-  margin-bottom: 0.75rem !important;
-  overflow: hidden !important;
-}
-
-.preloader_text {
-  text-align: right !important;
-  line-height: 1.35 !important;
-  color: #ffffff !important;
-  font-size: 1.15rem !important;
-}
-
-[data-preloader="text"],
-[data-preloader="text"] .line {
   will-change: transform, clip-path;
 }
 
+.preloader_text_wrap {
+  max-width: 10rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.preloader_text {
+  text-align: right;
+  line-height: 1.35;
+  color: inherit;
+  font-size: 1.15rem;
+}
+
 .is-flipping {
-  z-index: 99999 !important;
+  z-index: 10001 !important;
 }
 
 /* ========================================================

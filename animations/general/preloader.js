@@ -92,6 +92,10 @@ function init() {
          .set(t, { display: "none", pointerEvents: "none" }, ">+0.5");
       }
     });
+  } else {
+    try {
+      handlePageEnterAnimation(document).play();
+    } catch (err) {}
   }
 }
 

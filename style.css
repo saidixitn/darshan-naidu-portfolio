@@ -969,3 +969,199 @@ html.lenis body {
   }
 }
 
+
+/* ========================================================
+   BUG FIX 1: SCROLL TEXT ANIMATION IN DARK & LIGHT MODE
+   ======================================================== */
+[data-scroll-text="color"],
+.is-scroll-text {
+  color: #111111 !important;
+  transition: color 0.3s ease;
+}
+
+[data-scroll-text="color"] .is-black,
+.is-scroll-text .is-black {
+  color: #000000 !important;
+}
+
+html[data-theme="dark"] [data-scroll-text="color"],
+html:not([data-theme="light"]) [data-scroll-text="color"],
+html[data-theme="dark"] .is-scroll-text,
+html:not([data-theme="light"]) .is-scroll-text {
+  color: #e5e5ea !important;
+}
+
+html[data-theme="dark"] [data-scroll-text="color"] .word,
+html:not([data-theme="light"]) [data-scroll-text="color"] .word,
+html[data-theme="dark"] .is-scroll-text .word,
+html:not([data-theme="light"]) .is-scroll-text .word {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] [data-scroll-text="color"] .is-black,
+html:not([data-theme="light"]) [data-scroll-text="color"] .is-black,
+html[data-theme="dark"] .is-scroll-text .is-black,
+html:not([data-theme="light"]) .is-scroll-text .is-black {
+  color: #ffffff !important;
+}
+
+html[data-theme="light"] [data-scroll-text="color"],
+html[data-theme="light"] .is-scroll-text {
+  color: #111111 !important;
+}
+
+html[data-theme="light"] [data-scroll-text="color"] .word,
+html[data-theme="light"] .is-scroll-text .word {
+  color: #111111 !important;
+}
+
+html[data-theme="light"] [data-scroll-text="color"] .is-black,
+html[data-theme="light"] .is-scroll-text .is-black {
+  color: #000000 !important;
+}
+
+/* ========================================================
+   BUG FIX 2: CONTACT FORM TRIGGERS & DRAWER (LIGHT & DARK)
+   ======================================================== */
+[data-contact="trigger"],
+.contact-trigger {
+  color: var(--theme-text, #ffffff) !important;
+  text-decoration: underline !important;
+  text-decoration-color: #ff5500 !important;
+  text-decoration-thickness: 3px !important;
+  text-underline-offset: 8px !important;
+  cursor: pointer !important;
+  transition: color 0.25s ease, text-decoration-color 0.25s ease, opacity 0.25s ease;
+  display: inline-block;
+}
+
+[data-contact="trigger"]:hover,
+.contact-trigger:hover {
+  color: #ff5500 !important;
+  text-decoration-color: #ff5500 !important;
+}
+
+[data-contact="trigger"].text-swapped,
+.contact-trigger.text-swapped {
+  color: #ff5500 !important;
+  text-decoration-color: #ff5500 !important;
+}
+
+html[data-theme="light"] [data-contact="trigger"],
+html[data-theme="light"] .contact-trigger {
+  color: #0b0b0c !important;
+  text-decoration-color: #ff5500 !important;
+}
+
+/* Base Drawer Wrap */
+.contact_drawer_wrap {
+  z-index: 9999 !important;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease !important;
+}
+
+/* Dark Mode Drawer */
+html[data-theme="dark"] .contact_drawer_wrap,
+html:not([data-theme="light"]) .contact_drawer_wrap {
+  background-color: #121214 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.8) !important;
+}
+
+html[data-theme="dark"] .contact_drawer_radio_label,
+html[data-theme="dark"] .contact_drawer_checkbox_label,
+html:not([data-theme="light"]) .contact_drawer_radio_label,
+html:not([data-theme="light"]) .contact_drawer_checkbox_label {
+  color: #f5f5f7 !important;
+  cursor: pointer !important;
+}
+
+html[data-theme="dark"] .contact_drawer_line,
+html:not([data-theme="light"]) .contact_drawer_line {
+  background-color: #ff5500 !important;
+}
+
+/* Light Mode Drawer */
+html[data-theme="light"] .contact_drawer_wrap {
+  background-color: #ffffff !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.1) !important;
+}
+
+html[data-theme="light"] .contact_drawer_radio_label,
+html[data-theme="light"] .contact_drawer_checkbox_label {
+  color: #0b0b0c !important;
+  cursor: pointer !important;
+}
+
+html[data-theme="light"] .contact_drawer_line {
+  background-color: #ff5500 !important;
+}
+
+/* Hover & Selected states for drawer options */
+.contact_drawer_radio_wrap,
+.contact_drawer_checkbox_wrap {
+  cursor: pointer !important;
+  opacity: 0.65;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  user-select: none;
+}
+
+.contact_drawer_radio_wrap:hover,
+.contact_drawer_checkbox_wrap:hover,
+.contact_drawer_radio_wrap.is-selected,
+.contact_drawer_checkbox_wrap.is-selected {
+  opacity: 1 !important;
+  transform: translateX(4px);
+}
+
+.contact_drawer_radio_wrap.is-selected .contact_drawer_radio_label,
+.contact_drawer_checkbox_wrap.is-selected .contact_drawer_checkbox_label {
+  color: #ff5500 !important;
+}
+
+.contact_drawer_radio_wrap:hover .contact_drawer_radio_label,
+.contact_drawer_checkbox_wrap:hover .contact_drawer_checkbox_label {
+  color: #ff5500 !important;
+}
+
+/* Contact mail wrap & input */
+html[data-theme="dark"] .contact_send_mail_wrap,
+html:not([data-theme="light"]) .contact_send_mail_wrap {
+  background-color: #0b0b0c !important;
+}
+
+html[data-theme="dark"] .contact_send_mail_input,
+html:not([data-theme="light"]) .contact_send_mail_input {
+  color: #ffffff !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+html[data-theme="light"] .contact_send_mail_wrap {
+  background-color: #f5f5f7 !important;
+}
+
+html[data-theme="light"] .contact_send_mail_input {
+  color: #0b0b0c !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.contact_send_mail_input:focus {
+  border-bottom-color: #ff5500 !important;
+  outline: none !important;
+}
+
+/* Back to top cursor and hover */
+.footer_back_to_top {
+  cursor: pointer !important;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.footer_back_to_top:hover {
+  color: #ff5500 !important;
+  transform: translateY(-2px);
+}

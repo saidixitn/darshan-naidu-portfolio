@@ -77,6 +77,23 @@ export function initNavbarScroll() {
   handleScroll();
 }
 
+let isBackToTopBound = false;
+export function initBackToTop() {
+  if (isBackToTopBound) return;
+  isBackToTopBound = true;
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".footer_back_to_top, a[href='#navigation']");
+    if (btn) {
+      e.preventDefault();
+      if (window.lenis && typeof window.lenis.scrollTo === "function") {
+        window.lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  });
+}
+
 const initialPageName =
   document.querySelector('[data-barba="container"]')?.dataset.barbaNamespace ||
   "home";
@@ -85,6 +102,7 @@ const initialPageName =
 try {
   initThemeToggle();
   initNavbarScroll();
+  initBackToTop();
   createSplitTypes.init(document);
   loadPageModule(initialPageName);
   handleResponsiveElements();

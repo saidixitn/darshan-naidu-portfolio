@@ -74,16 +74,29 @@ export function initNavbarScroll() {
   const nav = document.querySelector(".navigation_wrap");
   if (!nav) return;
 
-  const handleScroll = () => {
-    if (window.scrollY > 20) {
+  const updateScrolled = (scrollY) => {
+    const y = typeof scrollY === "number" ? scrollY : window.scrollY;
+    if (y > 20) {
       nav.classList.add("is-scrolled");
     } else {
       nav.classList.remove("is-scrolled");
     }
   };
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  handleScroll();
+  const handleNativeScroll = () => {
+    updateScrolled(window.scrollY);
+  };
+
+  window.addEventListener("scroll", handleNativeScroll, { passive: true });
+
+  if (window.lenis && typeof window.lenis.on === "function") {
+    window.lenis.on("scroll", (e) => {
+      const scrollY = e && typeof e.scroll === "number" ? e.scroll : window.scrollY;
+      updateScrolled(scrollY);
+    });
+  }
+
+  updateScrolled(window.scrollY);
 }
 
 let isBackToTopBound = false;

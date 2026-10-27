@@ -1458,3 +1458,28 @@ html[data-theme="light"] .hero_desc_row .hero_text_text {
   }
 }
 
+
+/* Hide the word "Menu" / "Close" text in navbar */
+.navigation_menu_trigger_text_wrap {
+  display: none !important;
+}
+
+/* Project detail next button interactive styling */
+.hero_detail_next {
+  display: inline-block !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease !important;
+}
+
+.hero_detail_next:hover,
+.hero_detail_next:hover .hero_detail_next_text {
+  color: #ff5500 !important;
+  transform: translateX(4px);
+}
+
+.hero_detail_next_text {
+  cursor: pointer !important;
+  user-select: none;
+}

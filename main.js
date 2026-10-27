@@ -144,6 +144,7 @@ try {
   loadPageModule(initialPageName);
   handleResponsiveElements();
   reinitWebflowFeatures();
+  updateCurrentNavLink();
   preloader.init();
 } catch (err) {
   console.error("Initialization error:", err);
@@ -154,6 +155,16 @@ window.onbeforeunload = function () {
 };
 
 barba.hooks.beforeEnter((e) => {
+  // Update document title from incoming page HTML
+  if (e.next && e.next.html) {
+    const titleMatch = e.next.html.match(/<title[^>]*>(.*?)<\/title>/i);
+    if (titleMatch && titleMatch[1]) {
+      const tempDiv = document.createElement("textarea");
+      tempDiv.innerHTML = titleMatch[1];
+      document.title = tempDiv.value;
+    }
+  }
+
   // Prune any duplicate containers from the DOM
   document.querySelectorAll('[data-barba="container"]').forEach((c) => {
     if (c !== e.next.container) {

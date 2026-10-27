@@ -7,7 +7,6 @@ function init() {
       const e = gsap.timeline({});
       (e.to(t, {
         "--navigation--height": "5rem",
-        backgroundColor: "var(--swatch--light-secondary)",
         duration: 0.5,
         ease: "power3.inOut",
       }),

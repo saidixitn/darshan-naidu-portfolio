@@ -80,13 +80,34 @@ export function handleResponsiveElements() {
     mm.add(isDesktop, () => () => {}));
 }
 export function updateCurrentNavLink() {
-  const e = window.location.pathname;
-  document.querySelectorAll("a").forEach((t) => {
-    const n = t.getAttribute("href");
-    n === e || n === e + "/"
-      ? t.classList.add("w--current")
-      : t.classList.remove("w--current");
-  });
+  const rawPath = window.location.pathname.replace(/\/$/, "") || "/";
+  const normalizedPath =
+    rawPath === "/about-darshan"
+      ? "/about-me"
+      : rawPath === "/contact-darshan"
+      ? "/contact"
+      : rawPath === "/darshan-design-portfolio"
+      ? "/portfolio"
+      : rawPath;
+
+  document
+    .querySelectorAll(
+      ".navigation_menu_item, .navigation_flyout_layout a, .navigation_logo_link"
+    )
+    .forEach((t) => {
+      const href = t.getAttribute("href");
+      if (!href) return;
+      const cleanHref =
+        href.split("?")[0].split("#")[0].replace(/\/$/, "") || "/";
+
+      if (cleanHref === normalizedPath || cleanHref === rawPath) {
+        t.classList.add("w--current");
+        t.setAttribute("aria-current", "page");
+      } else {
+        t.classList.remove("w--current");
+        t.removeAttribute("aria-current");
+      }
+    });
 }
 export function reinitWebflowFeatures() {
   document.querySelectorAll(".w-tab-link").forEach((e) => {

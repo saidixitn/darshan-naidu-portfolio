@@ -1169,3 +1169,9 @@ html[data-theme="light"] .contact_send_mail_input {
   color: #ff5500 !important;
   transform: translateY(-2px);
 }
+
+/* Coming soon project teaser cards */
+.g_project_teaser_card_link[href="#"] {
+  cursor: default !important;
+  pointer-events: none !important;
+}

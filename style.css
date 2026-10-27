@@ -1,0 +1,432 @@
+@import "./swiper.css";
+
+/* ========================================================
+   GLOBAL TYPOGRAPHY & SMOOTH SCROLL RESET
+   ======================================================== */
+[data-enter-page="title"] .line {
+  transform: translate(0, 200%);
+}
+@media screen and (max-width: 991px) {
+  [data-enter-page="title"] .line {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+}
+@media screen and (max-width: 991px) {
+  [data-enter-page="text"] {
+    opacity: 0;
+  }
+}
+[data-enter-page="text"] .line {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+}
+@media screen and (max-width: 991px) {
+  [data-enter-page="text"] .line {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+[data-enter-page="text-element"] {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+}
+@media screen and (max-width: 991px) {
+  [data-enter-page="text-element"] {
+    opacity: 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+[data-enter-page="text-image"] {
+  clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%);
+}
+@media screen and (max-width: 991px) {
+  [data-enter-page="text-image"] {
+    opacity: 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+}
+[data-enter-page="visual"] {
+  opacity: 0;
+  transform: translateY(2.5rem);
+}
+@media screen and (max-width: 991px) {
+  [data-enter-page="visual"] {
+    opacity: 0;
+    transform: translateY(2.5rem);
+  }
+}
+
+/* ========================================================
+   CURSOR: NATIVE SYSTEM POINTER EVERYWHERE
+   ======================================================== */
+html,
+body,
+*,
+*::before,
+*::after {
+  cursor: auto !important;
+}
+
+a,
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+select,
+textarea,
+.navigation_menu_item,
+.footer_bottom_menu_item,
+[data-magnetic],
+.btn_text_wrap,
+.work_card,
+.portfolio_card,
+[data-menu-mobile="menu-trigger"],
+.footer_link_wrap,
+.navigation_logo_link,
+.swiper-button-next,
+.swiper-button-prev,
+.swiper-pagination-bullet,
+.theme_toggle_btn {
+  cursor: pointer !important;
+}
+
+.cb-cursor,
+#mouseCursor,
+[data-cursor],
+.custom-cursor {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Hide Cookies Banner Completely */
+.section--cookie,
+[fs-cc="banner"],
+[fs-cc="preferences"],
+[fs-cc="manager"],
+[fs-cc="interaction"],
+.fs-cc-banner_component,
+.fs-cc-prefs_component,
+.fs-cc-prefs_overlay {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ========================================================
+   ORANGE ACCENT & HOVER EFFECTS (REPLACING BLUE)
+   ======================================================== */
+:root {
+  --accent-orange: #ff5500;
+  --accent-orange-hover: #ff7700;
+  --accent-orange-glow: rgba(255, 85, 0, 0.4);
+  --accent-orange-subtle: rgba(255, 85, 0, 0.1);
+  --accent-gradient: linear-gradient(135deg, #ff5500 0%, #ff8800 100%);
+  --theme-transition:
+    background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --wordmark: #ececed;
+}
+
+html[data-theme="dark"] {
+  --wordmark: #1c1c1f;
+}
+
+/* Hover on buttons and links turns ELECTRIC ORANGE */
+.btn_text_wrap:hover .btn_text_text,
+.btn_text_wrap:hover a,
+.btn_text_wrap:hover,
+button:hover,
+.w-button:hover,
+.navigation_menu_item:hover,
+.footer_bottom_menu_item:hover,
+.footer_link_wrap:hover .footer_link,
+.cta_right_button:hover {
+  color: #ff5500 !important;
+  transition: color 0.25s ease;
+}
+
+.btn_text_wrap:hover .btn_text_line {
+  background-color: #ff5500 !important;
+  box-shadow: 0 0 12px rgba(255, 85, 0, 0.45);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.navigation_menu_item:hover {
+  color: #ff5500 !important;
+  text-shadow: 0 0 14px rgba(255, 85, 0, 0.4);
+}
+
+/* Brand logo typography */
+.navigation_logo text,
+.footer_logo text {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+/* ========================================================
+   LIGHT / DARK THEME SYSTEM
+   ======================================================== */
+html,
+body,
+.page_wrap,
+.page_main,
+.navigation_wrap,
+.footer_wrap,
+.cta_wrap,
+.section--about,
+.g_h_divider {
+  transition: var(--theme-transition);
+}
+
+/* Dark Mode (Default Deztopia Aesthetic) */
+html[data-theme="dark"],
+html:not([data-theme="light"]) {
+  --swatch--dark: #0b0b0c;
+  --swatch--dark-secondary: #888888;
+  --swatch--light: #f5f5f7;
+  --swatch--light-secondary: #1a1a1d;
+  --swatch--light-medium: #222226;
+  background-color: #0b0b0c !important;
+  color: #f5f5f7 !important;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .page_wrap,
+html[data-theme="dark"] .page_main,
+html[data-theme="dark"] .navigation_wrap,
+html:not([data-theme="light"]) body,
+html:not([data-theme="light"]) .page_wrap,
+html:not([data-theme="light"]) .page_main,
+html:not([data-theme="light"]) .navigation_wrap {
+  background-color: #0b0b0c !important;
+  color: #f5f5f7 !important;
+}
+
+/* Light Mode */
+html[data-theme="light"] {
+  --swatch--dark: #f8f8fa;
+  --swatch--dark-secondary: #666666;
+  --swatch--light: #111113;
+  --swatch--light-secondary: #eeeeef;
+  --swatch--light-medium: #e2e2e6;
+  background-color: #f8f8fa !important;
+  color: #111113 !important;
+}
+
+html[data-theme="light"] body,
+html[data-theme="light"] .page_wrap,
+html[data-theme="light"] .page_main,
+html[data-theme="light"] .navigation_wrap {
+  background-color: #f8f8fa !important;
+  color: #111113 !important;
+}
+
+html[data-theme="light"] .navigation_logo,
+html[data-theme="light"] .navigation_menu_item,
+html[data-theme="light"] .footer_link,
+html[data-theme="light"] .footer_logo,
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] .u-text-h1,
+html[data-theme="light"] .u-text-h2,
+html[data-theme="light"] .u-text-h3,
+html[data-theme="light"] .u-text-h4 {
+  color: #111113 !important;
+}
+
+html[data-theme="light"] .g_h_divider {
+  background-color: #e2e2e6 !important;
+}
+
+/* Minimal Theme Toggle Button */
+.theme_toggle_btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid currentColor;
+  opacity: 0.8;
+  color: currentColor;
+  padding: 0;
+  margin-left: 0.75rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme_toggle_btn:hover {
+  border-color: #ff5500 !important;
+  color: #ff5500 !important;
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(255, 85, 0, 0.4);
+  transform: scale(1.05);
+}
+
+.theme_icon_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.theme_icon_svg {
+  position: absolute;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* In Light Mode: Show Moon, hide Sun */
+html[data-theme="light"] .icon_sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+  pointer-events: none;
+}
+html[data-theme="light"] .icon_moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* In Dark Mode: Show Sun, hide Moon */
+html[data-theme="dark"] .icon_sun,
+html:not([data-theme="light"]) .icon_sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+html[data-theme="dark"] .icon_moon,
+html:not([data-theme="light"]) .icon_moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+  pointer-events: none;
+}
+
+/* ========================================================
+   DEZTOPIA SIGNATURE PRELOADER (CINEMATIC OPENING)
+   ======================================================== */
+.preloader_wrap {
+  position: fixed !important;
+  inset: 0% !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+  display: block;
+  pointer-events: all;
+  background-color: #0b0b0c;
+}
+
+.preloader_bg {
+  position: absolute !important;
+  inset: 0% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #0b0b0c !important;
+  z-index: 1 !important;
+  transform-origin: top center;
+}
+
+.preloader_contain {
+  position: relative !important;
+  z-index: 2 !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  padding-bottom: 3.5rem !important;
+  color: #ffffff !important;
+}
+
+.preloader_layout {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-end !important;
+}
+
+.preloader_logo_wrap {
+  overflow: hidden !important;
+  line-height: 1 !important;
+  display: block !important;
+}
+
+.navigation_logo {
+  width: 10.5rem;
+  height: 2.5rem;
+  display: block;
+  color: currentColor;
+  transition: color 0.3s ease;
+}
+
+.navigation_logo.is-preloader {
+  width: clamp(280px, 45vw, 680px) !important;
+  height: auto !important;
+  display: block !important;
+  color: #ffffff !important;
+}
+
+.navigation_logo [data-preloader="logo-char"] {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.preloader_text_wrap {
+  max-width: 14rem !important;
+  margin-bottom: 0.75rem !important;
+  overflow: hidden !important;
+}
+
+.preloader_text {
+  text-align: right !important;
+  line-height: 1.35 !important;
+  color: #ffffff !important;
+  font-size: 1.15rem !important;
+}
+
+[data-preloader="text"],
+[data-preloader="text"] .line {
+  will-change: transform, clip-path;
+}
+
+.is-flipping {
+  z-index: 99999 !important;
+}
+
+/* ========================================================
+   MAYPOP-STYLE FOOTER WORDMARK FOR DARSHAN
+   ======================================================== */
+.footer_wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-wordmark {
+  display: block;
+  width: 100%;
+  height: 1.026em;
+  overflow: hidden;
+  margin: 3.5rem 0 0 0;
+  font-size: clamp(96px, 23.5vw, 345px);
+  font-weight: 700;
+  font-family: "FK Grotesk", Fkgrotesk, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.038;
+  letter-spacing: -0.02em;
+  color: var(--wordmark);
+  text-align: center;
+  user-select: none;
+  pointer-events: none;
+  transition: color 0.4s ease;
+}
+
+.footer-wordmark > span {
+  display: block;
+  will-change: transform;
+}

@@ -1,0 +1,18 @@
+{
+  "name": "darshan-naidu-portfolio",
+  "version": "1.0.0",
+  "description": "Darshan - Portfolio",
+  "main": "server.py",
+  "scripts": {
+    "start": "python3 server.py"
+  },
+  "keywords": [
+    "portfolio",
+    "darshan",
+    "design",
+    "gsap",
+    "lenis"
+  ],
+  "author": "Darshan",
+  "license": "MIT"
+}

@@ -64,22 +64,79 @@ function init() {
   function r() {
     i.forEach((e) => {
       const t = e.querySelector("[data-swiper=carousel]");
-      if (t)
-        if (window.innerWidth <= 991) {
-          if (!t.swiper) {
-            const e = new Swiper(t, {
-              slidesPerView: 1.15,
-              draggable: !0,
-              modules: [FreeMode],
-              freeMode: { enabled: !0 },
-              breakpoints: {
-                768: { slidesPerView: 1.5 },
-                991: { slidesPerView: 2.5 },
+      if (t) {
+        if (!t.swiper) {
+          const swiperInstance = new Swiper(t, {
+            slidesPerView: 1.15,
+            spaceBetween: 16,
+            grabCursor: true,
+            simulateTouch: true,
+            touchRatio: 1,
+            resistance: true,
+            resistanceRatio: 0.85,
+            modules: [FreeMode],
+            freeMode: {
+              enabled: true,
+              sticky: false,
+              momentum: true,
+              momentumRatio: 0.9,
+              momentumVelocityRatio: 0.9,
+              momentumBounce: true,
+            },
+            breakpoints: {
+              480: {
+                slidesPerView: 1.35,
+                spaceBetween: 16,
               },
-            });
-            t.swiper = e;
+              768: {
+                slidesPerView: 2.2,
+                spaceBetween: 20,
+              },
+              992: {
+                slidesPerView: 2.75,
+                spaceBetween: 24,
+              },
+              1200: {
+                slidesPerView: 3.15,
+                spaceBetween: 28,
+              },
+              1440: {
+                slidesPerView: 3.35,
+                spaceBetween: 32,
+              },
+            },
+          });
+          t.swiper = swiperInstance;
+
+          // Trackpad horizontal scroll and Shift + Wheel scroll support
+          if (!t._wheelBound) {
+            t._wheelBound = true;
+            t.addEventListener(
+              "wheel",
+              (evt) => {
+                const delta =
+                  Math.abs(evt.deltaX) >= Math.abs(evt.deltaY)
+                    ? evt.deltaX
+                    : evt.shiftKey
+                      ? evt.deltaY
+                      : 0;
+                if (delta !== 0 && t.swiper) {
+                  evt.preventDefault();
+                  const currentTranslate = t.swiper.translate;
+                  const maxT = t.swiper.maxTranslate();
+                  const minT = t.swiper.minTranslate();
+                  const newTranslate = Math.min(minT, Math.max(maxT, currentTranslate - delta));
+                  t.swiper.setTranslate(newTranslate);
+                  t.swiper.updateProgress();
+                }
+              },
+              { passive: false }
+            );
           }
-        } else t.swiper && (t.swiper.destroy(), delete t.swiper);
+        } else {
+          t.swiper.update();
+        }
+      }
     });
   }
   (r(),

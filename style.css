@@ -1375,3 +1375,35 @@ html[data-theme="light"] .contact_send_mail_input {
   cursor: default !important;
   pointer-events: none !important;
 }
+
+/* Service Hero Layout & Spacing */
+.hero_desc_row {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.hero_desc_row .hero_text_text {
+  max-width: 32rem;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: var(--swatch--dark-secondary, #888888);
+}
+
+html[data-theme="light"] .hero_desc_row .hero_text_text {
+  color: #444448 !important;
+}
+
+@media screen and (max-width: 991px) {
+  .hero_desc_row {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .hero_desc_row .is-empty {
+    display: none !important;
+  }
+  .hero_desc_row .hero_text_wrap {
+    grid-column: 1 / -1 !important;
+    max-width: 100% !important;
+  }
+}
+

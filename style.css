@@ -190,6 +190,11 @@ html:not([data-theme="light"]) {
   --swatch--light: #f5f5f7;
   --swatch--light-secondary: #1a1a1d;
   --swatch--light-medium: #222226;
+  --theme--background: #0b0b0c !important;
+  --theme--text: #f5f5f7 !important;
+  --theme--border: #1a1a1d !important;
+  --theme-bg: #0b0b0c !important;
+  --theme-text: #f5f5f7 !important;
   background-color: #0b0b0c !important;
   color: #f5f5f7 !important;
 }
@@ -206,34 +211,80 @@ html:not([data-theme="light"]) .page_main {
 
 /* Light Mode */
 html[data-theme="light"] {
-  --swatch--dark: #f8f8fa;
-  --swatch--dark-secondary: #666666;
-  --swatch--light: #111113;
+  --swatch--dark: #111113;
+  --swatch--dark-secondary: #555558;
+  --swatch--light: #f8f8fa;
   --swatch--light-secondary: #eeeeef;
   --swatch--light-medium: #e2e2e6;
+  --theme--background: #f8f8fa !important;
+  --theme--text: #111113 !important;
+  --theme--border: #e2e2e6 !important;
+  --theme-bg: #f8f8fa !important;
+  --theme-text: #111113 !important;
   background-color: #f8f8fa !important;
   color: #111113 !important;
 }
 
 html[data-theme="light"] body,
 html[data-theme="light"] .page_wrap,
-html[data-theme="light"] .page_main {
+html[data-theme="light"] .page_main,
+html[data-theme="light"] main {
   background-color: #f8f8fa !important;
   color: #111113 !important;
 }
 
-html[data-theme="light"] .navigation_logo,
-html[data-theme="light"] .navigation_menu_item,
-html[data-theme="light"] .footer_link,
-html[data-theme="light"] .footer_logo,
+/* Light Mode Typography & Headings */
 html[data-theme="light"] h1,
 html[data-theme="light"] h2,
 html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] h5,
+html[data-theme="light"] h6,
+html[data-theme="light"] .u-text-display,
 html[data-theme="light"] .u-text-h1,
 html[data-theme="light"] .u-text-h2,
 html[data-theme="light"] .u-text-h3,
-html[data-theme="light"] .u-text-h4 {
+html[data-theme="light"] .u-text-h4,
+html[data-theme="light"] .hero_headline,
+html[data-theme="light"] .hero_detail_headline,
+html[data-theme="light"] .g_image_card_text_headline,
+html[data-theme="light"] .footer_headline,
+html[data-theme="light"] .project_teaser_headline,
+html[data-theme="light"] .about_headline {
   color: #111113 !important;
+}
+
+/* Light Mode Paragraphs & Secondary Copy */
+html[data-theme="light"] p,
+html[data-theme="light"] .u-rich-text p,
+html[data-theme="light"] .hero_detail_text,
+html[data-theme="light"] .showreel_caption_text,
+html[data-theme="light"] .g_image_card_text,
+html[data-theme="light"] .footer_subheadline,
+html[data-theme="light"] .service_item_desc,
+html[data-theme="light"] .about_paragraph,
+html[data-theme="light"] .left_right_right_text p {
+  color: #333336 !important;
+}
+
+/* Light Mode Tags & Badges */
+html[data-theme="light"] .hero_detail_tags_item,
+html[data-theme="light"] .g_image_card_category,
+html[data-theme="light"] .category,
+html[data-theme="light"] .tag,
+html[data-theme="light"] .service_tag {
+  color: #555558 !important;
+}
+
+/* Navigation items in light mode */
+html[data-theme="light"] .navigation_menu_item,
+html[data-theme="light"] .footer_link,
+html[data-theme="light"] .footer_logo {
+  color: #111113 !important;
+}
+
+html[data-theme="light"] .navigation_logo path {
+  fill: #111113 !important;
 }
 
 html[data-theme="light"] .g_h_divider {
@@ -253,19 +304,117 @@ html[data-theme="light"] .g_h_divider {
   box-shadow: none !important;
   padding: 0;
   margin: 0 0.25rem 0 0.5rem;
-  color: var(--theme-text, #f5f5f7) !important;
-  opacity: 0.6;
+  color: #f5f5f7 !important;
+  opacity: 0.85;
   cursor: pointer !important;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
   position: relative;
   overflow: hidden;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
 
+/* High Contrast Light Mode Toggle Button & Mobile Menu */
+html[data-theme="light"] .theme_toggle_btn {
+  color: #111113 !important;
+  stroke: #111113 !important;
+  opacity: 0.9 !important;
+}
+
+html[data-theme="light"] .theme_toggle_btn svg {
+  stroke: #111113 !important;
+  color: #111113 !important;
+}
+
+html[data-theme="light"] .navigation_menu_trigger_wrap {
+  color: #111113 !important;
+}
+
+html[data-theme="light"] .navigation_menu_trigger_line {
+  background-color: #111113 !important;
+}
+
+/* High Contrast Dark Mode Toggle Button & Mobile Menu */
+html[data-theme="dark"] .theme_toggle_btn,
+html:not([data-theme="light"]) .theme_toggle_btn {
+  color: #f5f5f7 !important;
+  stroke: #f5f5f7 !important;
+  opacity: 0.9 !important;
+}
+
+html[data-theme="dark"] .theme_toggle_btn svg,
+html:not([data-theme="light"]) .theme_toggle_btn svg {
+  stroke: #f5f5f7 !important;
+  color: #f5f5f7 !important;
+}
+
+html[data-theme="dark"] .navigation_menu_trigger_wrap,
+html:not([data-theme="light"]) .navigation_menu_trigger_wrap {
+  color: #f5f5f7 !important;
+}
+
+html[data-theme="dark"] .navigation_menu_trigger_line,
+html:not([data-theme="light"]) .navigation_menu_trigger_line {
+  background-color: #f5f5f7 !important;
+}
+
+/* Button Lines and Text Contrast */
+.btn_text_text {
+  color: #f5f5f7 !important;
+}
+.btn_text_line {
+  background-color: #f5f5f7 !important;
+}
+
+html[data-theme="light"] .btn_text_text {
+  color: #111113 !important;
+}
+html[data-theme="light"] .btn_text_line {
+  background-color: #111113 !important;
+}
+
+html[data-theme="dark"] .btn_text_text,
+html:not([data-theme="light"]) .btn_text_text {
+  color: #f5f5f7 !important;
+}
+html[data-theme="dark"] .btn_text_line,
+html:not([data-theme="light"]) .btn_text_line {
+  background-color: #f5f5f7 !important;
+}
+
+/* FAQ Accordion Contrast */
+.g_faq_item_toggle_line {
+  background-color: #f5f5f7 !important;
+}
+html[data-theme="light"] .g_faq_item_toggle_line {
+  background-color: #111113 !important;
+}
+html[data-theme="dark"] .g_faq_item_toggle_line,
+html:not([data-theme="light"]) .g_faq_item_toggle_line {
+  background-color: #f5f5f7 !important;
+}
+
+.g_faq_item_headline_item {
+  color: #f5f5f7 !important;
+}
+html[data-theme="light"] .g_faq_item_headline_item {
+  color: #111113 !important;
+}
+html[data-theme="dark"] .g_faq_item_headline_item,
+html:not([data-theme="light"]) .g_faq_item_headline_item {
+  color: #f5f5f7 !important;
+}
+
+.g_faq_item_answer {
+  color: rgba(245, 245, 247, 0.75) !important;
+}
+html[data-theme="light"] .g_faq_item_answer {
+  color: #444448 !important;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .theme_toggle_btn:hover {
-    opacity: 1;
+    opacity: 1 !important;
     transform: scale(1.08);
     box-shadow: none !important;
     border: none !important;
@@ -285,6 +434,7 @@ html[data-theme="light"] .g_h_divider {
   position: absolute;
   width: 15px;
   height: 15px;
+  stroke: currentColor;
   stroke-width: 1.75;
   transition:
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),

@@ -134,10 +134,14 @@
       [data-preloader="text"] .line {
         transform: translate(0, -100%);
       }
+      .preloader-active .navigation_menu_wrap,
+      .preloader-active [data-navigation="logo"] {
+        opacity: 0;
+      }
     </style>
       <link rel="stylesheet" href="/style.css" />
   </head>
-  <body data-barba="wrapper">
+  <body data-barba="wrapper" class="preloader-active">
     <div data-preloader="section" class="preloader_wrap">
       <div class="preloader_contain u-container">
         <div class="preloader_layout u-hflex-between-bottom">

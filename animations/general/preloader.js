@@ -71,12 +71,19 @@ function init() {
             "<+50%"
           )
          .call(
-            () =>
-              (function (t) {
+            () => {
+              gsap.to(".navigation_menu_wrap", {
+                opacity: 1,
+                duration: 1.2,
+                ease: "power2.out",
+                delay: 0.3,
+              });
+              return (function (t) {
                 const e = document.querySelector("[data-navigation=logo]");
                 if (!e || !t) return;
                 const o = Flip.getState(t, { props: "color, width, height" });
                 e.replaceWith(t);
+                t.setAttribute("data-navigation", "logo");
                 t.classList.toggle("is-preloader");
                 return Flip.from(o, {
                   duration: 1.5,
@@ -84,11 +91,16 @@ function init() {
                   ease: "expo.inOut",
                   onUpdate: () => {},
                 });
-              })(e),
+              })(e);
+            },
             [],
             "<"
           )
-         .call(() => handlePageEnterAnimation(document).play(), [], "<+1")
+         .call(() => {
+            t.classList.add("is-done");
+            document.body.classList.remove("preloader-active");
+            handlePageEnterAnimation(document).play();
+          }, [], "<+1")
          .set(t, { display: "none", pointerEvents: "none" }, ">+0.5");
       }
     });

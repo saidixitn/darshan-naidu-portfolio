@@ -82,12 +82,14 @@ export function handleResponsiveElements() {
 export function updateCurrentNavLink() {
   const rawPath = window.location.pathname.replace(/\/$/, "") || "/";
   const normalizedPath =
-    rawPath === "/about-darshan"
+    rawPath === "/about-darshan" || rawPath === "/about"
       ? "/about-me"
       : rawPath === "/contact-darshan"
       ? "/contact"
-      : rawPath === "/darshan-design-portfolio"
-      ? "/portfolio"
+      : rawPath === "/darshan-design-portfolio" || rawPath === "/portfolio"
+      ? "/work"
+      : rawPath === "/services" || rawPath === "/for-startups"
+      ? "/service"
       : rawPath;
 
   document

@@ -20,6 +20,8 @@ mimetypes.add_type("video/mp4", ".mp4")
 mimetypes.add_type("video/mp4", ".MP4")
 
 ROUTE_ALIASES = {
+    "/work": "/darshan-design-portfolio/index.html",
+    "/work/": "/darshan-design-portfolio/index.html",
     "/portfolio": "/darshan-design-portfolio/index.html",
     "/portfolio/": "/darshan-design-portfolio/index.html",
     "/darshan-design-portfolio": "/darshan-design-portfolio/index.html",
@@ -42,8 +44,10 @@ ROUTE_ALIASES = {
     "/contact-deztopia/": "/contact-darshan/index.html",
     "/service": "/service/index.html",
     "/service/": "/service/index.html",
-    "/for-startups": "/for-startups/index.html",
-    "/for-startups/": "/for-startups/index.html",
+    "/services": "/service/index.html",
+    "/services/": "/service/index.html",
+    "/for-startups": "/service/index.html",
+    "/for-startups/": "/service/index.html",
 }
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -59,6 +63,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
         super().end_headers()
 
     def do_GET(self):

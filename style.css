@@ -283,56 +283,90 @@ html[data-theme="light"] .footer_logo {
   color: #111113 !important;
 }
 
-html[data-theme="light"] .navigation_logo path {
+html[data-theme="light"] .navigation_logo:not(.is-preloader) path {
   fill: #111113 !important;
+}
+
+/* Preloader Logo & Text: Always brilliant white on dark curtain in all themes */
+.navigation_logo.is-preloader,
+.navigation_logo.is-preloader path,
+[data-preloader="logo"] [data-preloader="logo-char"],
+.preloader_wrap .navigation_logo,
+.preloader_wrap .navigation_logo path {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  mix-blend-mode: normal !important;
+}
+
+.preloader_wrap .preloader_text,
+.preloader_wrap .preloader_contain {
+  color: #ffffff !important;
 }
 
 html[data-theme="light"] .g_h_divider {
   background-color: #e2e2e6 !important;
 }
 
-/* High Visibility Modern Theme Toggle Button & Switch */
+/* Clean, Minimal & Subtle Theme Toggle (Old Toggle Style) */
 .theme_toggle_btn {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 2.25rem !important; /* 36px */
-  height: 2.25rem !important; /* 36px */
-  min-width: 2.25rem !important;
-  min-height: 2.25rem !important;
-  border-radius: 50% !important;
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  min-width: 1.75rem !important;
+  min-height: 1.75rem !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
   padding: 0 !important;
-  margin: 0 0 0 0.75rem !important;
+  margin: 0 0.25rem 0 0.5rem !important;
   cursor: pointer !important;
   position: relative !important;
   overflow: hidden !important;
   user-select: none !important;
   -webkit-tap-highlight-color: transparent !important;
-  box-sizing: border-box !important;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.25s ease,
-              border-color 0.25s ease,
-              box-shadow 0.25s ease !important;
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease !important;
 }
 
-/* Light Mode Toggle Switch: Solid, Bold, Pitch Black & High Contrast */
+/* Light Mode: Pitch Black Minimal Icon */
 html[data-theme="light"] .theme_toggle_btn {
-  background-color: rgba(0, 0, 0, 0.06) !important;
-  border: 1px solid rgba(0, 0, 0, 0.2) !important;
-  color: #111113 !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+  stroke: #000000 !important;
+  opacity: 0.9 !important;
 }
 
 html[data-theme="light"] .theme_toggle_btn:hover {
-  transform: scale(1.08) !important;
-  background-color: rgba(0, 0, 0, 0.12) !important;
-  border-color: rgba(0, 0, 0, 0.4) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.14) !important;
+  transform: scale(1.12) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #ff5500 !important;
+  stroke: #ff5500 !important;
+  opacity: 1 !important;
 }
 
 html[data-theme="light"] .theme_toggle_btn svg {
-  stroke: #111113 !important;
-  color: #111113 !important;
+  stroke: #000000 !important;
+  color: #000000 !important;
+  fill: #000000 !important;
+  transition: stroke 0.25s ease, color 0.25s ease, fill 0.25s ease !important;
+}
+
+html[data-theme="light"] .theme_toggle_btn:hover svg {
+  stroke: #ff5500 !important;
+  color: #ff5500 !important;
+  fill: #ff5500 !important;
 }
 
 html[data-theme="light"] .navigation_menu_trigger_wrap {
@@ -343,27 +377,43 @@ html[data-theme="light"] .navigation_menu_trigger_line {
   background-color: #111113 !important;
 }
 
-/* Dark Mode Theme Toggle Switch: Glowing Clean Glass Pill */
+/* Dark Mode: Crisp White Minimal Icon */
 html[data-theme="dark"] .theme_toggle_btn,
 html:not([data-theme="light"]) .theme_toggle_btn {
-  background-color: rgba(255, 255, 255, 0.09) !important;
-  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   color: #ffffff !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+  stroke: #ffffff !important;
+  opacity: 0.85 !important;
 }
 
 html[data-theme="dark"] .theme_toggle_btn:hover,
 html:not([data-theme="light"]) .theme_toggle_btn:hover {
-  transform: scale(1.08) !important;
-  background-color: rgba(255, 255, 255, 0.18) !important;
-  border-color: rgba(255, 255, 255, 0.45) !important;
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.25) !important;
+  transform: scale(1.12) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #ff5500 !important;
+  stroke: #ff5500 !important;
+  opacity: 1 !important;
 }
 
 html[data-theme="dark"] .theme_toggle_btn svg,
 html:not([data-theme="light"]) .theme_toggle_btn svg {
   stroke: #ffffff !important;
   color: #ffffff !important;
+  transition: stroke 0.25s ease, color 0.25s ease !important;
+}
+
+html[data-theme="dark"] .theme_toggle_btn:hover svg,
+html:not([data-theme="light"]) .theme_toggle_btn:hover svg {
+  stroke: #ff5500 !important;
+  color: #ff5500 !important;
 }
 
 html[data-theme="dark"] .navigation_menu_trigger_wrap,
@@ -513,6 +563,7 @@ html:not([data-theme="light"]) .theme_icon_svg.icon_moon {
   position: fixed;
   inset: 0%;
   pointer-events: none;
+  isolation: isolate;
 }
 
 .navigation_wrap {
@@ -579,7 +630,7 @@ html:not(.site-scrollbar) [data-preloader="section"] {
 
 .preloader_bg {
   z-index: 1;
-  background-color: var(--swatch--dark, #0b0b0c);
+  background-color: #0b0b0c !important;
   position: absolute;
   inset: 0%;
   transform-origin: top center;
@@ -614,7 +665,7 @@ html:not(.site-scrollbar) [data-preloader="section"] {
 }
 
 .navigation_logo.is-preloader {
-  mix-blend-mode: difference;
+  mix-blend-mode: normal !important;
   width: 36rem;
   height: auto;
   display: block;

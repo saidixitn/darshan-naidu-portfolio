@@ -1,4 +1,4 @@
-import { gsap, ScrollTrigger } from "./vendor.js";
+import { gsap, ScrollTrigger, ScrollToPlugin } from "./vendor.js";
 import barba from "./barba.js";
 import menu from "./animations/general/menu.js";
 import {
@@ -17,7 +17,7 @@ import { initThemeToggle } from "./utilities/theme.js";
 import preloader from "./animations/general/preloader.js";
 
 console.log("--> MAIN.JS START <--");
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 menu.init();
 
 const mm = gsap.matchMedia();
@@ -100,48 +100,60 @@ export function initNavbarScroll() {
 }
 
 let isBackToTopBound = false;
+export function scrollToTop() {
+  // 1. Lenis smooth scroll
+  if (window.lenis) {
+    try {
+      if (typeof window.lenis.start === "function") {
+        window.lenis.start();
+      }
+      if (typeof window.lenis.scrollTo === "function") {
+        window.lenis.scrollTo(0, {
+          duration: 1.0,
+          force: true,
+          immediate: false,
+        });
+      }
+    } catch (err) {
+      console.warn("Lenis scrollTo error:", err);
+    }
+  }
+
+  // 2. Animate with GSAP ScrollToPlugin
+  try {
+    gsap.to(window, {
+      scrollTo: { y: 0, autoKill: false },
+      duration: 1.0,
+      ease: "power2.out",
+    });
+  } catch (err) {}
+
+  // 3. Native smooth scroll across window and document
+  try {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  } catch (err) {
+    window.scrollTo(0, 0);
+  }
+  try {
+    document.documentElement.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  } catch (e2) {}
+  try {
+    document.body.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  } catch (e3) {}
+}
+
 export function initBackToTop() {
   if (isBackToTopBound) return;
   isBackToTopBound = true;
+
   document.addEventListener("click", (e) => {
     const btn = e.target.closest(".footer_back_to_top, a[href='#navigation']");
     if (btn) {
       e.preventDefault();
       e.stopPropagation();
-
-      // 1. Resume and scroll via Lenis with force: true
-      if (window.lenis) {
-        try {
-          if (typeof window.lenis.start === "function") {
-            window.lenis.start();
-          }
-          if (typeof window.lenis.scrollTo === "function") {
-            window.lenis.scrollTo(0, {
-              duration: 1.2,
-              force: true,
-              immediate: false,
-            });
-          }
-        } catch (err) {
-          console.warn("Lenis scrollTo error:", err);
-        }
-      }
-
-      // 2. Animate with GSAP ScrollToPlugin (works across all browsers and devices)
-      try {
-        gsap.to(window, {
-          scrollTo: { y: 0, autoKill: false },
-          duration: 1.2,
-          ease: "power3.inOut",
-        });
-      } catch (err) {
-        // 3. Fallback native scroll
-        try {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } catch (e2) {}
-      }
+      scrollToTop();
     }
-  });
+  }, { passive: false });
 }
 
 const initialPageName =

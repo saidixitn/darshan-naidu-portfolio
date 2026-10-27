@@ -321,7 +321,7 @@ html:not([data-theme="light"]) .icon_moon {
   z-index: 999999 !important;
   display: block;
   pointer-events: all;
-  background-color: #0b0b0c;
+  background-color: transparent !important;
 }
 
 .preloader_bg {

@@ -87,6 +87,9 @@
       })(window);
     </script>
 
+    <link rel="modulepreload" href="/main.js?v=5" />
+    <link rel="modulepreload" href="/vendor.js" />
+    <link rel="modulepreload" href="/animations/general/preloader.js" />
     <link rel="stylesheet" href="/assets/css/swiper.min.css" />
     <style>
       /* Default browser cursor enforcement */
@@ -116,7 +119,18 @@
       }
       .cb-cursor,
       #mouseCursor,
-      [data-cursor]
+      [data-cursor] {
+        display: none !important;
+      }
+
+      /* Critical preloader initial transforms (1:1 Deztopia) */
+      [data-preloader="logo"] [data-preloader="logo-char"] {
+        transform: translate(0, 100%);
+      }
+      [data-preloader="text"],
+      [data-preloader="text"] .line {
+        transform: translate(0, -100%);
+      }
     </style>
       <link rel="stylesheet" href="/style.css" />
   </head>
@@ -137,7 +151,7 @@
           </div>
           <div class="preloader_text_wrap">
             <div data-split-type="lines" data-preloader="text" class="preloader_text u-text-large">
-              A space where visionary ideas shape the future.
+              A perfect utopia of design.
             </div>
           </div>
         </div>
@@ -2358,6 +2372,6 @@
 
     
     
-    <script type="module" src="/main.js?v=3"></script>
+    <script type="module" src="/main.js?v=5"></script>
   </body>
 </html>

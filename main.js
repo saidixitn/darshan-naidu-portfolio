@@ -23,14 +23,6 @@ menu.init();
 const mm = gsap.matchMedia();
 let currentAnimationModule = null;
 
-// 1. Preloader and Theme Toggle run IMMEDIATELY
-try {
-  initThemeToggle();
-  preloader.init();
-} catch (err) {
-  console.error("Preloader init error:", err);
-}
-
 function resetWebflow(e) {
   let o = new DOMParser().parseFromString(e.next.html, "text/html"),
     r = $(o).find("html").attr("data-wf-page");
@@ -73,14 +65,16 @@ const initialPageName =
   document.querySelector('[data-barba="container"]')?.dataset.barbaNamespace ||
   "home";
 
-// 2. Initialize remaining page modules
+// Execute in Deztopia exact initial sequence
 try {
+  initThemeToggle();
   createSplitTypes.init(document);
   loadPageModule(initialPageName);
   handleResponsiveElements();
   reinitWebflowFeatures();
+  preloader.init();
 } catch (err) {
-  console.error("Page setup error:", err);
+  console.error("Initialization error:", err);
 }
 
 window.onbeforeunload = function () {

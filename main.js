@@ -54,6 +54,15 @@ function loadPageModule(e) {
       if ("function" == typeof currentAnimationModule.init) {
         currentAnimationModule.init();
       }
+      const refreshScroll = () => {
+        ScrollTrigger.refresh();
+        if (window.lenis && typeof window.lenis.resize === "function") {
+          window.lenis.resize();
+        }
+      };
+      setTimeout(refreshScroll, 100);
+      setTimeout(refreshScroll, 400);
+      setTimeout(refreshScroll, 1000);
     })
     .catch((o) => {
       console.error(`Failed to load module for page: ${e}`, o);
@@ -132,4 +141,33 @@ barba.hooks.after((e) => {
   reinitWebflowFeatures();
   initThemeToggle();
   initNavbarScroll();
+  const refresh = () => {
+    ScrollTrigger.refresh();
+    if (window.lenis && typeof window.lenis.resize === "function") {
+      window.lenis.resize();
+    }
+  };
+  setTimeout(refresh, 100);
+  setTimeout(refresh, 500);
 });
+
+// Continuously observe document height changes so Lenis can always scroll to bottom
+if (typeof window !== "undefined") {
+  window.addEventListener("load", () => {
+    ScrollTrigger.refresh();
+    if (window.lenis && typeof window.lenis.resize === "function") {
+      window.lenis.resize();
+    }
+  });
+
+  if (typeof ResizeObserver !== "undefined") {
+    const pageObserver = new ResizeObserver(() => {
+      if (window.lenis && typeof window.lenis.resize === "function") {
+        window.lenis.resize();
+      }
+      ScrollTrigger.refresh();
+    });
+    const target = document.querySelector(".page_wrap") || document.body;
+    if (target) pageObserver.observe(target);
+  }
+}

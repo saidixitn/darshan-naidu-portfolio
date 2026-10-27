@@ -67,7 +67,12 @@ barba.init({
             ease: "expo.out",
             duration: 1,
             onComplete: () => {
-              (gsap.set(e.next.container, { clearProps: !0 }), t());
+              gsap.set(e.next.container, { clearProps: "all" });
+              if (window.lenis && typeof window.lenis.resize === "function") {
+                window.lenis.resize();
+              }
+              ScrollTrigger.refresh();
+              t();
             },
           },
         )

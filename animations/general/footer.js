@@ -22,10 +22,10 @@ function init() {
             trigger: t,
             animation: tl,
             start: "top bottom",
-            end: "top 25%",
+            end: "bottom bottom",
             scrub: true,
           });
-          tl.from(e, { yPercent: -35, ease: "power2.out", duration: 1 });
+          tl.from(e, { yPercent: -12, ease: "power2.out", duration: 1 });
         }
       });
     });

@@ -13,6 +13,12 @@ gsap.registerPlugin(ScrollTrigger);
 const mm = gsap.matchMedia();
 barba.init({
   preventRunning: true,
+  prevent: ({ el, href }) => {
+    if (el?.classList?.contains("footer_back_to_top")) return true;
+    if (el?.closest?.(".footer_back_to_top")) return true;
+    if (typeof href === "string" && (href.startsWith("#") || href.includes("#navigation"))) return true;
+    return false;
+  },
   transitions: [
     {
       name: "default-transition",

@@ -100,60 +100,81 @@ export function initNavbarScroll() {
 }
 
 let isBackToTopBound = false;
-export function scrollToTop() {
-  // 1. Lenis smooth scroll
-  if (window.lenis) {
+export function scrollToTop(e) {
+  if (e) {
+    try {
+      if (typeof e.preventDefault === "function") e.preventDefault();
+      if (typeof e.stopPropagation === "function") e.stopPropagation();
+      if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
+    } catch (err) {}
+  }
+
+  const isDesktopWidth = window.innerWidth >= 992;
+  let lenisSuccess = false;
+
+  // 1. Desktop Lenis smooth scroll
+  if (isDesktopWidth && window.lenis && typeof window.lenis.scrollTo === "function") {
     try {
       if (typeof window.lenis.start === "function") {
         window.lenis.start();
       }
-      if (typeof window.lenis.scrollTo === "function") {
-        window.lenis.scrollTo(0, {
-          duration: 1.0,
-          force: true,
-          immediate: false,
-        });
-      }
+      window.lenis.scrollTo(0, {
+        duration: 1.0,
+        force: true,
+      });
+      lenisSuccess = true;
+      return;
     } catch (err) {
-      console.warn("Lenis scrollTo error:", err);
+      console.warn("Lenis scrollTo error, falling back:", err);
+      lenisSuccess = false;
     }
   }
 
-  // 2. Animate with GSAP ScrollToPlugin
-  try {
-    gsap.to(window, {
-      scrollTo: { y: 0, autoKill: false },
-      duration: 1.0,
-      ease: "power2.out",
-    });
-  } catch (err) {}
+  // 2. Mobile / tablet fallback (<992px) or if Lenis threw error
+  if (!lenisSuccess) {
+    try {
+      if (typeof gsap !== "undefined" && gsap.to) {
+        gsap.to(window, {
+          scrollTo: { y: 0, autoKill: false },
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      }
+    } catch (err) {}
 
-  // 3. Native smooth scroll across window and document
-  try {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  } catch (err) {
-    window.scrollTo(0, 0);
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    } catch (err) {
+      window.scrollTo(0, 0);
+    }
+    try {
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    } catch (e2) {}
+    try {
+      document.body.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    } catch (e3) {}
   }
-  try {
-    document.documentElement.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  } catch (e2) {}
-  try {
-    document.body.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  } catch (e3) {}
 }
+window.scrollToTop = scrollToTop;
 
 export function initBackToTop() {
   if (isBackToTopBound) return;
   isBackToTopBound = true;
 
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".footer_back_to_top, a[href='#navigation']");
-    if (btn) {
-      e.preventDefault();
-      e.stopPropagation();
-      scrollToTop();
-    }
-  }, { passive: false });
+  // Use capture phase so we intercept before Webflow, jQuery, or other listeners
+  window.addEventListener(
+    "click",
+    (e) => {
+      const btn = e.target?.closest?.(".footer_back_to_top, a[href='#navigation']");
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        scrollToTop(e);
+      }
+    },
+    { capture: true, passive: false }
+  );
 }
 
 const initialPageName =

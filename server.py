@@ -109,8 +109,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                     break
                 bytes_left -= len(chunk)
 
-class ReusableTCPServer(socketserver.TCPServer):
+class ReusableTCPServer(socketserver.ThreadingTCPServer):
     allow_reuse_address = True
+    daemon_threads = True
 
 if __name__ == "__main__":
     os.chdir(DIRECTORY)

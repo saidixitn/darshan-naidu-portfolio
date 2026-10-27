@@ -61,6 +61,22 @@ function loadPageModule(e) {
     });
 }
 
+export function initNavbarScroll() {
+  const nav = document.querySelector(".navigation_wrap");
+  if (!nav) return;
+
+  const handleScroll = () => {
+    if (window.scrollY > 20) {
+      nav.classList.add("is-scrolled");
+    } else {
+      nav.classList.remove("is-scrolled");
+    }
+  };
+
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  handleScroll();
+}
+
 const initialPageName =
   document.querySelector('[data-barba="container"]')?.dataset.barbaNamespace ||
   "home";
@@ -68,6 +84,7 @@ const initialPageName =
 // Execute in Deztopia exact initial sequence
 try {
   initThemeToggle();
+  initNavbarScroll();
   createSplitTypes.init(document);
   loadPageModule(initialPageName);
   handleResponsiveElements();
@@ -84,6 +101,9 @@ window.onbeforeunload = function () {
 barba.hooks.afterEnter((e) => {
   cleanupCurrentModule();
   resetWebflow(e);
+  try {
+    menu.close();
+  } catch (err) {}
 });
 
 barba.hooks.after((e) => {
@@ -93,4 +113,5 @@ barba.hooks.after((e) => {
   handleResponsiveElements();
   reinitWebflowFeatures();
   initThemeToggle();
+  initNavbarScroll();
 });

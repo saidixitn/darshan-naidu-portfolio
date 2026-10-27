@@ -1483,3 +1483,126 @@ html[data-theme="light"] .hero_desc_row .hero_text_text {
   cursor: pointer !important;
   user-select: none;
 }
+
+/* ==========================================================================
+   BREADCRUMB NAVIGATION (EDITORIAL ARCHITECTURE AESTHETIC)
+   ========================================================================== */
+.site_breadcrumb {
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 0;
+  user-select: none;
+  z-index: 10;
+  position: relative;
+}
+
+.breadcrumb_list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.breadcrumb_item {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb_link {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.45;
+  transition: opacity 0.25s ease, color 0.25s ease;
+  position: relative;
+}
+
+.breadcrumb_link:hover {
+  opacity: 1 !important;
+  color: #ff5500 !important;
+}
+
+.breadcrumb_separator {
+  opacity: 0.25;
+  font-size: 0.75rem;
+  font-weight: 400;
+  pointer-events: none;
+}
+
+.breadcrumb_current {
+  opacity: 0.95;
+  color: inherit;
+  font-weight: 600;
+}
+
+/* Light Theme Contrast */
+html[data-theme="light"] .breadcrumb_link {
+  color: #111113;
+  opacity: 0.5;
+}
+
+html[data-theme="light"] .breadcrumb_link:hover {
+  color: #ff5500 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="light"] .breadcrumb_separator {
+  color: #111113;
+  opacity: 0.3;
+}
+
+html[data-theme="light"] .breadcrumb_current {
+  color: #111113;
+  opacity: 1;
+}
+
+/* Dark Theme Contrast */
+html[data-theme="dark"] .breadcrumb_link,
+html:not([data-theme="light"]) .breadcrumb_link {
+  color: #f5f5f7;
+  opacity: 0.45;
+}
+
+html[data-theme="dark"] .breadcrumb_link:hover,
+html:not([data-theme="light"]) .breadcrumb_link:hover {
+  color: #ff5500 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme="dark"] .breadcrumb_separator,
+html:not([data-theme="light"]) .breadcrumb_separator {
+  color: #f5f5f7;
+  opacity: 0.25;
+}
+
+html[data-theme="dark"] .breadcrumb_current,
+html:not([data-theme="light"]) .breadcrumb_current {
+  color: #f5f5f7;
+  opacity: 0.95;
+}
+
+@media screen and (max-width: 991px) {
+  .site_breadcrumb {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .site_breadcrumb {
+    margin-bottom: 1.25rem;
+  }
+  .breadcrumb_list {
+    font-size: 0.75rem;
+    gap: 0.4rem;
+  }
+}

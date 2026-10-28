@@ -997,6 +997,7 @@ html:not([data-theme="light"]) .footer_target {
   -webkit-overflow-scrolling: touch;
   width: 100%;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 [data-carousel="section"] {
@@ -1005,8 +1006,11 @@ html:not([data-theme="light"]) .footer_target {
 }
 
 [data-swiper="carousel"],
-.g_clip_images_wrap {
+.g_clip_images_wrap,
+.g_clip_images_wrap.u-hflex-between-top {
   width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   overflow: visible !important;
   position: relative !important;
   cursor: grab;
@@ -1024,7 +1028,6 @@ html:not([data-theme="light"]) .footer_target {
   flex-wrap: nowrap !important;
   width: auto !important;
   grid-template-columns: none !important;
-  transform: translate3d(0px, 0px, 0px);
 }
 
 .g_clip_images_img_wrap.swiper-slide,
@@ -1032,6 +1035,8 @@ html:not([data-theme="light"]) .footer_target {
   display: block !important;
   flex-shrink: 0 !important;
   box-sizing: border-box !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 .g_clip_images_img {
@@ -1798,4 +1803,123 @@ html:not([data-theme="light"]) .breadcrumb_current {
     gap: 0.35rem !important;
     letter-spacing: 0.06em !important;
   }
+}
+
+/* ========================================================
+   GSAP SHOWCASE ENHANCEMENTS
+   Inspired by: gsap.com, madewithgsap.com, brandonyasin.com,
+                dakshgajjar.com, gracefashion.ai
+   ======================================================== */
+
+/* 1. Ultra-sleek glowing scroll progress indicator */
+.site-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: linear-gradient(90deg, #ff5500 0%, #ff8833 60%, #ff5500 100%);
+  z-index: 10001;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  box-shadow: 0 0 10px rgba(255, 85, 0, 0.75), 0 0 3px #ff5500;
+  transition: opacity 0.3s ease;
+}
+
+/* 2. Interactive Card Spotlight & 3D Tilt */
+.has-gsap-spotlight {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.has-gsap-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    380px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(255, 85, 0, 0.16),
+    transparent 65%
+  );
+  opacity: var(--spot-opacity, 0);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 4;
+}
+
+/* 3. Tactile Click Feedback */
+.gsap-click-ripple {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  margin-top: -15px;
+  border-radius: 50%;
+  border: 1.5px solid #ff5500;
+  pointer-events: none;
+  z-index: 10002;
+  transform-origin: center center;
+}
+
+/* 4. Live Availability Status Pill (from Daksh Gajjar / Brandon Yasin) */
+.live-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 85, 0, 0.08);
+  border: 1px solid rgba(255, 85, 0, 0.22);
+  color: var(--theme-color-text, #ffffff);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  width: fit-content;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+[data-theme="light"] .live-status-pill {
+  color: #111111;
+  background: rgba(255, 85, 0, 0.06);
+  border-color: rgba(255, 85, 0, 0.28);
+}
+
+.live-status-pill:hover {
+  background: rgba(255, 85, 0, 0.15);
+  border-color: #ff5500;
+  transform: translateY(-1px);
+}
+
+.live-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: statusPulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes statusPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* 5. Smooth hover image scaling inside cards */
+.g_project_teaser_card:hover .g_visual_img,
+.g_project_teaser:hover .g_image_card_visual_img,
+.g_clip_images_img_wrap:hover .g_clip_images_img {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }

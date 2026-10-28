@@ -15,6 +15,11 @@ import {
 import { isDesktop } from "./utilities/variables.js";
 import { initThemeToggle } from "./utilities/theme.js";
 import preloader from "./animations/general/preloader.js";
+import magnetic from "./animations/general/magnetic.js";
+import spotlightTilt from "./animations/general/spotlightTilt.js";
+import scrollProgress from "./animations/general/scrollProgress.js";
+import scrollParallax from "./animations/general/scrollParallax.js";
+import clickPulse from "./animations/general/clickPulse.js";
 
 console.log("--> MAIN.JS START <--");
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -212,6 +217,11 @@ try {
   reinitWebflowFeatures();
   updateCurrentNavLink();
   preloader.init();
+  magnetic.init();
+  spotlightTilt.init();
+  scrollProgress.init();
+  scrollParallax.init();
+  clickPulse.init();
 } catch (err) {
   console.error("Initialization error:", err);
 }
@@ -265,6 +275,12 @@ barba.hooks.after((e) => {
   reinitWebflowFeatures();
   initThemeToggle();
   initNavbarScroll();
+  try {
+    magnetic.init();
+    spotlightTilt.init();
+    scrollProgress.init();
+    scrollParallax.init();
+  } catch (err) {}
   const refresh = () => {
     ScrollTrigger.refresh();
     if (window.lenis && typeof window.lenis.resize === "function") {

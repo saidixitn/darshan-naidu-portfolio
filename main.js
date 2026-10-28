@@ -16,15 +16,22 @@ import { isDesktop } from "./utilities/variables.js";
 import { initThemeToggle } from "./utilities/theme.js";
 import preloader from "./animations/general/preloader.js";
 import magnetic from "./animations/general/magnetic.js";
-import clickPulse from "./animations/general/clickPulse.js";
 import velocitySkew from "./animations/creative/velocitySkew.js";
 import wordScrub from "./animations/creative/wordScrub.js";
 import ambientAurora from "./animations/creative/ambientAurora.js";
 import floatingTags from "./animations/creative/floatingTags.js";
 import cardEntrances from "./animations/creative/cardEntrances.js";
+import imageScrollEffects from "./animations/creative/imageScrollEffects.js";
+import creativeTextEffects from "./animations/creative/creativeTextEffects.js";
+import studioClock from "./animations/creative/studioClock.js";
+import velocityMarquee from "./animations/creative/velocityMarquee.js";
 
 console.log("--> MAIN.JS START <--");
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+if (typeof window !== "undefined") {
+  window.gsap = gsap;
+  window.ScrollTrigger = ScrollTrigger;
+}
 menu.init();
 
 const mm = gsap.matchMedia();
@@ -220,12 +227,15 @@ try {
   updateCurrentNavLink();
   preloader.init();
   magnetic.init();
-  clickPulse.init();
   ambientAurora.init();
   velocitySkew.init();
   wordScrub.init();
   floatingTags.init();
   cardEntrances.init();
+  imageScrollEffects.init();
+  creativeTextEffects.init();
+  studioClock.init();
+  velocityMarquee.init();
 } catch (err) {
   console.error("Initialization error:", err);
 }
@@ -286,6 +296,10 @@ barba.hooks.after((e) => {
     wordScrub.init();
     floatingTags.init();
     cardEntrances.init();
+    imageScrollEffects.init();
+    creativeTextEffects.init();
+    studioClock.init();
+    velocityMarquee.init();
   } catch (err) {}
   const refresh = () => {
     ScrollTrigger.refresh();

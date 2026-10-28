@@ -8,6 +8,15 @@ let mouseHandler = null;
 export function init() {
   if (typeof document === "undefined") return;
 
+  // Ensure cinema film grain exists (Atmos Gallery / Grace Fashion aesthetic)
+  let grainContainer = document.querySelector(".cinema-grain-layer");
+  if (!grainContainer) {
+    grainContainer = document.createElement("div");
+    grainContainer.className = "cinema-grain-layer";
+    grainContainer.setAttribute("aria-hidden", "true");
+    document.body.prepend(grainContainer);
+  }
+
   // Ensure element exists
   auroraContainer = document.querySelector(".ambient-aurora-layer");
   if (!auroraContainer) {

@@ -1916,16 +1916,81 @@ html:not([data-theme="light"]) .breadcrumb_current {
   }
 }
 
-/* 5. Tactile Click Ripple Feedback */
-.gsap-click-ripple {
+/* 6. Cinematic 35mm Film Grain (atmos.gallery & gracefashion.ai) */
+.cinema-grain-layer {
   position: fixed;
-  width: 30px;
-  height: 30px;
-  margin-left: -15px;
-  margin-top: -15px;
-  border-radius: 50%;
-  border: 1.5px solid #ff5500;
+  inset: -100%;
+  width: 300%;
+  height: 300%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 10002;
-  transform-origin: center center;
+  z-index: 999;
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  animation: grainJitter 8s steps(10) infinite;
+}
+
+@keyframes grainJitter {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-3%, -5%); }
+  30% { transform: translate(2%, 4%); }
+  50% { transform: translate(-4%, 2%); }
+  70% { transform: translate(3%, -3%); }
+  90% { transform: translate(-1%, 3%); }
+}
+
+[data-theme="light"] .cinema-grain-layer {
+  opacity: 0.18;
+}
+
+/* 7. Velocity-Responsive Kinetic Marquee Ribbon (atmos.gallery & madewithgsap) */
+.velocity-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  padding: 2.25rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+  user-select: none;
+}
+
+[data-theme="light"] .velocity-marquee-wrap {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.velocity-marquee-track {
+  display: flex;
+  white-space: nowrap;
+  will-change: transform;
+  width: fit-content;
+}
+
+.velocity-marquee-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding-right: 2.5rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--theme-color-text, #ffffff);
+  opacity: 0.85;
+}
+
+.velocity-marquee-content span.star {
+  color: #ff5500;
+  font-size: 1.25rem;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+/* 8. Studio Clock Pill */
+.studio-clock-pill {
+  font-size: 0.72rem;
+  opacity: 0.8;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
 }

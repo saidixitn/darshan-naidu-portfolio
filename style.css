@@ -1806,65 +1806,63 @@ html:not([data-theme="light"]) .breadcrumb_current {
 }
 
 /* ========================================================
-   GSAP SHOWCASE ENHANCEMENTS
-   Inspired by: gsap.com, madewithgsap.com, brandonyasin.com,
-                dakshgajjar.com, gracefashion.ai
+   CREATIVE GSAP SHOWCASE ENHANCEMENTS
+   Inspired by: fourmula.ai, codetv-gsap, atmos.gallery, madewithgsap
    ======================================================== */
 
-/* 1. Ultra-sleek glowing scroll progress indicator */
-.site-scroll-progress {
+/* 1. Atmospheric Aurora Gradient Background (fourmula.ai & GSAP Cloud) */
+.ambient-aurora-layer {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2.5px;
-  background: linear-gradient(90deg, #ff5500 0%, #ff8833 60%, #ff5500 100%);
-  z-index: 10001;
+  inset: 0;
   pointer-events: none;
-  transform: scaleX(0);
-  transform-origin: left center;
-  box-shadow: 0 0 10px rgba(255, 85, 0, 0.75), 0 0 3px #ff5500;
-  transition: opacity 0.3s ease;
+  z-index: 0;
+  overflow: hidden;
+  opacity: 0.65;
+  transition: opacity 0.5s ease;
 }
 
-/* 2. Interactive Card Spotlight & 3D Tilt */
-.has-gsap-spotlight {
-  position: relative;
-  transform-style: preserve-3d;
+[data-theme="light"] .ambient-aurora-layer {
+  opacity: 0.35;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
   will-change: transform;
 }
 
-.has-gsap-spotlight::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(
-    380px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    rgba(255, 85, 0, 0.16),
-    transparent 65%
-  );
-  opacity: var(--spot-opacity, 0);
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 4;
+.aurora-orb.is-orb-1 {
+  width: 650px;
+  height: 650px;
+  top: 15%;
+  left: 20%;
+  background: radial-gradient(circle, rgba(255, 85, 0, 0.16) 0%, rgba(255, 85, 0, 0.04) 50%, transparent 72%);
+  filter: blur(80px);
 }
 
-/* 3. Tactile Click Feedback */
-.gsap-click-ripple {
-  position: fixed;
-  width: 30px;
-  height: 30px;
-  margin-left: -15px;
-  margin-top: -15px;
-  border-radius: 50%;
-  border: 1.5px solid #ff5500;
-  pointer-events: none;
-  z-index: 10002;
+.aurora-orb.is-orb-2 {
+  width: 550px;
+  height: 550px;
+  top: 55%;
+  right: 15%;
+  background: radial-gradient(circle, rgba(234, 88, 12, 0.12) 0%, rgba(220, 38, 38, 0.03) 50%, transparent 70%);
+  filter: blur(75px);
+}
+
+/* 2. Kinetic Word-by-Word Scroll Scrub (fourmula.ai & atmos.gallery) */
+.kinetic-word {
+  display: inline-block;
+  will-change: opacity, transform, filter;
+}
+
+/* 3. Fluid Velocity Skew Content Layer */
+.page_main {
+  will-change: transform;
   transform-origin: center center;
 }
 
-/* 4. Live Availability Status Pill (from Daksh Gajjar / Brandon Yasin) */
+/* 4. Live Availability Status Pill (from fourmula.ai / dakshgajjar) */
 .live-status-pill {
   display: inline-flex;
   align-items: center;
@@ -1882,6 +1880,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
   width: fit-content;
   transition: all 0.25s ease;
   user-select: none;
+  will-change: transform;
 }
 
 [data-theme="light"] .live-status-pill {
@@ -1917,9 +1916,16 @@ html:not([data-theme="light"]) .breadcrumb_current {
   }
 }
 
-/* 5. Smooth hover image scaling inside cards */
-.g_project_teaser_card:hover .g_visual_img,
-.g_project_teaser:hover .g_image_card_visual_img,
-.g_clip_images_img_wrap:hover .g_clip_images_img {
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+/* 5. Tactile Click Ripple Feedback */
+.gsap-click-ripple {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  margin-left: -15px;
+  margin-top: -15px;
+  border-radius: 50%;
+  border: 1.5px solid #ff5500;
+  pointer-events: none;
+  z-index: 10002;
+  transform-origin: center center;
 }

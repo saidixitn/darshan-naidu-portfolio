@@ -5,10 +5,14 @@ import scrollText from "./shared/scrollText.js";
 import imageReveal from "./general/imageReveal.js";
 import navScroll from "./shared/navScroll.js";
 import magnetic from "./general/magnetic.js";
-import spotlightTilt from "./general/spotlightTilt.js";
-import scrollProgress from "./general/scrollProgress.js";
-import scrollParallax from "./general/scrollParallax.js";
 import clickPulse from "./general/clickPulse.js";
+
+// Creative showcase animations (inspired by fourmula.ai, codetv-gsap, atmos.gallery, madewithgsap)
+import velocitySkew from "./creative/velocitySkew.js";
+import wordScrub from "./creative/wordScrub.js";
+import ambientAurora from "./creative/ambientAurora.js";
+import floatingTags from "./creative/floatingTags.js";
+import cardEntrances from "./creative/cardEntrances.js";
 
 function init() {
   navScroll.init();
@@ -17,15 +21,18 @@ function init() {
   imageReveal.init();
   footer.init();
 
-  // High-end GSAP interactions (inspired by GSAP.com, MadeWithGSAP, Brandon Yasin, Daksh Gajjar, Grace Fashion)
   try {
     magnetic.init();
-    spotlightTilt.init();
-    scrollProgress.init();
-    scrollParallax.init();
     clickPulse.init();
+
+    // Creative GSAP additions
+    ambientAurora.init();
+    velocitySkew.init();
+    wordScrub.init();
+    floatingTags.init();
+    cardEntrances.init();
   } catch (err) {
-    console.warn("GSAP interactive effects init:", err);
+    console.warn("Creative animations init:", err);
   }
 }
 
@@ -38,12 +45,15 @@ function cleanup() {
 
   try {
     magnetic.cleanup();
-    spotlightTilt.cleanup();
-    scrollProgress.cleanup();
-    scrollParallax.cleanup();
     clickPulse.cleanup();
+
+    ambientAurora.cleanup();
+    velocitySkew.cleanup();
+    wordScrub.cleanup();
+    floatingTags.cleanup();
+    cardEntrances.cleanup();
   } catch (err) {
-    console.warn("GSAP interactive effects cleanup:", err);
+    console.warn("Creative animations cleanup:", err);
   }
 }
 

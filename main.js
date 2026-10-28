@@ -16,10 +16,12 @@ import { isDesktop } from "./utilities/variables.js";
 import { initThemeToggle } from "./utilities/theme.js";
 import preloader from "./animations/general/preloader.js";
 import magnetic from "./animations/general/magnetic.js";
-import spotlightTilt from "./animations/general/spotlightTilt.js";
-import scrollProgress from "./animations/general/scrollProgress.js";
-import scrollParallax from "./animations/general/scrollParallax.js";
 import clickPulse from "./animations/general/clickPulse.js";
+import velocitySkew from "./animations/creative/velocitySkew.js";
+import wordScrub from "./animations/creative/wordScrub.js";
+import ambientAurora from "./animations/creative/ambientAurora.js";
+import floatingTags from "./animations/creative/floatingTags.js";
+import cardEntrances from "./animations/creative/cardEntrances.js";
 
 console.log("--> MAIN.JS START <--");
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -218,10 +220,12 @@ try {
   updateCurrentNavLink();
   preloader.init();
   magnetic.init();
-  spotlightTilt.init();
-  scrollProgress.init();
-  scrollParallax.init();
   clickPulse.init();
+  ambientAurora.init();
+  velocitySkew.init();
+  wordScrub.init();
+  floatingTags.init();
+  cardEntrances.init();
 } catch (err) {
   console.error("Initialization error:", err);
 }
@@ -277,9 +281,11 @@ barba.hooks.after((e) => {
   initNavbarScroll();
   try {
     magnetic.init();
-    spotlightTilt.init();
-    scrollProgress.init();
-    scrollParallax.init();
+    ambientAurora.init();
+    velocitySkew.init();
+    wordScrub.init();
+    floatingTags.init();
+    cardEntrances.init();
   } catch (err) {}
   const refresh = () => {
     ScrollTrigger.refresh();

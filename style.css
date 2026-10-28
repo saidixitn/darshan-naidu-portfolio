@@ -2221,3 +2221,763 @@ html:not([data-theme="light"]) .breadcrumb_current {
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.04em;
 }
+
+/* ========================================================
+   GRACE FASHION AI - EDITORIAL STUDIO ABOUT PAGE
+   ======================================================== */
+.grace-about-page {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 5rem;
+}
+
+.grace-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1.25rem, 4vw, 2.5rem);
+  padding-right: clamp(1.25rem, 4vw, 2.5rem);
+  box-sizing: border-box;
+}
+
+/* 1. Grace Hero Section */
+.grace-hero-wrap {
+  padding-top: clamp(2rem, 5vw, 4rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.grace-hero-header {
+  max-width: 960px;
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.grace-hero-title {
+  font-size: clamp(2.5rem, 5.5vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+  margin: 0;
+  text-wrap: balance;
+}
+
+[data-theme="light"] .grace-hero-title {
+  color: #0d0d0d;
+}
+
+.grace-hero-subtitle {
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 760px;
+  margin: 0;
+}
+
+[data-theme="light"] .grace-hero-subtitle {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+/* Grace Mode Tabs */
+.grace-mode-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+[data-theme="light"] .grace-mode-tabs {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.grace-mode-tab {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .grace-mode-tab {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.grace-mode-tab.is-active,
+.grace-mode-tab:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+[data-theme="light"] .grace-mode-tab.is-active,
+[data-theme="light"] .grace-mode-tab:hover {
+  background: #0d0d0d;
+  color: #ffffff;
+}
+
+/* Grace Hero Interactive Stage Card */
+.grace-stage-card {
+  width: 100%;
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: clamp(16px, 2.5vw, 28px);
+  overflow: hidden;
+  background: #090909;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 768px) {
+  .grace-stage-card {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.grace-stage-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.grace-stage-media.is-active {
+  display: block;
+}
+
+.grace-stage-media img,
+.grace-stage-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Floating Shot Selector at Bottom of Stage */
+.grace-shot-selector {
+  position: absolute;
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  max-width: 90%;
+}
+
+.grace-shot-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.grace-shot-btn.is-active,
+.grace-shot-btn:hover {
+  background: #ff5500;
+  color: #ffffff;
+  border-color: #ff5500;
+  box-shadow: 0 0 16px rgba(255, 85, 0, 0.4);
+}
+
+/* 2. Section Headers (Grace Fashion AI format) */
+.grace-section-wrap {
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+  padding-bottom: clamp(3.5rem, 7vw, 6rem);
+  position: relative;
+}
+
+.grace-section-header {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.grace-section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff5500;
+  margin-bottom: 0.75rem;
+}
+
+.grace-section-heading {
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  margin: 0 0 1rem;
+}
+
+[data-theme="light"] .grace-section-heading {
+  color: #111111;
+}
+
+.grace-section-desc {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 680px;
+  margin: 0;
+}
+
+[data-theme="light"] .grace-section-desc {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 3. Grace Lookbook Grid */
+.grace-lookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2vw, 2rem);
+}
+
+@media (max-width: 1024px) {
+  .grace-lookbook-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .grace-lookbook-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grace-lookbook-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1rem;
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.6s ease;
+  box-sizing: border-box;
+}
+
+[data-theme="light"] .grace-lookbook-card {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.06);
+}
+
+.grace-lookbook-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 85, 0, 0.4);
+  box-shadow: 0 24px 60px -12px rgba(255, 85, 0, 0.16);
+}
+
+.grace-lookbook-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0d0d0d;
+}
+
+.grace-lookbook-visual img,
+.grace-lookbook-visual video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grace-lookbook-card:hover .grace-lookbook-visual img,
+.grace-lookbook-card:hover .grace-lookbook-visual video {
+  transform: scale(1.05);
+}
+
+.grace-lookbook-meta {
+  padding: 0.25rem 0.5rem 0.5rem;
+}
+
+.grace-lookbook-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.35rem;
+}
+
+[data-theme="light"] .grace-lookbook-title {
+  color: #111111;
+}
+
+.grace-lookbook-subtitle {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  line-height: 1.5;
+}
+
+[data-theme="light"] .grace-lookbook-subtitle {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 4. Grace Craft Pillars */
+.grace-craft-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+@media (max-width: 1024px) {
+  .grace-craft-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .grace-craft-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grace-craft-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .grace-craft-card {
+  background: rgba(0, 0, 0, 0.015);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.grace-craft-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 85, 0, 0.4);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5);
+}
+
+.grace-craft-num {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #ff5500;
+  font-variant-numeric: tabular-nums;
+}
+
+.grace-craft-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.75rem;
+  line-height: 1.25;
+}
+
+[data-theme="light"] .grace-craft-title {
+  color: #111111;
+}
+
+.grace-craft-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+[data-theme="light"] .grace-craft-desc {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 5. Grace Workflow 3-Step Pipeline */
+.grace-workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+@media (max-width: 900px) {
+  .grace-workflow-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grace-workflow-step {
+  position: relative;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: all 0.4s ease;
+}
+
+.grace-workflow-step:hover {
+  border-color: rgba(255, 85, 0, 0.35);
+  transform: translateY(-4px);
+}
+
+.grace-step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 85, 0, 0.15);
+  border: 1px solid rgba(255, 85, 0, 0.4);
+  color: #ff5500;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.grace-step-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+[data-theme="light"] .grace-step-title {
+  color: #111111;
+}
+
+.grace-step-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+[data-theme="light"] .grace-step-desc {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 6. Grace Studio Metrics */
+.grace-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+@media (max-width: 900px) {
+  .grace-metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.grace-metric-card {
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.grace-metric-num {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+[data-theme="light"] .grace-metric-num {
+  color: #111111;
+}
+
+.grace-metric-label {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+[data-theme="light"] .grace-metric-label {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* 7. Grace Customer Voices (Testimonials) */
+.grace-voices-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+@media (max-width: 768px) {
+  .grace-voices-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grace-voice-card {
+  padding: clamp(2rem, 3.5vw, 2.75rem);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.grace-quote-text {
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.5;
+  color: #ffffff;
+  font-style: italic;
+  margin: 0;
+}
+
+[data-theme="light"] .grace-quote-text {
+  color: #111111;
+}
+
+.grace-quote-author {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.grace-author-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+[data-theme="light"] .grace-author-name {
+  color: #111111;
+}
+
+.grace-author-role {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+[data-theme="light"] .grace-author-role {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* 8. Grace FAQ Section */
+.grace-faq-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.grace-faq-item {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.grace-faq-item.is-open {
+  border-color: rgba(255, 85, 0, 0.4);
+}
+
+.grace-faq-header {
+  padding: 1.5rem clamp(1.25rem, 3vw, 2rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.grace-faq-question {
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+[data-theme="light"] .grace-faq-question {
+  color: #111111;
+}
+
+.grace-faq-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+  transform-origin: center center;
+}
+
+.grace-faq-content {
+  display: none;
+  padding: 0 clamp(1.25rem, 3vw, 2rem) 1.5rem;
+}
+
+.grace-faq-answer {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.65);
+  margin: 0;
+}
+
+[data-theme="light"] .grace-faq-answer {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+/* 9. Grace Final Impact CTA Banner */
+.grace-cta-card {
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3.5rem);
+  border-radius: clamp(20px, 3vw, 32px);
+  background: radial-gradient(circle at 50% 0%, rgba(255, 85, 0, 0.15) 0%, rgba(15, 15, 15, 0.95) 70%);
+  border: 1px solid rgba(255, 85, 0, 0.25);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+}
+
+.grace-cta-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.75rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  max-width: 800px;
+}
+
+[data-theme="light"] .grace-cta-title {
+  color: #111111;
+}
+
+.grace-cta-desc {
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 620px;
+  margin: 0;
+}
+
+[data-theme="light"] .grace-cta-desc {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.grace-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.grace-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: #ff5500;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(255, 85, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grace-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 35px rgba(255, 85, 0, 0.5);
+  background: #ff661a;
+}
+
+.grace-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .grace-btn-secondary {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #111111 !important;
+}
+
+.grace-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}

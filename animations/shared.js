@@ -16,6 +16,7 @@ import imageScrollEffects from "./creative/imageScrollEffects.js";
 import creativeTextEffects from "./creative/creativeTextEffects.js";
 import studioClock from "./creative/studioClock.js";
 import velocityMarquee from "./creative/velocityMarquee.js";
+import graceAbout from "./creative/graceAbout.js";
 
 function init() {
   navScroll.init();
@@ -37,6 +38,7 @@ function init() {
     creativeTextEffects.init();
     studioClock.init();
     velocityMarquee.init();
+    graceAbout.init();
   } catch (err) {
     console.warn("Creative animations init:", err);
   }
@@ -61,6 +63,7 @@ function cleanup() {
     creativeTextEffects.cleanup();
     studioClock.cleanup();
     velocityMarquee.cleanup();
+    graceAbout.cleanup();
   } catch (err) {
     console.warn("Creative animations cleanup:", err);
   }

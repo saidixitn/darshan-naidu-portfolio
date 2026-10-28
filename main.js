@@ -25,6 +25,7 @@ import imageScrollEffects from "./animations/creative/imageScrollEffects.js";
 import creativeTextEffects from "./animations/creative/creativeTextEffects.js";
 import studioClock from "./animations/creative/studioClock.js";
 import velocityMarquee from "./animations/creative/velocityMarquee.js";
+import graceAbout from "./animations/creative/graceAbout.js";
 
 console.log("--> MAIN.JS START <--");
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -215,30 +216,34 @@ const initialPageName =
   document.querySelector('[data-barba="container"]')?.dataset.barbaNamespace ||
   "home";
 
-// Execute in Deztopia exact initial sequence
-try {
-  initThemeToggle();
-  initNavbarScroll();
-  initBackToTop();
-  createSplitTypes.init(document);
-  loadPageModule(initialPageName);
-  handleResponsiveElements();
-  reinitWebflowFeatures();
-  updateCurrentNavLink();
-  preloader.init();
-  magnetic.init();
-  ambientAurora.init();
-  velocitySkew.init();
-  wordScrub.init();
-  floatingTags.init();
-  cardEntrances.init();
-  imageScrollEffects.init();
-  creativeTextEffects.init();
-  studioClock.init();
-  velocityMarquee.init();
-} catch (err) {
-  console.error("Initialization error:", err);
-}
+const safeRun = (fn, name) => {
+  try {
+    if (typeof fn === "function") fn();
+  } catch (err) {
+    console.warn(`[Init] ${name} error:`, err);
+  }
+};
+
+safeRun(initThemeToggle, "initThemeToggle");
+safeRun(initNavbarScroll, "initNavbarScroll");
+safeRun(initBackToTop, "initBackToTop");
+safeRun(() => createSplitTypes.init(document), "createSplitTypes");
+safeRun(() => loadPageModule(initialPageName), "loadPageModule");
+safeRun(handleResponsiveElements, "handleResponsiveElements");
+safeRun(reinitWebflowFeatures, "reinitWebflowFeatures");
+safeRun(updateCurrentNavLink, "updateCurrentNavLink");
+safeRun(() => preloader.init(), "preloader");
+safeRun(() => magnetic.init(), "magnetic");
+safeRun(() => ambientAurora.init(), "ambientAurora");
+safeRun(() => velocitySkew.init(), "velocitySkew");
+safeRun(() => wordScrub.init(), "wordScrub");
+safeRun(() => floatingTags.init(), "floatingTags");
+safeRun(() => cardEntrances.init(), "cardEntrances");
+safeRun(() => imageScrollEffects.init(), "imageScrollEffects");
+safeRun(() => creativeTextEffects.init(), "creativeTextEffects");
+safeRun(() => studioClock.init(), "studioClock");
+safeRun(() => velocityMarquee.init(), "velocityMarquee");
+safeRun(() => graceAbout.init(), "graceAbout");
 
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
@@ -300,6 +305,7 @@ barba.hooks.after((e) => {
     creativeTextEffects.init();
     studioClock.init();
     velocityMarquee.init();
+    graceAbout.init();
   } catch (err) {}
   const refresh = () => {
     ScrollTrigger.refresh();

@@ -9,9 +9,9 @@ export function init() {
 
   const isDesktopScreen = window.innerWidth >= 992;
 
-  // Target all project visual containers, case study images, hero media, and intro showcases
+  // Target primary visual containers (avoid nested containers or absolute overlays)
   const containers = document.querySelectorAll(
-    ".g_project_teaser_card, .g_image_card_visual_wrap, .intro_img_wrap, .g_img_wrap, .g_visual_wrap, .g_project_teaser_gif_wrap"
+    ".g_project_visual_wrap, .g_image_card_visual_wrap, .intro_img_wrap, .g_img_wrap"
   );
 
   containers.forEach((container) => {
@@ -22,7 +22,7 @@ export function init() {
 
     // Ensure container has clean clipping
     container.style.overflow = "hidden";
-    if (!container.style.position) {
+    if (window.getComputedStyle(container).position === "static") {
       container.style.position = "relative";
     }
 

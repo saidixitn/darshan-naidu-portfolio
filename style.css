@@ -1054,17 +1054,244 @@ html:not([data-theme="light"]) .footer_target {
   border-radius: 4px;
 }
 
-[data-project-teaser="teaser"]:nth-child(5n + 4) {
-  grid-column: span 2;
+/* ========================================================
+   EDITORIAL PROJECT SHOWCASE (GRACE FASHION AI & ATMOS GALLERY)
+   ======================================================== */
+.project_teaser_list.u-grid-column-3 {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 2rem !important;
+  row-gap: 3.5rem !important;
+  width: 100% !important;
 }
-@media (max-width: 768px) {
-  [data-project-teaser="teaser"]:nth-child(5n + 4) {
-    grid-column: span 1;
+
+@media (max-width: 991px) {
+  .project_teaser_list.u-grid-column-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.5rem !important;
+    row-gap: 2.5rem !important;
   }
 }
-[data-project-teaser="teaser"]:nth-child(5n + 4) [data-project-teaser="visual-wrap"] {
-  height: 100%;
-  aspect-ratio: 3/2;
+
+@media (max-width: 640px) {
+  .project_teaser_list.u-grid-column-3 {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+}
+
+/* Card Container with Dark Luxury Glassmorphism */
+.g_project_teaser {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.25rem !important;
+  width: 100% !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 20px !important;
+  padding: 1.25rem !important;
+  box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.5) !important;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.6s ease,
+              background 0.4s ease !important;
+  box-sizing: border-box !important;
+}
+
+.g_project_teaser:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(255, 85, 0, 0.4) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+  box-shadow: 0 24px 60px -15px rgba(255, 85, 0, 0.16),
+              0 12px 30px -8px rgba(0, 0, 0, 0.6) !important;
+}
+
+[data-theme="light"] .g_project_teaser {
+  background: rgba(0, 0, 0, 0.015) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.06) !important;
+}
+
+[data-theme="light"] .g_project_teaser:hover {
+  border-color: rgba(255, 85, 0, 0.45) !important;
+  box-shadow: 0 20px 45px -10px rgba(255, 85, 0, 0.14) !important;
+}
+
+/* Card Visual Frame & Aspect Ratios */
+.g_project_visual_wrap {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  aspect-ratio: 4 / 3 !important;
+  overflow: hidden !important;
+  border-radius: 14px !important;
+  background: #0d0d0d !important;
+}
+
+/* Asymmetric Row 2: Featured 4th item spans 2 columns in widescreen */
+[data-project-teaser="teaser"]:nth-child(5n + 4) {
+  grid-column: span 2 !important;
+}
+
+[data-project-teaser="teaser"]:nth-child(5n + 4) .g_project_visual_wrap {
+  aspect-ratio: 16 / 9 !important;
+}
+
+@media (max-width: 991px) {
+  [data-project-teaser="teaser"]:nth-child(5n + 4) {
+    grid-column: span 1 !important;
+  }
+  [data-project-teaser="teaser"]:nth-child(5n + 4) .g_project_visual_wrap {
+    aspect-ratio: 4 / 3 !important;
+  }
+}
+
+/* Internal Visual Hierarchy Fixes (Eliminates all image squishing) */
+.g_project_teaser_gif_wrap {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  display: block !important;
+  overflow: hidden !important;
+}
+
+.g_project_teaser_gif_wrap.is-gif {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: none !important;
+}
+
+.g_visual_wrap {
+  width: 100% !important;
+  height: 100% !important;
+  position: relative !important;
+  display: block !important;
+  overflow: hidden !important;
+}
+
+.g_visual_img,
+.g_image_card_visual_img,
+.g_visual_video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+  transform-origin: center center !important;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease !important;
+}
+
+.g_project_teaser:hover .g_visual_img,
+.g_project_teaser:hover .g_image_card_visual_img {
+  transform: scale(1.05) !important;
+}
+
+/* Typography & Metadata (Atmos Gallery / Grace Fashion AI style) */
+.g_project_teaser_text_wrap {
+  padding: 0.25rem 0.25rem 0.1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+}
+
+.g_project_teaser_text_wrap .g_image_card_text_headline {
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.015em !important;
+  color: #ffffff !important;
+  margin: 0 !important;
+  transition: color 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.g_project_teaser:hover .g_project_teaser_text_wrap .g_image_card_text_headline {
+  color: #ff5500 !important;
+}
+
+.g_project_teaser_text_wrap .g_image_card_text {
+  font-size: 0.92rem !important;
+  line-height: 1.5 !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  margin: 0 !important;
+}
+
+[data-theme="light"] .g_project_teaser_text_wrap .g_image_card_text_headline {
+  color: #111111 !important;
+}
+
+[data-theme="light"] .g_project_teaser_text_wrap .g_image_card_text {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Atmos Gallery & Grace Fashion AI Floating Tag */
+.atmos-project-tag {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.atmos-project-tag .tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff5500;
+  box-shadow: 0 0 8px #ff5500;
+}
+
+/* Atmos Color Palette Swatch Accent Strip */
+.atmos-palette-strip {
+  position: absolute;
+  bottom: 0.85rem;
+  right: 0.85rem;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.atmos-palette-strip .palette-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.g_project_teaser:hover .atmos-palette-strip {
+  border-color: rgba(255, 85, 0, 0.35);
+}
+
+.g_project_teaser:hover .atmos-palette-strip .palette-dot {
+  transform: scale(1.15);
 }
 
 @media (max-width: 768px) {

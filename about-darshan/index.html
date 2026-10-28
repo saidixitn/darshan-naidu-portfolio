@@ -25,7 +25,10 @@
 <script async src="https://cdn.jsdelivr.net/npm/@finsweet/cookie-consent@1/fs-cc.js" fs-cc-mode="opt-in">
 </script>
 
-<link rel="stylesheet" href="/assets/css/swiper.min.css" />  <link rel="stylesheet" href="/style.css?v=12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/swiper.min.css" />  <link rel="stylesheet" href="/style.css?v=13">
     <style>
       *,
       *::before,
@@ -804,20 +807,25 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
               </nav>
 
               <div class="grace-hero-header">
-                <h1 class="grace-hero-title" data-enter-page="title">
-                  Visual craft &amp; video editing: your story, no compromise.
+                <span class="grace-section-tag">✦ STUDIO PHILOSOPHY • NO SHOOT DAY</span>
+                <h1 class="grace-hero-title">
+                  Visual craft &amp; <span class="grace-serif-italic">cinematic rhythm:</span> your vision, <span class="grace-serif-italic">no compromise.</span>
                 </h1>
-                <p class="grace-hero-subtitle" data-enter-page="text">
-                  Photorealistic moving and still visuals with rhythmic precision, cinematic depth, and social velocity. First cut in hours, about 80% below traditional agency overhead.
+                <p class="grace-hero-subtitle">
+                  Photorealistic moving and still visuals crafted with rhythmic precision, analog depth, and social velocity. Transforming concepts and raw footage into iconic campaigns — at a fraction of traditional agency overhead.
                 </p>
+                <div style="display: flex; gap: 14px; margin-top: 1rem; flex-wrap: wrap; justify-content: center;">
+                  <a href="/work" class="grace-btn-primary" style="padding: 12px 28px; font-size: 0.95rem;">Explore Selected Works ↗</a>
+                  <a href="/contact" class="grace-btn-secondary" style="padding: 12px 28px; font-size: 0.95rem;">Start A Project</a>
+                </div>
               </div>
 
               <!-- Grace Fashion AI Mode Selector Tabs -->
               <div class="grace-mode-tabs" role="tablist">
-                <button class="grace-mode-tab is-active" type="button">✦ 01. Cinematic Pacing</button>
-                <button class="grace-mode-tab" type="button">✦ 02. Visual Art Direction</button>
-                <button class="grace-mode-tab" type="button">✦ 03. Social Reels &amp; Velocity</button>
-                <button class="grace-mode-tab" type="button">✦ 04. Motion Systems &amp; 3D</button>
+                <button class="grace-mode-tab is-active" type="button" data-shot="0">✦ 01. High Fashion &amp; Editorial</button>
+                <button class="grace-mode-tab" type="button" data-shot="1">✦ 02. Architectural Heritage</button>
+                <button class="grace-mode-tab" type="button" data-shot="2">✦ 03. Kinetic Motion Reels</button>
+                <button class="grace-mode-tab" type="button" data-shot="3">✦ 04. Social Velocity &amp; Sound</button>
               </div>
 
               <!-- Grace Fashion AI Interactive Stage Card with Multi-Shot Selector -->
@@ -840,19 +848,19 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
                 </div>
                 <!-- Media 3: Architectural Rhythm Visual (Hawa Mahal) -->
                 <div class="grace-stage-media">
-                  <img src="/assets/images/work/hawa-mahal.jpg" alt="Hawa Mahal Architectural Pacing" loading="lazy" />
+                  <img src="/assets/images/work/hawa-mahal.jpg" alt="Hawa Mahal Architectural Pacing" loading="eager" />
                 </div>
                 <!-- Media 4: Nightfall Cinema (Golden Temple) -->
                 <div class="grace-stage-media">
-                  <img src="/assets/images/work/golden-temple.jpg" alt="Golden Temple Nightfall Cinema" loading="lazy" />
+                  <img src="/assets/images/work/golden-temple.jpg" alt="Golden Temple Nightfall Cinema" loading="eager" />
                 </div>
 
                 <!-- Floating Shot Switcher Controls (Grace Fashion AI Signature) -->
                 <div class="grace-shot-selector">
-                  <button class="grace-shot-btn is-active" type="button">01 • Motion Reel</button>
-                  <button class="grace-shot-btn" type="button">02 • Editorial Still</button>
-                  <button class="grace-shot-btn" type="button">03 • Visual Mindset</button>
-                  <button class="grace-shot-btn" type="button">04 • The Studio</button>
+                  <button class="grace-shot-btn is-active" type="button" data-shot="0">01 • Motion Reel</button>
+                  <button class="grace-shot-btn" type="button" data-shot="1">02 • Taj Horizon</button>
+                  <button class="grace-shot-btn" type="button" data-shot="2">03 • Terracotta Study</button>
+                  <button class="grace-shot-btn" type="button" data-shot="3">04 • Golden Nocturne</button>
                 </div>
               </div>
             </div>
@@ -880,26 +888,52 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
             </div>
           </div>
 
-          <!-- 3. Grace Fashion AI Lookbook Section: "One Identity Across Every Scene" -->
+          <!-- 3. Signature Grace Fashion AI Before & After Transformation Slider -->
+          <section class="grace-section-wrap" style="padding-top: 2rem; padding-bottom: 4rem;">
+            <div class="grace-container">
+              <div class="grace-section-header" style="text-align: center;">
+                <span class="grace-section-tag">✦ Transformation Engine</span>
+                <h2 class="grace-section-heading">Transform raw capture into <span class="grace-serif-italic">cinematic mastery.</span></h2>
+                <p class="grace-section-desc" style="margin-left: auto; margin-right: auto;">
+                  Drag the slider to inspect the leap between flat camera capture and our final 35mm film emulation, tone chemistry, and rhythm.
+                </p>
+              </div>
+
+              <div class="grace-compare-wrap" id="graceCompareSlider" style="--slider-pos: 50%;">
+                <div class="grace-compare-before">
+                  <img src="/assets/images/hero_poster_xentiall.jpg" alt="Raw Unedited Capture" />
+                  <div class="grace-compare-badge is-before">Raw Flat Log</div>
+                </div>
+                <div class="grace-compare-after" id="graceCompareAfter">
+                  <img src="/assets/images/hero_poster_xentiall.jpg" alt="Finished 35mm Master Grade" />
+                  <div class="grace-compare-badge is-after">Finished 35mm Grade</div>
+                </div>
+                <div class="grace-compare-divider" id="graceCompareDivider"></div>
+                <div class="grace-compare-handle" id="graceCompareHandle">↔</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Grace Fashion AI Lookbook Section: "One Identity Across Every Scene" -->
           <section class="grace-section-wrap">
             <div class="grace-container">
               <div class="grace-section-header">
                 <span class="grace-section-tag">✦ Studio Lookbook</span>
-                <h2 class="grace-section-heading">One distinct identity across every scene and screen.</h2>
+                <h2 class="grace-section-heading">One distinct identity across <span class="grace-serif-italic">every scene &amp; screen.</span></h2>
                 <p class="grace-section-desc">
                   Whether cutting 9:16 vertical reels for social retention or 16:9 widescreen brand films, fabric, sound, and pacing hold without compromise.
                 </p>
               </div>
 
               <div class="grace-lookbook-grid">
-                <!-- Lookbook 1: Editorial Direction (Taj Mahal) -->
+                <!-- Lookbook 1: Taj Mahal (Agra) -->
                 <div class="grace-lookbook-card" data-magnetic="true">
                   <div class="grace-lookbook-visual">
                     <div class="atmos-project-tag">
                       <span class="tag-dot"></span>
                       <span>Heritage Cinema</span>
                     </div>
-                    <img src="/assets/images/work/taj.jpg" alt="Taj Mahal Horizon Film Still" loading="lazy" />
+                    <img src="/assets/images/work/taj.jpg" alt="Taj Mahal Horizon Film Still" loading="eager" />
                     <div class="atmos-palette-strip" aria-hidden="true">
                       <span class="palette-dot" style="background: #1c130d;"></span>
                       <span class="palette-dot" style="background: #5c3b28;"></span>
@@ -910,7 +944,7 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
                   </div>
                   <div class="grace-lookbook-meta">
                     <h3 class="grace-lookbook-title">Horizon Cinema</h3>
-                    <p class="grace-lookbook-subtitle">Grand architectural compositions, natural highlights, and cinematic 35mm tone curves.</p>
+                    <p class="grace-lookbook-subtitle">Grand architectural compositions, natural dawn mist, and 35mm tone curves.</p>
                   </div>
                 </div>
 
@@ -951,7 +985,7 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
                       <span class="tag-dot"></span>
                       <span>Visual Rhythm</span>
                     </div>
-                    <img src="/assets/images/work/hawa-mahal.jpg" alt="Hawa Mahal Architectural Rhythm" loading="lazy" />
+                    <img src="/assets/images/work/hawa-mahal.jpg" alt="Hawa Mahal Architectural Rhythm" loading="eager" />
                     <div class="atmos-palette-strip" aria-hidden="true">
                       <span class="palette-dot" style="background: #1a1815;"></span>
                       <span class="palette-dot" style="background: #473e32;"></span>
@@ -962,7 +996,7 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
                   </div>
                   <div class="grace-lookbook-meta">
                     <h3 class="grace-lookbook-title">Architectural Flow</h3>
-                    <p class="grace-lookbook-subtitle">Geometric symmetry, rhythmic window motifs, and warm terra-cotta color science.</p>
+                    <p class="grace-lookbook-subtitle">Geometric symmetry, 953 rhythmic casements, and warm terracotta color science.</p>
                   </div>
                 </div>
 
@@ -973,7 +1007,7 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
                       <span class="tag-dot"></span>
                       <span>Street Narrative</span>
                     </div>
-                    <img src="/assets/images/work/kolkata.jpg" alt="Kolkata Street Narrative" loading="lazy" />
+                    <img src="/assets/images/work/kolkata.jpg" alt="Kolkata Street Narrative" loading="eager" />
                     <div class="atmos-palette-strip" aria-hidden="true">
                       <span class="palette-dot" style="background: #111111;"></span>
                       <span class="palette-dot" style="background: #333333;"></span>
@@ -984,19 +1018,63 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
                   </div>
                   <div class="grace-lookbook-meta">
                     <h3 class="grace-lookbook-title">Street Narrative</h3>
-                    <p class="grace-lookbook-subtitle">Raw documentary motion, authentic pacing, and human storytelling in motion.</p>
+                    <p class="grace-lookbook-subtitle">Raw documentary motion, electric tram tracks, and authentic cultural rhythm.</p>
+                  </div>
+                </div>
+
+                <!-- Lookbook 5: Golden Temple Sacred Nocturne -->
+                <div class="grace-lookbook-card" data-magnetic="true">
+                  <div class="grace-lookbook-visual">
+                    <div class="atmos-project-tag">
+                      <span class="tag-dot"></span>
+                      <span>Sacred Nocturne</span>
+                    </div>
+                    <img src="/assets/images/work/golden-temple.jpg" alt="Golden Temple Sacred Nocturne" loading="eager" />
+                    <div class="atmos-palette-strip" aria-hidden="true">
+                      <span class="palette-dot" style="background: #0f1016;"></span>
+                      <span class="palette-dot" style="background: #2b2e3d;"></span>
+                      <span class="palette-dot" style="background: #8b6e2f;"></span>
+                      <span class="palette-dot" style="background: #d4a944;"></span>
+                      <span class="palette-dot" style="background: #fdf3c7;"></span>
+                    </div>
+                  </div>
+                  <div class="grace-lookbook-meta">
+                    <h3 class="grace-lookbook-title">Sacred Nocturne</h3>
+                    <p class="grace-lookbook-subtitle">Harmandir Sahib reflecting golden radiance across sacred water under an indigo sky.</p>
+                  </div>
+                </div>
+
+                <!-- Lookbook 6: Qutub Minar Monumental Verticality -->
+                <div class="grace-lookbook-card" data-magnetic="true">
+                  <div class="grace-lookbook-visual">
+                    <div class="atmos-project-tag">
+                      <span class="tag-dot"></span>
+                      <span>Ancient Monolith</span>
+                    </div>
+                    <img src="/assets/images/work/qutub.jpg" alt="Qutub Minar Delhi" loading="eager" />
+                    <div class="atmos-palette-strip" aria-hidden="true">
+                      <span class="palette-dot" style="background: #191614;"></span>
+                      <span class="palette-dot" style="background: #4a3629;"></span>
+                      <span class="palette-dot" style="background: #85573d;"></span>
+                      <span class="palette-dot" style="background: #c7885b;"></span>
+                      <span class="palette-dot" style="background: #f2cbb3;"></span>
+                    </div>
+                  </div>
+                  <div class="grace-lookbook-meta">
+                    <h3 class="grace-lookbook-title">Monumental Scale</h3>
+                    <p class="grace-lookbook-subtitle">73-meter fluted sandstone minaret, banded carvings, and architectural power.</p>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- 4. Grace Fashion AI Precision Craft Section -->
-          <section class="grace-section-wrap" style="background: rgba(255, 255, 255, 0.01);">
+          <!-- 5. Grace Fashion AI Precision Craft Section -->
+          <section class="grace-section-wrap" style="background: rgba(255, 255, 255, 0.015);">
             <div class="grace-container">
               <div class="grace-section-header">
                 <span class="grace-section-tag">✦ Precision Standards</span>
-                <h2 class="grace-section-heading">Obsessive attention to every cut, transition, and frame.</h2>
+                <h2 class="grace-section-heading">Obsessive attention to <span class="grace-serif-italic">every cut, transition &amp; frame.</span></h2>
                 <p class="grace-section-desc">
                   Built for places where bad seams and clumsy edits get noticed immediately. Fabric drape, sound architecture, and pacing hold shot by shot.
                 </p>
@@ -1038,12 +1116,12 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
             </div>
           </section>
 
-          <!-- 5. Grace Fashion AI 3-Step Workflow -->
+          <!-- 6. Grace Fashion AI 3-Step Workflow -->
           <section class="grace-section-wrap">
             <div class="grace-container">
               <div class="grace-section-header">
                 <span class="grace-section-tag">✦ The Pipeline</span>
-                <h2 class="grace-section-heading">From raw footage to editorial motion in 3 steps.</h2>
+                <h2 class="grace-section-heading">From raw footage to <span class="grace-serif-italic">editorial motion</span> in 3 steps.</h2>
                 <p class="grace-section-desc">
                   A frictionless creative process designed to move from initial concept to high-polish deliverables without administrative drag.
                 </p>
@@ -1077,7 +1155,7 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
             </div>
           </section>
 
-          <!-- 6. Grace Fashion AI Studio Numbers & Metrics -->
+          <!-- 7. Grace Fashion AI Studio Numbers & Metrics -->
           <section class="grace-section-wrap" style="background: rgba(255, 255, 255, 0.015);">
             <div class="grace-container">
               <div class="grace-metrics-grid">
@@ -1101,12 +1179,12 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
             </div>
           </section>
 
-          <!-- 7. Grace Fashion AI Customer Voices / Testimonials -->
+          <!-- 8. Grace Fashion AI Customer Voices / Testimonials -->
           <section class="grace-section-wrap">
             <div class="grace-container">
               <div class="grace-section-header">
                 <span class="grace-section-tag">✦ Client Voices</span>
-                <h2 class="grace-section-heading">Trusted by founders, fashion brands, and creators.</h2>
+                <h2 class="grace-section-heading">Trusted by founders, fashion brands, and <span class="grace-serif-italic">creators.</span></h2>
               </div>
 
               <div class="grace-voices-grid">
@@ -1137,7 +1215,7 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
             </div>
           </section>
 
-          <!-- 8. Grace Fashion AI Interactive FAQ Section -->
+          <!-- 9. Grace Fashion AI Interactive FAQ Section -->
           <section class="grace-section-wrap">
             <div class="grace-container">
               <div class="grace-section-header" style="text-align: center;">
@@ -1212,12 +1290,12 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
             </div>
           </section>
 
-          <!-- 9. Grace Fashion AI Final Impact CTA Banner -->
+          <!-- 10. Grace Fashion AI Final Impact CTA Banner -->
           <section class="grace-section-wrap" style="padding-bottom: 2rem;">
             <div class="grace-container">
               <div class="grace-cta-card">
                 <span class="grace-section-tag" style="color: #ff5500;">✦ Start Collaborating</span>
-                <h2 class="grace-cta-title">Your story, cut to perfection. No shoot day required.</h2>
+                <h2 class="grace-cta-title">Your story, cut to perfection. <span class="grace-serif-italic">No shoot day required.</span></h2>
                 <p class="grace-cta-desc">
                   Whether you have hours of raw footage that needs a story or a concept ready to shoot, let's build visuals that command attention.
                 </p>
@@ -1229,6 +1307,95 @@ html:not(.wf-design-mode) .styleguide_guide_wrap {
             </div>
           </section>
         </div>
+
+        <!-- Inline Interaction Script for Grace Fashion AI Stage, Slider & FAQ -->
+        <script>
+          (function() {
+            function initGracePage() {
+              // 1. Stage Switcher
+              const tabs = document.querySelectorAll('.grace-mode-tab');
+              const shotBtns = document.querySelectorAll('.grace-shot-btn');
+              const mediaItems = document.querySelectorAll('.grace-stage-media');
+
+              function switchShot(index) {
+                tabs.forEach((t, i) => t.classList.toggle('is-active', i === index));
+                shotBtns.forEach((b, i) => b.classList.toggle('is-active', i === index));
+                mediaItems.forEach((m, i) => m.classList.toggle('is-active', i === index));
+              }
+
+              tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => switchShot(index));
+              });
+
+              shotBtns.forEach((btn, index) => {
+                btn.addEventListener('click', () => switchShot(index));
+              });
+
+              // 2. Before/After Split Comparison Slider
+              const compareWrap = document.getElementById('graceCompareSlider');
+              if (compareWrap) {
+                let isDragging = false;
+
+                function updateSlider(x) {
+                  const rect = compareWrap.getBoundingClientRect();
+                  let pos = ((x - rect.left) / rect.width) * 100;
+                  pos = Math.max(0, Math.min(100, pos));
+                  compareWrap.style.setProperty('--slider-pos', pos + '%');
+                }
+
+                compareWrap.addEventListener('mousedown', (e) => {
+                  isDragging = true;
+                  updateSlider(e.clientX);
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                  if (!isDragging) return;
+                  updateSlider(e.clientX);
+                });
+
+                window.addEventListener('mouseup', () => {
+                  isDragging = false;
+                });
+
+                // Touch support
+                compareWrap.addEventListener('touchstart', (e) => {
+                  isDragging = true;
+                  updateSlider(e.touches[0].clientX);
+                }, { passive: true });
+
+                window.addEventListener('touchmove', (e) => {
+                  if (!isDragging) return;
+                  updateSlider(e.touches[0].clientX);
+                }, { passive: true });
+
+                window.addEventListener('touchend', () => {
+                  isDragging = false;
+                });
+              }
+
+              // 3. FAQ Accordion Toggle
+              const faqItems = document.querySelectorAll('.grace-faq-item');
+              faqItems.forEach(item => {
+                const header = item.querySelector('.grace-faq-header');
+                if (header) {
+                  header.addEventListener('click', () => {
+                    const isOpen = item.classList.contains('is-open');
+                    faqItems.forEach(f => f.classList.remove('is-open'));
+                    if (!isOpen) {
+                      item.classList.add('is-open');
+                    }
+                  });
+                }
+              });
+            }
+
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', initGracePage);
+            } else {
+              initGracePage();
+            }
+          })();
+        </script>
         <section data-footer="section" class="footer_wrap">
           <div data-footer="scroll-target" class="footer_target">
             <div class="footer_contain">

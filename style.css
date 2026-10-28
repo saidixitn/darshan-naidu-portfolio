@@ -3041,11 +3041,9 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 .grace-scrub-word {
   display: inline-block;
-  opacity: 0.12;
-  filter: blur(14px);
-  transform: translateY(12px);
-  will-change: opacity, filter, transform;
-  transition: color 0.2s ease;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
 }
 
 /* 2. Radial Dot Grid Canvas (Grace Section 1 & 3) */
@@ -3367,6 +3365,366 @@ html:not([data-theme="light"]) .breadcrumb_current {
   text-decoration: none;
 }
 
+/* ========================================================
+   TRAVEL POSTERS ADAPTIVE IMAGE HOLDER (WORKS & HOME)
+   Fits the full portrait poster uncropped with zero distortion
+   ======================================================== */
+.grace-poster-hero {
+  position: relative;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0d0d11;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+  display: grid;
+  grid-template-columns: minmax(300px, 440px) 1fr;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  text-decoration: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="light"] .grace-poster-hero {
+  background: #f4f4f7;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+}
+
+.grace-poster-hero:hover {
+  border-color: rgba(255, 85, 0, 0.4);
+  box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.8);
+}
+
+/* The Image Holder - adapted specifically to the poster's portrait ratio */
+.grace-poster-holder {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #050507;
+  padding: 1.25rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] .grace-poster-holder {
+  background: #e8e8ed;
+  border-color: rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.grace-poster-holder img {
+  width: 100% !important;
+  max-width: 400px !important;
+  height: auto !important;
+  max-height: 560px !important;
+  aspect-ratio: 2 / 3 !important;
+  object-fit: contain !important;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+  display: block !important;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grace-poster-hero:hover .grace-poster-holder img {
+  transform: scale(1.02);
+}
+
+/* Poster Card Editorial Details */
+.grace-poster-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.grace-poster-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff5500;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 85, 0, 0.12);
+  border: 1px solid rgba(255, 85, 0, 0.25);
+  width: fit-content;
+}
+
+.grace-poster-title {
+  font-size: clamp(1.8rem, 2.6vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.15;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+[data-theme="light"] .grace-poster-title {
+  color: #111113;
+}
+
+.grace-poster-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  max-width: 580px;
+}
+
+[data-theme="light"] .grace-poster-desc {
+  color: rgba(17, 17, 19, 0.75);
+}
+
+/* Landmark Chips */
+.grace-poster-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.grace-poster-chip {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="light"] .grace-poster-chip {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #222226;
+}
+
+/* Miniature Series Preview Strip */
+.grace-poster-preview-strip {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.grace-poster-thumb {
+  width: 48px;
+  height: 66px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.grace-poster-thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.grace-poster-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ff5500;
+  margin-top: 0.25rem;
+  transition: transform 0.2s ease;
+}
+
+.grace-poster-hero:hover .grace-poster-cta {
+  transform: translateX(4px);
+}
+
+@media (max-width: 900px) {
+  .grace-poster-hero {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .grace-poster-holder img {
+    max-height: 460px !important;
+  }
+}
+
+/* ========================================================
+   TRAVEL POSTERS CASE STUDY ADAPTIVE HOLDERS (PROJECT PAGE)
+   ======================================================== */
+.travel-case-study-hero {
+  position: relative;
+  width: 100%;
+  padding: 1.5rem 0 3rem;
+}
+
+.travel-case-study-holder {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #08080a;
+  border-radius: 24px;
+  padding: 2.5rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 90px -20px rgba(0, 0, 0, 0.8);
+}
+
+[data-theme="light"] .travel-case-study-holder {
+  background: #eef0f3;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+.travel-case-study-img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 82vh !important;
+  object-fit: contain !important;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  display: block !important;
+}
+
+/* Individual Poster Feature in Case Study */
+.travel-poster-feature {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #08080a;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] .travel-poster-feature {
+  background: #eef0f3;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.travel-poster-feature img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 85vh !important;
+  object-fit: contain !important;
+  border-radius: 10px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+  display: block !important;
+}
+
+/* 2-Poster Duo Grid in Case Study */
+.travel-posters-duo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.travel-poster-duo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #08080a;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="light"] .travel-poster-duo-item {
+  background: #eef0f3;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.travel-poster-duo-item img {
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 75vh !important;
+  object-fit: contain !important;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  display: block !important;
+}
+
+/* 5-Poster Complete Exhibition Grid */
+.travel-posters-exhibition {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  max-width: 1400px;
+  margin: 2.5rem auto 0;
+}
+
+@media (max-width: 1100px) {
+  .travel-posters-exhibition {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+.travel-exhibition-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #08080a;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] .travel-exhibition-card {
+  background: #eef0f3;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.travel-exhibition-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 85, 0, 0.4);
+}
+
+.travel-exhibition-card img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: auto !important;
+  object-fit: contain !important;
+  border-radius: 8px;
+  display: block !important;
+}
+
+.travel-exhibition-caption {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+}
+
+[data-theme="light"] .travel-exhibition-caption {
+  color: #222226;
+}
+
 @media (max-width: 767px) {
   .grace-lookbook-hero {
     aspect-ratio: 4 / 3;
@@ -3467,24 +3825,25 @@ html:not([data-theme="light"]) .breadcrumb_current {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
-  border-radius: 20px;
+  border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   background: #09090c;
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.45);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transform: none !important;
 }
 
 [data-theme="light"] .grace-card-frame {
   background: #f0f0f2;
-  border-color: rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .grace-card:hover .grace-card-frame {
-  transform: translateY(-4px);
-  border-color: rgba(255, 85, 0, 0.4);
-  box-shadow: 0 25px 60px -15px rgba(255, 85, 0, 0.25);
+  border-color: rgba(255, 85, 0, 0.35);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6);
+  transform: none !important;
 }
 
 .grace-card-img {
@@ -3492,11 +3851,19 @@ html:not([data-theme="light"]) .breadcrumb_current {
   height: 100% !important;
   object-fit: cover !important;
   display: block !important;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.5s ease;
+  transform: none !important;
 }
 
 .grace-card:hover .grace-card-img {
-  transform: scale(1.05);
+  transform: scale(1.025) !important;
+}
+
+.grace-card,
+.grace-lookbook-hero {
+  transform: none !important;
+  transform-style: flat !important;
+  perspective: none !important;
 }
 
 /* Floating Badges */

@@ -56,6 +56,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def translate_path(self, path):
         clean_path = path.split("?")[0]
+        if clean_path.startswith("/project/"):
+            clean_path = clean_path.replace("/project/", "/projects/")
         if clean_path in ROUTE_ALIASES:
             clean_path = ROUTE_ALIASES[clean_path]
         return super().translate_path(clean_path)

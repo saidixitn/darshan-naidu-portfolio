@@ -17,6 +17,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/about", "destination": "/about-darshan/index.html" },
     { "source": "/about-me", "destination": "/about-darshan/index.html" },
     { "source": "/about-darshan", "destination": "/about-darshan/index.html" },
     { "source": "/about-deztopia", "destination": "/about-darshan/index.html" },
@@ -30,10 +31,19 @@
     { "source": "/contact", "destination": "/contact-darshan/index.html" },
     { "source": "/contact-darshan", "destination": "/contact-darshan/index.html" },
     { "source": "/contact-deztopia", "destination": "/contact-darshan/index.html" },
+    { "source": "/projects/:slug", "destination": "/projects/:slug/index.html" },
+    { "source": "/project/:slug", "destination": "/projects/:slug/index.html" },
     { "source": "/projects/obvio", "destination": "/projects/obvio/index.html" },
     { "source": "/projects/across", "destination": "/projects/across/index.html" },
     { "source": "/projects/roomie", "destination": "/projects/roomie/index.html" },
     { "source": "/projects/basilica", "destination": "/projects/basilica/index.html" },
-    { "source": "/projects/rendezvu", "destination": "/projects/rendezvu/index.html" }
+    { "source": "/projects/rendezvu", "destination": "/projects/rendezvu/index.html" },
+    { "source": "/projects/travel-posters", "destination": "/projects/travel-posters/index.html" },
+    { "source": "/project/travel-posters", "destination": "/projects/travel-posters/index.html" },
+    { "source": "/project/obvio", "destination": "/projects/obvio/index.html" },
+    { "source": "/project/across", "destination": "/projects/across/index.html" },
+    { "source": "/project/roomie", "destination": "/projects/roomie/index.html" },
+    { "source": "/project/basilica", "destination": "/projects/basilica/index.html" },
+    { "source": "/project/rendezvu", "destination": "/projects/rendezvu/index.html" }
   ]
 }

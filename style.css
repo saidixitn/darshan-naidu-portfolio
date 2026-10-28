@@ -607,6 +607,26 @@ html:not([data-theme="light"]) .theme_icon_svg.icon_moon {
   pointer-events: none !important;
 }
 
+.is-done .preloader_logo_wrap,
+.preloader_wrap.is-done,
+body:not(.preloader-active) .preloader_wrap {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+.navigation_logo_link {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.navigation_logo {
+  max-width: 120px !important;
+  height: auto !important;
+  display: block !important;
+}
+
 /* ========================================================
    DEZTOPIA SIGNATURE PRELOADER (1:1 PARITY WITH DEZTOPIA.COM)
    ======================================================== */
@@ -2981,3 +3001,586 @@ html:not([data-theme="light"]) .breadcrumb_current {
   border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
 }
+
+/* ========================================================
+   GRACE FASHION AI (https://gracefashion.ai/) EXACT SYSTEM
+   IMAGE LAYOUTS & KINETIC SCROLLING TEXT ANIMATIONS
+   ======================================================== */
+
+/* 1. Kinetic Scrolling Text Scrub (Grace Fashion AI Signature) */
+.grace-deck-headline,
+.grace-scroll-scrub,
+.grace-feature-title,
+.grace-statement-scrub {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme="light"] .grace-deck-headline,
+[data-theme="light"] .grace-scroll-scrub,
+[data-theme="light"] .grace-feature-title,
+[data-theme="light"] .grace-statement-scrub {
+  color: #111111;
+}
+
+.grace-deck-headline {
+  font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+  text-align: center;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grace-feature-title {
+  font-size: clamp(1.8rem, 3.8vw, 3rem);
+}
+
+.grace-scrub-word {
+  display: inline-block;
+  opacity: 0.12;
+  filter: blur(14px);
+  transform: translateY(12px);
+  will-change: opacity, filter, transform;
+  transition: color 0.2s ease;
+}
+
+/* 2. Radial Dot Grid Canvas (Grace Section 1 & 3) */
+.grace-dot-canvas {
+  background-color: #08080a;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.16) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="light"] .grace-dot-canvas {
+  background-color: #f6f6f8;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.12) 1.2px, transparent 1.2px);
+}
+
+/* 3. Grace Fashion AI Interactive Stage Deck Card (Grace Section 0) */
+.grace-stage-wrap {
+  width: 100%;
+  max-width: 960px;
+  margin: 3rem auto 0 auto;
+  position: relative;
+}
+
+.grace-stage-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #09090b;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.85);
+}
+
+@media (max-width: 767px) {
+  .grace-stage-card {
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+  }
+}
+
+[data-theme="light"] .grace-stage-card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.18);
+}
+
+.grace-stage-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.grace-stage-layer.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.grace-stage-layer img,
+.grace-stage-layer video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.grace-stage-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.grace-stage-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+[data-theme="light"] .grace-stage-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.grace-stage-btn:hover,
+.grace-stage-btn.is-active {
+  background: #ffffff;
+  color: #000000 !important;
+  border-color: #ffffff;
+  transform: translateY(-1px);
+}
+
+[data-theme="light"] .grace-stage-btn:hover,
+[data-theme="light"] .grace-stage-btn.is-active {
+  background: #000000;
+  color: #ffffff !important;
+  border-color: #000000;
+}
+
+/* 4. Grace Fashion AI 3-Column Feature Cards (Grace Section 1) */
+.grace-feature-section {
+  padding: 6rem 1.5rem;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .grace-feature-section {
+    padding: 8rem 3rem;
+  }
+}
+
+.grace-feature-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.grace-feature-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3.5rem;
+}
+
+.grace-feature-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff5500;
+}
+
+.grace-feature-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .grace-feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grace-feature-card {
+  position: relative;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+[data-theme="light"] .grace-feature-card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.grace-feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 85, 0, 0.4);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5);
+}
+
+.grace-feature-card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+[data-theme="light"] .grace-feature-card-title {
+  color: #111111;
+}
+
+.grace-feature-card-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="light"] .grace-feature-card-desc {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.grace-feature-media-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #050505;
+}
+
+.grace-feature-media-wrap img,
+.grace-feature-media-wrap video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grace-feature-card:hover .grace-feature-media-wrap img,
+.grace-feature-card:hover .grace-feature-media-wrap video {
+  transform: scale(1.06);
+}
+
+.grace-feature-split-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.grace-feature-split-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #050505;
+}
+
+.grace-feature-split-panel img,
+.grace-feature-split-panel video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* 5. Grace Fashion AI Editorial Lookbook Showcase (Replacing Legacy Project List) */
+.grace-lookbook-section {
+  padding: 6rem 1.5rem;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .grace-lookbook-section {
+    padding: 8rem 3rem;
+  }
+}
+
+.grace-lookbook-container {
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.grace-lookbook-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  .grace-lookbook-header {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.grace-lookbook-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  line-height: 1.15;
+}
+
+[data-theme="light"] .grace-lookbook-title {
+  color: #111111;
+}
+
+/* Featured Hero Showcase Card (16:9 / Cinematic) */
+.grace-lookbook-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0a0a0c;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7);
+  display: block;
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .grace-lookbook-hero {
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+  }
+}
+
+[data-theme="light"] .grace-lookbook-hero {
+  background: #f0f0f2;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+.grace-lookbook-hero img,
+.grace-lookbook-hero video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+}
+
+.grace-lookbook-hero:hover img,
+.grace-lookbook-hero:hover video {
+  transform: scale(1.04);
+}
+
+.grace-lookbook-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.75) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  color: #ffffff;
+}
+
+.grace-lookbook-hero-title {
+  font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.grace-lookbook-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* 2-Column Duo Lookbook Grid (4:5 Editorial Ratios) */
+.grace-lookbook-duo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .grace-lookbook-duo {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* 3-Column Trio Lookbook Grid (4:5 Editorial Ratios) */
+.grace-lookbook-trio {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .grace-lookbook-trio {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
+  }
+}
+
+/* Shared Editorial Lookbook Card (Zero distortion, 4:5 ratio) */
+.grace-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-decoration: none;
+}
+
+.grace-card-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #09090c;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+[data-theme="light"] .grace-card-frame {
+  background: #f0f0f2;
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.grace-card:hover .grace-card-frame {
+  transform: translateY(-4px);
+  border-color: rgba(255, 85, 0, 0.4);
+  box-shadow: 0 25px 60px -15px rgba(255, 85, 0, 0.25);
+}
+
+.grace-card-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.grace-card:hover .grace-card-img {
+  transform: scale(1.05);
+}
+
+/* Floating Badges */
+.grace-card-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(10, 10, 12, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.grace-card-metric {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 85, 0, 0.9);
+  color: #ffffff;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 6px 16px rgba(255, 85, 0, 0.4);
+}
+
+/* Clean Editorial Card Metadata */
+.grace-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 4px;
+}
+
+.grace-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+[data-theme="light"] .grace-card-title {
+  color: #111111;
+}
+
+.grace-card-arrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #ff5500;
+  font-size: 1.1rem;
+}
+
+.grace-card:hover .grace-card-arrow {
+  transform: translate(3px, -3px);
+}
+
+.grace-card-sub {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+[data-theme="light"] .grace-card-sub {
+  color: rgba(0, 0, 0, 0.6);
+}
+

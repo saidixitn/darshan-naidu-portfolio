@@ -26,6 +26,7 @@ import creativeTextEffects from "./animations/creative/creativeTextEffects.js";
 import studioClock from "./animations/creative/studioClock.js";
 import velocityMarquee from "./animations/creative/velocityMarquee.js";
 import graceAbout from "./animations/creative/graceAbout.js";
+import graceScrollText from "./animations/creative/graceScrollText.js";
 
 console.log("--> MAIN.JS START <--");
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -244,6 +245,7 @@ safeRun(() => creativeTextEffects.init(), "creativeTextEffects");
 safeRun(() => studioClock.init(), "studioClock");
 safeRun(() => velocityMarquee.init(), "velocityMarquee");
 safeRun(() => graceAbout.init(), "graceAbout");
+safeRun(() => graceScrollText.init(), "graceScrollText");
 
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
@@ -306,6 +308,7 @@ barba.hooks.after((e) => {
     studioClock.init();
     velocityMarquee.init();
     graceAbout.init();
+    graceScrollText.init();
   } catch (err) {}
   const refresh = () => {
     ScrollTrigger.refresh();

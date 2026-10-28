@@ -27,6 +27,12 @@ import studioClock from "./animations/creative/studioClock.js";
 import velocityMarquee from "./animations/creative/velocityMarquee.js";
 import graceAbout from "./animations/creative/graceAbout.js";
 import graceScrollText from "./animations/creative/graceScrollText.js";
+import cardTilt3D from "./animations/creative/cardTilt3D.js";
+import flashWords from "./animations/creative/flashWords.js";
+import interactiveDotMatrix from "./animations/creative/interactiveDotMatrix.js";
+import statCounters from "./animations/creative/statCounters.js";
+import filmGrainAndStatus from "./animations/creative/filmGrainAndStatus.js";
+import deckStacking from "./animations/creative/deckStacking.js";
 
 console.log("--> MAIN.JS START <--");
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -246,6 +252,12 @@ safeRun(() => studioClock.init(), "studioClock");
 safeRun(() => velocityMarquee.init(), "velocityMarquee");
 safeRun(() => graceAbout.init(), "graceAbout");
 safeRun(() => graceScrollText.init(), "graceScrollText");
+safeRun(() => cardTilt3D.init(), "cardTilt3D");
+safeRun(() => flashWords.init(), "flashWords");
+safeRun(() => interactiveDotMatrix.init(), "interactiveDotMatrix");
+safeRun(() => statCounters.init(), "statCounters");
+safeRun(() => filmGrainAndStatus.init(), "filmGrainAndStatus");
+safeRun(() => deckStacking.init(), "deckStacking");
 
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
@@ -309,6 +321,12 @@ barba.hooks.after((e) => {
     velocityMarquee.init();
     graceAbout.init();
     graceScrollText.init();
+    cardTilt3D.init();
+    flashWords.init();
+    interactiveDotMatrix.init();
+    statCounters.init();
+    filmGrainAndStatus.init();
+    deckStacking.init();
   } catch (err) {}
   const refresh = () => {
     ScrollTrigger.refresh();

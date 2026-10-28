@@ -3584,3 +3584,79 @@ html:not([data-theme="light"]) .breadcrumb_current {
   color: rgba(0, 0, 0, 0.6);
 }
 
+/* ========================================================
+   CREATIVE SHOWCASE SUITE (FOURMULA.AI, DAKSH GAJJAR, BRANDON YASIN)
+   ======================================================== */
+
+/* 1. Radar Telemetry Status Pill (Brandon Yasin / Daksh Gajjar) */
+.studio-radar-pill {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@media (min-width: 1024px) {
+  .studio-radar-pill {
+    display: inline-flex;
+  }
+}
+
+[data-theme="light"] .studio-radar-pill {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.radar-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  position: relative;
+  display: inline-block;
+  animation: radarPulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes radarPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* 2. Fourmula.ai Orange Flash Word */
+.flash-word {
+  display: inline-block;
+  will-change: opacity, transform, color;
+  transition: color 0.15s ease;
+}
+
+/* 3. 3D Card Glare Overlay */
+.card-specular-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  z-index: 6;
+  transition: opacity 0.3s ease;
+}
+
+

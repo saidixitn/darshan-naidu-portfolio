@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrations — GSAP Image-Swap Typography Hero</title>
+    <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
+    <!-- GSAP 3 CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #080808;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .hero-stage {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            user-select: none;
+            background-color: #080808;
+        }
+
+        .word-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(32px, 5.2vw, 72px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            white-space: nowrap;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .char-slot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            vertical-align: middle;
+            height: 1.2em;
+            will-change: width, margin;
+        }
+
+        .char-glyph {
+            display: inline-block;
+            line-height: 1;
+            color: #ffffff;
+            will-change: transform, opacity;
+            pointer-events: none;
+        }
+
+        .image-tile {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.6);
+            opacity: 0;
+            border-radius: 20%;
+            overflow: hidden;
+            pointer-events: none;
+            will-change: transform, opacity, width, height;
+            background-color: #080808;
+            z-index: 5;
+        }
+
+        .image-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 20%;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .char-slot, .char-glyph, .image-tile {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="hero-stage">
+        <div id="word" class="word-container" aria-label="Celebrations">
+            <span class="char-slot" data-index="0" data-char="C"><span class="char-glyph">C</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="1" data-char="e"><span class="char-glyph">e</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="2" data-char="l"><span class="char-glyph">l</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="3" data-char="e"><span class="char-glyph">e</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="4" data-char="b"><span class="char-glyph">b</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="5" data-char="r"><span class="char-glyph">r</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="6" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="7" data-char="t"><span class="char-glyph">t</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="8" data-char="i"><span class="char-glyph">i</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="9" data-char="o"><span class="char-glyph">o</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="10" data-char="n"><span class="char-glyph">n</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="11" data-char="s"><span class="char-glyph">s</span><div class="image-tile"><img src="" alt=""></div></span>
+        </div>
+    </main>
+
+    <script>
+        // High-contrast, clean photographic assets directly matching the reference video
+        const IMAGES = {
+            portrait: '/assets/images/morph/card_portrait.png',
+            flower:   '/assets/images/morph/card_flower.png',
+            stadium:  '/assets/images/morph/card_stadium.png',
+            runner:   '/assets/images/morph/card_runner.png',
+            water:    '/assets/images/morph/card_water.png',
+            stairs:   '/assets/images/morph/card_stairs.png',
+            ferry:    '/assets/images/morph/card_ferry.png',
+            tennis:   '/assets/images/morph/card_tennis.png'
+        };
+
+        // Preload all photographic assets to prevent frame drops or flickering
+        function preloadAssets(urls, callback) {
+            let loaded = 0;
+            const keys = Object.keys(urls);
+            const total = keys.length;
+            keys.forEach(k => {
+                const img = new Image();
+                img.onload = img.onerror = () => {
+                    loaded++;
+                    if (loaded >= total) callback();
+                };
+                img.src = urls[k];
+            });
+        }
+
+        const slots = document.querySelectorAll('.char-slot');
+        let naturalWidths = [];
+        let tileDimension = 0;
+        let masterTimeline = null;
+
+        // Measure natural rendered character widths
+        function measureLayout() {
+            naturalWidths = [];
+            slots.forEach(slot => {
+                const glyph = slot.querySelector('.char-glyph');
+                slot.style.width = 'auto';
+                slot.style.margin = '0';
+                glyph.style.transform = 'none';
+                glyph.style.opacity = '1';
+                const rect = glyph.getBoundingClientRect();
+                naturalWidths.push(rect.width);
+                slot.style.width = `${rect.width}px`;
+            });
+
+            // Tile size matches the character line height
+            const sampleSlot = slots[0];
+            const sampleRect = sampleSlot.getBoundingClientRect();
+            tileDimension = Math.round(sampleRect.height);
+        }
+
+        // Helper to animate slot state (glyph vs tile) via GSAP
+        function setSlotState(tl, index, config, position) {
+            const slot = slots[index];
+            const glyph = slot.querySelector('.char-glyph');
+            const tile = slot.querySelector('.image-tile');
+            const img = tile.querySelector('img');
+
+            const naturalW = naturalWidths[index];
+            const targetW = config.active ? tileDimension : naturalW;
+            const duration = config.duration || 0.40;
+            const ease = config.ease || "power2.out";
+
+            if (config.active && config.image) {
+                // Set image source at exact position in timeline
+                tl.set(img, { attr: { src: config.image } }, position);
+
+                // Expand slot and fade out glyph
+                tl.to(slot, {
+                    width: targetW,
+                    marginRight: 3,
+                    marginLeft: 3,
+                    duration: duration,
+                    ease: ease
+                }, position);
+
+                tl.to(glyph, {
+                    opacity: 0,
+                    scale: 0.15,
+                    duration: duration * 0.7,
+                    ease: "power2.in"
+                }, position);
+
+                tl.set(tile, {
+                    width: tileDimension,
+                    height: tileDimension
+                }, position);
+
+                tl.to(tile, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: duration,
+                    ease: ease
+                }, position);
+
+            } else {
+                // Revert to typography
+                tl.to(tile, {
+                    opacity: 0,
+                    scale: 0.5,
+                    duration: duration * 0.75,
+                    ease: "power2.in"
+                }, position);
+
+                tl.to(slot, {
+                    width: targetW,
+                    marginRight: 0,
+                    marginLeft: 0,
+                    duration: duration,
+                    ease: ease
+                }, position);
+
+                tl.to(glyph, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: duration,
+                    ease: ease
+                }, position + (duration * 0.2));
+            }
+        }
+
+        // Build the complete GSAP master timeline matching the specification
+        function buildTimeline() {
+            if (masterTimeline) {
+                masterTimeline.kill();
+            }
+
+            measureLayout();
+
+            // Word: C(0) e(1) l(2) e(3) b(4) r(5) a(6) t(7) i(8) o(9) n(10) s(11)
+            const tl = gsap.timeline({
+                repeat: -1,
+                repeatDelay: 1.6,
+                defaults: { ease: "power2.out" }
+            });
+
+            // ----------------------------------------------------
+            // PHASE A: Clean opening (0.00s - 0.35s)
+            // Complete word "Celebrations" centered on black
+            // ----------------------------------------------------
+            slots.forEach((slot, idx) => {
+                const glyph = slot.querySelector('.char-glyph');
+                const tile = slot.querySelector('.image-tile');
+                tl.set(slot, { width: naturalWidths[idx], margin: 0 }, 0);
+                tl.set(glyph, { opacity: 1, scale: 1 }, 0);
+                tl.set(tile, { opacity: 0, scale: 0.6 }, 0);
+            });
+
+            // ----------------------------------------------------
+            // PHASE B: First image insertion (0.35s - 1.00s)
+            // Two small photographic tiles appear near right side at i(8) and o(9)
+            // ----------------------------------------------------
+            setSlotState(tl, 8, { active: true, image: IMAGES.ferry, duration: 0.44 }, 0.35);
+            setSlotState(tl, 9, { active: true, image: IMAGES.tennis, duration: 0.44 }, 0.42);
+
+            // ----------------------------------------------------
+            // PHASE C: Progressive image expansion (1.00s - 1.85s)
+            // Progressive expansion from right toward middle: r(5), a(6), t(7), i(8), o(9)
+            // ----------------------------------------------------
+            setSlotState(tl, 5, { active: true, image: IMAGES.runner, duration: 0.42 }, 1.02);
+            setSlotState(tl, 6, { active: true, image: IMAGES.water, duration: 0.42 }, 1.10);
+            setSlotState(tl, 7, { active: true, image: IMAGES.stairs, duration: 0.42 }, 1.18);
+
+            // ----------------------------------------------------
+            // PHASE D: Peak image composition (1.85s - 2.65s)
+            // Shift photographic strip toward left:
+            // e(1), l(2), e(3), b(4), r(5)
+            // Right-side tiles 6, 7, 8, 9 release back to white text
+            // ----------------------------------------------------
+            setSlotState(tl, 8, { active: false, duration: 0.38 }, 1.85);
+            setSlotState(tl, 9, { active: false, duration: 0.38 }, 1.85);
+            setSlotState(tl, 7, { active: false, duration: 0.38 }, 1.92);
+            setSlotState(tl, 6, { active: false, duration: 0.38 }, 1.92);
+
+            setSlotState(tl, 1, { active: true, image: IMAGES.flower, duration: 0.42 }, 1.90);
+            setSlotState(tl, 2, { active: true, image: IMAGES.stadium, duration: 0.42 }, 1.98);
+            setSlotState(tl, 3, { active: true, image: IMAGES.runner, duration: 0.42 }, 2.06);
+            setSlotState(tl, 4, { active: true, image: IMAGES.water, duration: 0.42 }, 2.14);
+            setSlotState(tl, 5, { active: true, image: IMAGES.stairs, duration: 0.42 }, 2.22);
+
+            // ----------------------------------------------------
+            // PHASE E: Collapse to one image (2.65s - 3.75s)
+            // Collapse remaining tiles until only ONE remains immediately after initial letter 'C':
+            // e(1) swaps to Portrait and holds
+            // ----------------------------------------------------
+            setSlotState(tl, 5, { active: false, duration: 0.38 }, 2.65);
+            setSlotState(tl, 4, { active: false, duration: 0.38 }, 2.72);
+            setSlotState(tl, 3, { active: false, duration: 0.38 }, 2.79);
+            setSlotState(tl, 2, { active: false, duration: 0.38 }, 2.86);
+
+            // e(1) swaps to portrait and holds
+            setSlotState(tl, 1, { active: true, image: IMAGES.portrait, duration: 0.40 }, 2.80);
+
+            // ----------------------------------------------------
+            // PHASE F: Final reset (3.75s - 4.80s)
+            // Remove remaining tile, revealing clean white "Celebrations"
+            // ----------------------------------------------------
+            setSlotState(tl, 1, { active: false, duration: 0.44 }, 3.85);
+
+            // Stationary text hold before loop
+            tl.to({}, { duration: 0.7 }, 4.30);
+
+            masterTimeline = tl;
+        }
+
+        // Initialize once assets are preloaded
+        preloadAssets(IMAGES, () => {
+            buildTimeline();
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('seek')) {
+                masterTimeline.pause();
+                masterTimeline.seek(parseFloat(urlParams.get('seek')));
+            }
+        });
+
+        // Recalculate accurately on resize
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const progress = masterTimeline ? masterTimeline.progress() : 0;
+                buildTimeline();
+                if (masterTimeline) masterTimeline.progress(progress);
+            }, 120);
+        });
+
+        // Interactive controls: Space = pause/play, Click = replay
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (masterTimeline) {
+                    if (masterTimeline.paused()) masterTimeline.play();
+                    else masterTimeline.pause();
+                }
+            }
+        });
+
+        document.querySelector('.hero-stage').addEventListener('click', () => {
+            if (masterTimeline) masterTimeline.restart();
+        });
+    </script>
+</body>
+</html>

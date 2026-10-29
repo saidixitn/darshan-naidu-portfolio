@@ -30,6 +30,8 @@
     { "source": "/for-startups", "destination": "/service/index.html" },
     { "source": "/darshan", "destination": "/darshan/index.html" },
     { "source": "/darshan/", "destination": "/darshan/index.html" },
+    { "source": "/celebrations", "destination": "/celebrations/index.html" },
+    { "source": "/celebrations/", "destination": "/celebrations/index.html" },
     { "source": "/gsap", "destination": "/gsap/index.html" },
     { "source": "/contact", "destination": "/contact-darshan/index.html" },
     { "source": "/contact-darshan", "destination": "/contact-darshan/index.html" },

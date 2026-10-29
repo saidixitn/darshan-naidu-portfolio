@@ -34,13 +34,14 @@
             position: relative;
             user-select: none;
             background-color: #080808;
+            cursor: pointer;
         }
 
         .word-container {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(32px, 5.2vw, 76px);
+            font-size: clamp(34px, 5.4vw, 78px);
             font-weight: 400;
             letter-spacing: -0.02em;
             line-height: 1;
@@ -96,7 +97,6 @@
             border-radius: 20%;
         }
 
-        /* Subtle interactive hints */
         .controls-hint {
             position: absolute;
             bottom: 32px;
@@ -140,40 +140,36 @@
             <span class="char-slot" data-index="11" data-char="u"><span class="char-glyph">u</span><div class="image-tile"><img src="" alt=""></div></span>
         </div>
 
-        <div class="controls-hint">Click to replay • Space to pause</div>
+        <div class="controls-hint">Click to randomize • Space to pause</div>
     </main>
 
     <script>
-        // High-aesthetic photography & portfolio images
-        const IMAGES = {
-            water:     '/assets/images/morph/card_water.png',
-            stairs:    '/assets/images/morph/card_stairs.png',
-            runner:    '/assets/images/morph/card_runner.png',
-            flower:    '/assets/images/morph/card_flower.png',
-            ferry:     '/assets/images/morph/card_ferry.png',
-            tennis:    '/assets/images/morph/card_tennis.png',
-            stadium:   '/assets/images/morph/card_stadium.png',
-            taj:       '/assets/images/work/taj.jpg',
-            hawa:      '/assets/images/work/hawa-mahal.jpg',
-            kolkata:   '/assets/images/work/kolkata.jpg',
-            mind:      '/assets/images/darshan_mind.jpg',
-            portrait:  '/assets/images/darshan.jpeg',
-            basilica:  '/assets/images/68ac19dd1de59151886116ee_basilica_img_2.avif',
-            studio:    '/assets/images/IMG_E1906_Original.jpg'
-        };
+        // Only authentic Darshan photos from /darshan-images
+        const DARSHAN_IMAGES = [
+            '/assets/images/darshan/darshan.jpeg',
+            '/assets/images/darshan/IMG_1499.JPG',
+            '/assets/images/darshan/IMG_2461.JPG',
+            '/assets/images/darshan/IMG_3763.JPG',
+            '/assets/images/darshan/IMG_4192.JPG',
+            '/assets/images/darshan/IMG_4364.jpg',
+            '/assets/images/darshan/IMG_6965.jpg',
+            '/assets/images/darshan/IMG_7845.JPG',
+            '/assets/images/darshan/IMG_8213.jpg',
+            '/assets/images/darshan/IMG_8863-EDIT.jpg',
+            '/assets/images/darshan/IMG_E1906_Original.JPG'
+        ];
 
-        // Preload all photographic assets
+        // Preload all assets to guarantee zero flicker
         function preloadAssets(urls, callback) {
             let loaded = 0;
-            const keys = Object.keys(urls);
-            const total = keys.length;
-            keys.forEach(k => {
+            const total = urls.length;
+            urls.forEach(src => {
                 const img = new Image();
                 img.onload = img.onerror = () => {
                     loaded++;
                     if (loaded >= total) callback();
                 };
-                img.src = urls[k];
+                img.src = src;
             });
         }
 
@@ -196,7 +192,7 @@
                 slot.style.width = `${rect.width}px`;
             });
 
-            // Square tile matches line height
+            // Square squircle tile matches line height
             const sampleSlot = slots[0];
             const sampleRect = sampleSlot.getBoundingClientRect();
             tileDimension = Math.round(sampleRect.height);
@@ -215,10 +211,9 @@
             const ease = config.ease || "power2.out";
 
             if (config.active && config.image) {
-                // Set image source at exact position in timeline
                 tl.set(img, { attr: { src: config.image } }, position);
 
-                // Expand slot and fade out glyph
+                // Slot width expansion
                 tl.to(slot, {
                     width: targetW,
                     marginRight: 4,
@@ -227,6 +222,7 @@
                     ease: ease
                 }, position);
 
+                // Glyph disappears
                 tl.to(glyph, {
                     opacity: 0,
                     scale: 0.15,
@@ -239,6 +235,7 @@
                     height: tileDimension
                 }, position);
 
+                // Card tile pops in
                 tl.to(tile, {
                     opacity: 1,
                     scale: 1,
@@ -247,7 +244,7 @@
                 }, position);
 
             } else {
-                // Revert to typography
+                // Card tile shrinks down
                 tl.to(tile, {
                     opacity: 0,
                     scale: 0.5,
@@ -255,6 +252,7 @@
                     ease: "power2.in"
                 }, position);
 
+                // Slot contracts to natural width
                 tl.to(slot, {
                     width: targetW,
                     marginRight: 0,
@@ -263,6 +261,7 @@
                     ease: ease
                 }, position);
 
+                // Glyph fades and scales back in
                 tl.to(glyph, {
                     opacity: 1,
                     scale: 1,
@@ -272,8 +271,8 @@
             }
         }
 
-        // Micro image-swap on an already active card
-        function swapSlotImage(tl, index, newImage, position, duration = 0.32) {
+        // Micro image-swap pop on active card
+        function swapSlotImage(tl, index, newImage, position, duration = 0.30) {
             const slot = slots[index];
             const tile = slot.querySelector('.image-tile');
             const img = tile.querySelector('img');
@@ -293,10 +292,20 @@
             }, position + (duration * 0.5));
         }
 
-        // Build the relaxed, editorial timeline for "Darshan Naidu":
+        // Utility: shuffle an array
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        // Build 1-at-a-time random timeline across "Darshan Naidu":
         // D(0), a(1), r(2), s(3), h(4), a(5), n(6)  [space]  N(7), a(8), i(9), d(10), u(11)
-        // Strictly max 1 to 2 letters active at any time, never 4 or 5!
-        function buildTimeline() {
+        // STRICTLY 1 LETTER AT A TIME. NEVER TWO SIMULTANEOUSLY!
+        function buildTimeline(seedLetters = null) {
             if (masterTimeline) {
                 masterTimeline.kill();
             }
@@ -306,10 +315,14 @@
             const tl = gsap.timeline({
                 repeat: -1,
                 repeatDelay: 1.6,
-                defaults: { ease: "power2.out" }
+                defaults: { ease: "power2.out" },
+                onRepeat: () => {
+                    // Re-randomize sequence on each loop for continuous organic variety
+                    buildTimeline();
+                }
             });
 
-            // 0.00s - 0.50s: Clean Opening (Stationary white Darshan Naidu on #080808)
+            // 0.00s - 0.45s: Clean Opening (Stationary white Darshan Naidu on #080808)
             slots.forEach((slot, idx) => {
                 const glyph = slot.querySelector('.char-glyph');
                 const tile = slot.querySelector('.image-tile');
@@ -318,62 +331,72 @@
                 tl.set(tile, { opacity: 0, scale: 0.6 }, 0);
             });
 
-            // ----------------------------------------------------
-            // Beat 1 (0.50s - 1.45s): 1 letter opens (i in Naidu, index 9)
-            // ----------------------------------------------------
-            setSlotState(tl, 9, { active: true, image: IMAGES.water, duration: 0.46 }, 0.50);
+            // Available indices: 0 through 11
+            const allIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+            
+            // Choose a sequence of 6 distinct letters jumping across both words
+            let letterSequence;
+            if (seedLetters && Array.isArray(seedLetters)) {
+                letterSequence = seedLetters;
+            } else {
+                // Ensure balanced spread between first name (0-6) and last name (7-11)
+                const firstPart = shuffleArray([0, 1, 2, 3, 4, 5, 6]);
+                const secondPart = shuffleArray([7, 8, 9, 10, 11]);
+                letterSequence = [
+                    secondPart[0], // e.g. letter in Naidu
+                    firstPart[0],  // e.g. letter in Darshan
+                    secondPart[1], // e.g. letter in Naidu
+                    firstPart[1],  // e.g. letter in Darshan
+                    secondPart[2], // e.g. letter in Naidu
+                    firstPart[2]   // e.g. letter in Darshan
+                ];
+            }
 
-            // ----------------------------------------------------
-            // Beat 2 (1.45s - 2.50s): 2 letters across both words
-            // i resolves; r (index 2) & d (index 10) bloom
-            // ----------------------------------------------------
-            setSlotState(tl, 9, { active: false, duration: 0.40 }, 1.45);
-            setSlotState(tl, 2, { active: true, image: IMAGES.taj, duration: 0.46 }, 1.50);
-            setSlotState(tl, 10, { active: true, image: IMAGES.stairs, duration: 0.46 }, 1.58);
+            const shuffledImages = shuffleArray(DARSHAN_IMAGES);
+            let timeCursor = 0.50;
 
-            // ----------------------------------------------------
-            // Beat 3 (2.50s - 3.55s): 1 letter with dynamic photo swap
-            // r and d resolve; a (index 5) blooms into flower, then pops to runner
-            // ----------------------------------------------------
-            setSlotState(tl, 10, { active: false, duration: 0.38 }, 2.50);
-            setSlotState(tl, 2, { active: false, duration: 0.38 }, 2.52);
-            setSlotState(tl, 5, { active: true, image: IMAGES.flower, duration: 0.44 }, 2.56);
-            swapSlotImage(tl, 5, IMAGES.runner, 3.00, 0.30);
+            letterSequence.forEach((slotIdx, step) => {
+                const img1 = shuffledImages[(step * 2) % shuffledImages.length];
+                const img2 = (step === 2 || step === 5) ? shuffledImages[(step * 2 + 1) % shuffledImages.length] : null;
 
-            // ----------------------------------------------------
-            // Beat 4 (3.55s - 4.60s): 2 letters flanking the space
-            // a resolves; h (index 4) & N (index 7) bloom into hawa & mind
-            // ----------------------------------------------------
-            setSlotState(tl, 5, { active: false, duration: 0.40 }, 3.55);
-            setSlotState(tl, 4, { active: true, image: IMAGES.hawa, duration: 0.46 }, 3.60);
-            setSlotState(tl, 7, { active: true, image: IMAGES.mind, duration: 0.46 }, 3.68);
+                const openDur = 0.44;
+                const closeDur = 0.40;
 
-            // ----------------------------------------------------
-            // Beat 5 (4.60s - 5.65s): 1 letter solo spotlight
-            // h and N resolve; s (index 3) blooms into Darshan's portrait
-            // ----------------------------------------------------
-            setSlotState(tl, 4, { active: false, duration: 0.40 }, 4.60);
-            setSlotState(tl, 7, { active: false, duration: 0.40 }, 4.60);
-            setSlotState(tl, 3, { active: true, image: IMAGES.portrait, duration: 0.48 }, 4.65);
+                // 1. Open letter into card
+                setSlotState(tl, slotIdx, { active: true, image: img1, duration: openDur }, timeCursor);
+                timeCursor += openDur;
 
-            // ----------------------------------------------------
-            // Beat 6 (5.65s - 6.25s): Soft resolve to clean white text
-            // ----------------------------------------------------
-            setSlotState(tl, 3, { active: false, duration: 0.44 }, 5.65);
+                // 2. Hold or micro-swap photo
+                if (img2) {
+                    timeCursor += 0.15;
+                    swapSlotImage(tl, slotIdx, img2, timeCursor, 0.30);
+                    timeCursor += 0.35;
+                } else {
+                    timeCursor += 0.45;
+                }
 
-            // 6.25s - 7.80s: Resting hold of complete white word before repeat
-            tl.to({}, { duration: 1.55 }, 6.25);
+                // 3. Close back to typography (strictly before next letter can open!)
+                setSlotState(tl, slotIdx, { active: false, duration: closeDur }, timeCursor);
+                timeCursor += closeDur + 0.12; // Small breathing gap before next letter starts
+            });
+
+            // Resting state of stationary white text before loop repeats
+            tl.to({}, { duration: 1.4 }, timeCursor);
 
             masterTimeline = tl;
+            return tl;
         }
 
-        // Initialize once assets are preloaded
-        preloadAssets(IMAGES, () => {
-            buildTimeline();
+        // Initialize once all Darshan photos are preloaded
+        preloadAssets(DARSHAN_IMAGES, () => {
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('seek')) {
+                // Fixed seed for deterministic test captures
+                buildTimeline([9, 2, 10, 4, 7, 3]);
                 masterTimeline.pause();
                 masterTimeline.seek(parseFloat(urlParams.get('seek')));
+            } else {
+                buildTimeline();
             }
         });
 
@@ -388,7 +411,7 @@
             }, 120);
         });
 
-        // Keyboard & click controls: Space = pause/play, Click = replay
+        // Click to generate a brand new random sequence; Space to pause/play
         window.addEventListener('keydown', (e) => {
             if (e.code === 'Space') {
                 e.preventDefault();
@@ -400,7 +423,7 @@
         });
 
         document.querySelector('.hero-stage').addEventListener('click', () => {
-            if (masterTimeline) masterTimeline.restart();
+            buildTimeline();
         });
     </script>
 </body>

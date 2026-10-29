@@ -3,38 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darshan Naidu — Kinetic Letter Morph & Visual Motion</title>
-    <meta name="description" content="Interactive Apple-inspired letter-to-image morph animation for Darshan Naidu, featuring video and photography swaps powered by GSAP.">
+    <title>Darshan — Kinetic Morph Animation</title>
+    <meta name="description" content="Apple-style letter-to-image morph animation for Darshan, featuring smooth fluid physics, sequential letter transformations, and curated visual direction.">
     <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
             background-color: #000000;
             color: #ffffff;
-            overflow-x: hidden;
+            overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Apple-style spring ease */
+        /* Apple-style spring easing */
         .char-slot {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: width 0.48s cubic-bezier(0.25, 1, 0.5, 1),
-                        height 0.48s cubic-bezier(0.25, 1, 0.5, 1),
-                        margin 0.48s cubic-bezier(0.25, 1, 0.5, 1),
-                        transform 0.48s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: width 0.46s cubic-bezier(0.25, 1, 0.5, 1),
+                        height 0.46s cubic-bezier(0.25, 1, 0.5, 1),
+                        margin 0.46s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 0.46s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             cursor: pointer;
+            vertical-align: middle;
         }
 
         .char-text {
-            transition: opacity 0.32s ease, transform 0.42s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.28s ease, transform 0.38s cubic-bezier(0.25, 1, 0.5, 1);
             display: inline-block;
             user-select: none;
+            line-height: 1;
         }
 
         .char-image {
@@ -45,20 +46,29 @@
             opacity: 0;
             border-radius: 22%;
             overflow: hidden;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.12);
-            transition: opacity 0.38s ease,
-                        transform 0.48s cubic-bezier(0.25, 1, 0.5, 1),
-                        width 0.48s cubic-bezier(0.25, 1, 0.5, 1),
-                        height 0.48s cubic-bezier(0.25, 1, 0.5, 1),
-                        box-shadow 0.48s ease;
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.85);
+            transition: opacity 0.32s ease,
+                        transform 0.46s cubic-bezier(0.25, 1, 0.5, 1),
+                        width 0.46s cubic-bezier(0.25, 1, 0.5, 1),
+                        height 0.46s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: none;
-            background-color: #111111;
+            background-color: #000000;
+            z-index: 5;
         }
 
-        /* Active State when letter becomes photo/video card */
+        .char-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 22%;
+        }
+
+        /* Active State when letter becomes photo card */
         .char-slot.is-card .char-text {
             opacity: 0 !important;
-            transform: scale(0);
+            visibility: hidden !important;
+            transform: scale(0) !important;
             pointer-events: none;
         }
 
@@ -68,25 +78,19 @@
         }
 
         .char-slot.is-card:hover .char-image {
-            transform: translate(-50%, -50%) scale(1.08);
-            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.95), 0 0 0 1.5px rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%) scale(1.06);
             z-index: 10;
         }
 
         .glass-panel {
-            background: rgba(25, 25, 28, 0.72);
+            background: rgba(28, 28, 30, 0.78);
             backdrop-filter: blur(28px);
             -webkit-backdrop-filter: blur(28px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
         }
 
-        /* Glow effects */
-        .glow-subtle {
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
-        }
-
-        /* Custom range slider thumb styling */
+        /* Scrubber styling */
         input[type="range"]::-webkit-slider-thumb {
             appearance: none;
             width: 14px;
@@ -94,267 +98,289 @@
             border-radius: 50%;
             background: #ffffff;
             cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.6);
             transition: transform 0.15s ease;
         }
         input[type="range"]::-webkit-slider-thumb:hover {
             transform: scale(1.3);
         }
-
-        /* Subtle grid background */
-        .bg-grid {
-            background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        }
     </style>
 </head>
-<body class="w-screen h-screen flex flex-col justify-between select-none m-0 p-0 bg-black text-white bg-grid relative overflow-hidden">
+<body class="w-screen h-screen flex flex-col items-center justify-between select-none m-0 p-0 bg-black text-white relative">
 
-    <!-- Top Navigation Bar -->
-    <header class="w-full px-6 py-5 flex items-center justify-between z-30 border-b border-white/5 bg-black/40 backdrop-blur-md">
-        <a href="/" class="flex items-center gap-3 group">
-            <span class="font-bold tracking-tight text-lg text-white group-hover:text-neutral-300 transition">DARSHAN NAIDU</span>
-            <span class="text-xs uppercase tracking-widest text-neutral-500 font-mono hidden sm:inline-block">/ Visual Motion</span>
+    <!-- Top Navigation -->
+    <header class="w-full px-8 py-5 flex items-center justify-between z-30">
+        <a href="/" class="flex items-center gap-2 group text-neutral-400 hover:text-white transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            <span class="font-medium text-xs tracking-wider uppercase font-mono">Back to Portfolio</span>
         </a>
 
-        <nav class="flex items-center gap-6 text-sm font-medium">
-            <a href="/" class="text-neutral-400 hover:text-white transition">Home</a>
-            <a href="/work" class="text-neutral-400 hover:text-white transition hidden sm:inline-block">Work</a>
-            <a href="/about-me" class="text-neutral-400 hover:text-white transition">About</a>
-            <a href="/darshan" class="text-white border-b border-white pb-0.5 font-semibold">Morph Lab</a>
-            <a href="/contact" class="text-neutral-400 hover:text-white transition hidden md:inline-block">Contact</a>
-            
-            <div class="hidden lg:flex items-center gap-2 pl-4 border-l border-white/10 text-xs text-neutral-400">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Interactive GSAP</span>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Main Display Stage -->
-    <main class="relative flex-1 w-full flex flex-col items-center justify-center px-4 overflow-hidden">
-        
-        <!-- Context Tagline -->
-        <div class="text-center mb-6 z-10 transition-opacity duration-300" id="stage-caption">
-            <p class="text-xs md:text-sm uppercase tracking-[0.25em] text-neutral-400 font-mono mb-2">
-                Apple-Style Spring Morph &amp; Visual Direction
-            </p>
-            <h1 class="text-neutral-500 text-xs sm:text-sm font-light max-w-md mx-auto">
-                Letters transform into authentic visual craft, video memories, and design works.
-            </h1>
+        <!-- Pattern Mode Pills -->
+        <div class="flex items-center gap-1.5 glass-panel p-1 rounded-full text-xs">
+            <button id="mode-seq" onclick="setPatternMode('sequential')" class="px-3.5 py-1 rounded-full transition font-medium bg-white text-black">
+                1 by 1 (Sequential)
+            </button>
+            <button id="mode-wave" onclick="setPatternMode('wave')" class="px-3.5 py-1 rounded-full transition font-medium text-neutral-400 hover:text-white">
+                Video Pattern (Wave)
+            </button>
         </div>
 
-        <!-- Animated "DARSHAN" Container -->
-        <div id="word-container" class="flex items-center justify-center text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter whitespace-nowrap leading-none glow-subtle">
+        <!-- Image Set Toggle -->
+        <div class="flex items-center gap-2 text-xs">
+            <button id="theme-btn" onclick="toggleImageSet()" class="glass-panel px-3.5 py-1.5 rounded-full text-neutral-300 hover:text-white transition flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span id="theme-label">Visual Set: Apple Aesthetic</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Display Stage (Dead-Center Just Like the Reference Video) -->
+    <main class="relative flex-1 w-full flex items-center justify-center px-4 overflow-hidden">
+        
+        <!-- Animated Word Container -->
+        <div id="word-container" class="flex items-center justify-center text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-semibold tracking-tight whitespace-nowrap leading-none select-none">
             
             <!-- D (index 0) -->
-            <div class="char-slot" data-char="D" data-index="0" title="Darshan Visionary Portrait">
+            <div class="char-slot" data-char="D" data-index="0">
                 <span class="char-text">D</span>
                 <div class="char-image"></div>
             </div>
 
             <!-- a (index 1) -->
-            <div class="char-slot" data-char="a" data-index="1" title="Taj Mahal Visual Design">
+            <div class="char-slot" data-char="a" data-index="1">
                 <span class="char-text">a</span>
                 <div class="char-image"></div>
             </div>
 
             <!-- r (index 2) -->
-            <div class="char-slot" data-char="r" data-index="2" title="Video Clip 093">
+            <div class="char-slot" data-char="r" data-index="2">
                 <span class="char-text">r</span>
                 <div class="char-image"></div>
             </div>
 
             <!-- s (index 3) -->
-            <div class="char-slot" data-char="s" data-index="3" title="Darshan Creative">
+            <div class="char-slot" data-char="s" data-index="3">
                 <span class="char-text">s</span>
                 <div class="char-image"></div>
             </div>
 
             <!-- h (index 4) -->
-            <div class="char-slot" data-char="h" data-index="4" title="Hawa Mahal Architectural Visual">
+            <div class="char-slot" data-char="h" data-index="4">
                 <span class="char-text">h</span>
                 <div class="char-image"></div>
             </div>
 
             <!-- a (index 5) -->
-            <div class="char-slot" data-char="a" data-index="5" title="Kolkata Cultural Craft">
+            <div class="char-slot" data-char="a" data-index="5">
                 <span class="char-text">a</span>
                 <div class="char-image"></div>
             </div>
 
             <!-- n (index 6) -->
-            <div class="char-slot" data-char="n" data-index="6" title="Darshan Profile">
+            <div class="char-slot" data-char="n" data-index="6">
                 <span class="char-text">n</span>
                 <div class="char-image"></div>
             </div>
 
         </div>
 
-        <!-- Interactive Hint / Click helper -->
-        <div class="mt-8 text-neutral-500 text-xs font-mono tracking-wider flex items-center gap-3 z-10">
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-white/40"></span>
-            <span>Click any letter to toggle &bull; Drag slider or use controls below</span>
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-white/40"></span>
-        </div>
-
     </main>
 
-    <!-- Interactive Timebar & Controls -->
+    <!-- Interactive Timebar & Controls (Apple Celebrations Style) -->
     <footer class="w-full max-w-2xl px-6 pb-8 pt-2 flex flex-col gap-4 z-20 mx-auto">
         
         <!-- Scrubber Progress Bar -->
         <div class="flex items-center gap-4">
-            <span id="time-display" class="font-mono text-xs text-neutral-400 w-14 text-right">00:00</span>
-            <input type="range" id="scrubber" min="0" max="6000" value="0" step="10" 
+            <span id="time-display" class="font-mono text-xs text-neutral-400 w-12 text-right">00:00</span>
+            <input type="range" id="scrubber" min="0" max="5000" value="0" step="10" 
                    class="w-full h-1.5 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-white hover:bg-neutral-700 transition-colors">
-            <span class="font-mono text-xs text-neutral-500 w-14">00:06</span>
+            <span id="total-time-display" class="font-mono text-xs text-neutral-500 w-12">00:05</span>
         </div>
 
         <!-- Controls Bar -->
-        <div class="flex items-center justify-between glass-panel px-5 py-3 rounded-full">
+        <div class="flex items-center justify-between glass-panel px-6 py-3 rounded-full">
             
-            <div class="flex items-center gap-1 sm:gap-2">
+            <div class="flex items-center gap-2">
                 <!-- Play / Pause -->
                 <button id="play-btn" onclick="togglePlay()" class="p-2 text-white hover:text-neutral-300 transition" title="Play / Pause">
                     <svg id="play-icon" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     <svg id="pause-icon" class="w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                 </button>
                 <!-- Step Back -->
-                <button onclick="stepFrame(-1000)" class="p-2 text-neutral-400 hover:text-white transition" title="Previous Phase">
+                <button onclick="stepFrame(-600)" class="p-2 text-neutral-400 hover:text-white transition" title="Previous Frame">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
                 </button>
                 <!-- Step Forward -->
-                <button onclick="stepFrame(1000)" class="p-2 text-neutral-400 hover:text-white transition" title="Next Phase">
+                <button onclick="stepFrame(600)" class="p-2 text-neutral-400 hover:text-white transition" title="Next Frame">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
                 </button>
             </div>
 
             <!-- Current Active Phase Indicator -->
-            <div id="phase-badge" class="text-xs font-semibold tracking-wider text-neutral-200 bg-white/10 px-3 py-1.5 rounded-full uppercase truncate max-w-[200px] sm:max-w-xs text-center border border-white/10">
-                Phase 1: D &amp; N (Frame)
+            <div id="phase-badge" class="text-xs font-medium tracking-wider text-neutral-200 bg-white/10 px-3.5 py-1.5 rounded-full uppercase truncate max-w-[220px] text-center border border-white/10">
+                1 by 1: Letter D
             </div>
 
-            <div class="flex items-center gap-2">
-                <!-- Loop Toggle -->
-                <button id="loop-toggle" onclick="toggleLoop()" class="text-xs font-medium text-white bg-white/20 px-3 py-1.5 rounded-full hover:bg-white/30 transition">
-                    Loop: ON
-                </button>
-            </div>
+            <!-- Loop Toggle -->
+            <button id="loop-toggle" onclick="toggleLoop()" class="text-xs font-medium text-white bg-white/20 px-3.5 py-1.5 rounded-full hover:bg-white/30 transition">
+                Loop: ON
+            </button>
         </div>
     </footer>
 
-    <!-- Video & Image Media Templates & Animation Logic -->
+    <!-- Video & Vector Visual Assets & Fluid Choreography -->
     <script>
-        // High Quality Media Assets mapped for Darshan
-        const MEDIA_ASSETS = {
-            // 1. Darshan thoughtful visionary portrait
-            darshan_mind: `<img src="/assets/images/darshan_mind.jpg" alt="Darshan" class="w-full h-full object-cover">`,
-
-            // 2. Taj Mahal visual artwork
-            taj: `<img src="/assets/images/work/taj.jpg" alt="Taj Mahal" class="w-full h-full object-cover">`,
-
-            // 3. User Uploaded Video 093 (MP4 with smooth looping and muted inline play)
-            video_093: `<video src="/assets/videos/093.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video>`,
-
-            // 4. Creative Portrait
-            darshan_creative: `<img src="/assets/images/IMG_E1906_Original.jpg" alt="Darshan Creative" class="w-full h-full object-cover">`,
-
-            // 5. Hawa Mahal poster design
-            hawa_mahal: `<img src="/assets/images/work/hawa-mahal.jpg" alt="Hawa Mahal" class="w-full h-full object-cover">`,
-
-            // 6. Kolkata cultural visual design
-            kolkata: `<img src="/assets/images/work/kolkata.jpg" alt="Kolkata" class="w-full h-full object-cover">`,
-
-            // 7. Darshan portrait
-            darshan_portrait: `<img src="/assets/images/darshan.jpeg" alt="Darshan Naidu" class="w-full h-full object-cover">`,
-
-            // Alternate dynamic media for swaps:
-            video_flashbacks: `<video src="/assets/videos/flashbacks.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video>`,
-            motion_gif: `<img src="/assets/images/680806a6fe42f1c31342a791_project_teaser_img_1.gif" alt="Motion Graphic" class="w-full h-full object-cover">`,
-            basilica: `<img src="/assets/images/68ac19dd1de59151886116ee_basilica_img_2.avif" alt="Basilica" class="w-full h-full object-cover">`
+        // Set 1: Exact High-Contrast Aesthetic Images extracted from the Reference Video
+        const ASSETS_VIDEO = {
+            portrait: `<img src="/assets/images/morph/card_portrait.png" alt="Portrait">`,
+            flower: `<img src="/assets/images/morph/card_flower.png" alt="Botanical Flower">`,
+            stadium: `<img src="/assets/images/morph/card_stadium.png" alt="Stadium">`,
+            runner: `<img src="/assets/images/morph/card_runner.png" alt="Runner on Track">`,
+            water: `<img src="/assets/images/morph/card_water.png" alt="Crystal Water">`,
+            stairs: `<img src="/assets/images/morph/card_stairs.png" alt="Yellow Stairs">`,
+            ferry: `<img src="/assets/images/morph/card_ferry.png" alt="Ferry Ocean">`,
+            tennis: `<img src="/assets/images/morph/card_tennis.png" alt="Tennis Court">`
         };
 
-        // Frame timeline mapped to character slots (0 to 6):
-        // 0:D, 1:a, 2:r, 3:s, 4:h, 5:a, 6:n
-        const TIMELINE = [
-            {
-                time: 0,
-                phase: "00:00 - 00:01",
-                badge: "Phase 1: D & N (Frame)",
-                active: {
-                    0: MEDIA_ASSETS.darshan_mind,     // D -> Visionary Portrait
-                    6: MEDIA_ASSETS.darshan_portrait  // n -> Profile
+        // Set 2: Darshan Creative Portfolio Works & Portraits
+        const ASSETS_PORTFOLIO = {
+            portrait: `<img src="/assets/images/darshan_mind.jpg" alt="Darshan Mind">`,
+            flower: `<img src="/assets/images/work/taj.jpg" alt="Taj Mahal Craft">`,
+            stadium: `<img src="/assets/images/IMG_E1906_Original.jpg" alt="Darshan Studio">`,
+            runner: `<img src="/assets/images/work/hawa-mahal.jpg" alt="Hawa Mahal Design">`,
+            water: `<img src="/assets/images/68ac19dd1de59151886116ee_basilica_img_2.avif" alt="Basilica">`,
+            stairs: `<img src="/assets/images/work/kolkata.jpg" alt="Kolkata Visual">`,
+            ferry: `<img src="/assets/images/680806a6fe42f1c31342a791_project_teaser_img_1.gif" alt="Motion Graphic">`,
+            tennis: `<img src="/assets/images/darshan.jpeg" alt="Darshan Profile">`
+        };
+
+        let currentImageSet = 'video'; // 'video' or 'portfolio'
+        function getAssets() {
+            return currentImageSet === 'video' ? ASSETS_VIDEO : ASSETS_PORTFOLIO;
+        }
+
+        // PATTERN 1: 1 Letter 1 Time (Smooth Sequential Wave across D - a - r - s - h - a - n)
+        // Exactly what user asked: "1 letter 1 one time and some good pattern"
+        function getSequentialTimeline() {
+            const A = getAssets();
+            return [
+                {
+                    time: 0,
+                    badge: "Letter 1: D",
+                    active: { 0: A.portrait }
+                },
+                {
+                    time: 650,
+                    badge: "Letter 2: a",
+                    active: { 1: A.flower }
+                },
+                {
+                    time: 1300,
+                    badge: "Letter 3: r",
+                    active: { 2: A.runner }
+                },
+                {
+                    time: 1950,
+                    badge: "Letter 4: s",
+                    active: { 3: A.water }
+                },
+                {
+                    time: 2600,
+                    badge: "Letter 5: h",
+                    active: { 4: A.stairs }
+                },
+                {
+                    time: 3250,
+                    badge: "Letter 6: a",
+                    active: { 5: A.ferry }
+                },
+                {
+                    time: 3900,
+                    badge: "Letter 7: n",
+                    active: { 6: A.tennis }
+                },
+                {
+                    time: 4600,
+                    badge: "Resolved: Darshan",
+                    active: {} // Reverts smoothly to typography
                 }
-            },
-            {
-                time: 1200,
-                phase: "00:01 - 00:02.4",
-                badge: "Phase 2: R in Motion (093 Video)",
-                active: {
-                    2: MEDIA_ASSETS.video_093,        // r -> 093 Video
-                    3: MEDIA_ASSETS.darshan_creative  // s -> Creative photo
+            ];
+        }
+
+        // PATTERN 2: Video Pattern (Shifting Wave from the 150-frame reference video)
+        // Frame analysis: pair -> 5 cards -> shift left trio -> solo card -> resolve
+        function getWaveTimeline() {
+            const A = getAssets();
+            return [
+                {
+                    time: 0,
+                    badge: "Phase 1: i, o (Center Pair)",
+                    active: {
+                        3: A.ferry,   // s -> Ferry
+                        4: A.tennis   // h -> Tennis
+                    }
+                },
+                {
+                    time: 1100,
+                    badge: "Phase 2: r, a, t, i, o (Five Center Cards)",
+                    active: {
+                        1: A.runner,  // a -> Runner
+                        2: A.water,   // r -> Water
+                        3: A.stairs,  // s -> Yellow Stairs
+                        4: A.ferry,   // h -> Ferry
+                        5: A.tennis   // a -> Tennis
+                    }
+                },
+                {
+                    time: 2300,
+                    badge: "Phase 3: e, l, e (Left Shift Trio)",
+                    active: {
+                        0: A.portrait,// D -> Portrait
+                        1: A.flower,  // a -> Flower
+                        2: A.stadium  // r -> Stadium
+                    }
+                },
+                {
+                    time: 3500,
+                    badge: "Phase 4: Solo Card D",
+                    active: {
+                        0: A.portrait // D -> Portrait
+                    }
+                },
+                {
+                    time: 4400,
+                    badge: "Phase 5: Resolved",
+                    active: {} // Reverts cleanly to Darshan text
                 }
-            },
-            {
-                time: 2500,
-                phase: "00:02.5 - 00:04",
-                badge: "Phase 3: Visual Craft (A, R, H, A)",
-                active: {
-                    1: MEDIA_ASSETS.taj,              // a -> Taj Mahal
-                    2: MEDIA_ASSETS.video_093,        // r -> 093 Video
-                    4: MEDIA_ASSETS.hawa_mahal,       // h -> Hawa Mahal
-                    5: MEDIA_ASSETS.kolkata           // a -> Kolkata
-                }
-            },
-            {
-                time: 4000,
-                phase: "00:04 - 00:05.2",
-                badge: "Phase 4: Full Symphony (All 7 Cards)",
-                active: {
-                    0: MEDIA_ASSETS.darshan_mind,     // D
-                    1: MEDIA_ASSETS.taj,              // a
-                    2: MEDIA_ASSETS.video_093,        // r
-                    3: MEDIA_ASSETS.darshan_creative, // s
-                    4: MEDIA_ASSETS.hawa_mahal,       // h
-                    5: MEDIA_ASSETS.kolkata,          // a
-                    6: MEDIA_ASSETS.darshan_portrait  // n
-                }
-            },
-            {
-                time: 5400,
-                phase: "00:05.4 - 00:06",
-                badge: "Phase 5: Kinetic Return",
-                active: {} // Smoothly collapses back to pristine typography
-            }
-        ];
+            ];
+        }
+
+        let patternMode = 'sequential'; // 'sequential' or 'wave'
+        let TIMELINE = getSequentialTimeline();
+        let totalDuration = 5200; // 5.2 seconds
 
         // Player State
         let currentTime = 0;
         let isPlaying = true;
         let isLooping = true;
         let lastTimestamp = null;
-        const totalDuration = 6000; // 6 seconds loop
         const slots = document.querySelectorAll('.char-slot');
 
-        // Dynamic dimension calculations tailored for 7 letters
+        // Apple Pro Card Sizing: smooth, proportionate to viewport
         function calculateCardSize() {
             const w = window.innerWidth;
-            if (w < 480) return { size: 44, fontWidth: '0.62em', margin: '0 2px' };
-            if (w < 640) return { size: 60, fontWidth: '0.65em', margin: '0 3px' };
-            if (w < 768) return { size: 84, fontWidth: '0.65em', margin: '0 4px' };
-            if (w < 1024) return { size: 110, fontWidth: '0.65em', margin: '0 6px' };
-            if (w < 1280) return { size: 130, fontWidth: '0.65em', margin: '0 8px' };
-            return { size: 150, fontWidth: '0.65em', margin: '0 10px' };
+            if (w < 480) return { size: 52, fontWidth: '0.62em', margin: '0 2px' };
+            if (w < 640) return { size: 68, fontWidth: '0.65em', margin: '0 3px' };
+            if (w < 768) return { size: 88, fontWidth: '0.65em', margin: '0 4px' };
+            if (w < 1024) return { size: 108, fontWidth: '0.65em', margin: '0 5px' };
+            if (w < 1280) return { size: 124, fontWidth: '0.65em', margin: '0 6px' };
+            return { size: 136, fontWidth: '0.65em', margin: '0 8px' };
         }
 
-        // Cache currently rendered media to prevent unnecessary reloads of video/img
-        const currentSlotMedia = {};
+        const currentSlotContent = {};
 
         function updateScene(timeMs) {
-            // Find appropriate frame configuration based on current scrub time
+            // Find current frame in TIMELINE
             let currentFrame = TIMELINE[0];
             for (let i = TIMELINE.length - 1; i >= 0; i--) {
                 if (timeMs >= TIMELINE[i].time) {
@@ -368,9 +394,9 @@
             slots.forEach((slot) => {
                 const idx = parseInt(slot.dataset.index, 10);
                 const imgContainer = slot.querySelector('.char-image');
-                const mediaHTML = currentFrame.active[idx];
+                const imageHTML = currentFrame.active[idx];
 
-                if (mediaHTML) {
+                if (imageHTML) {
                     slot.classList.add('is-card');
                     slot.style.width = `${cardConfig.size}px`;
                     slot.style.height = `${cardConfig.size}px`;
@@ -379,32 +405,25 @@
                     imgContainer.style.width = `${cardConfig.size}px`;
                     imgContainer.style.height = `${cardConfig.size}px`;
 
-                    // Only update innerHTML if media actually changed to avoid video restarting
-                    if (currentSlotMedia[idx] !== mediaHTML) {
-                        imgContainer.innerHTML = mediaHTML;
-                        currentSlotMedia[idx] = mediaHTML;
-                        
-                        // If it's a video, ensure it plays
-                        const vid = imgContainer.querySelector('video');
-                        if (vid) {
-                            vid.play().catch(() => {});
-                        }
+                    if (currentSlotContent[idx] !== imageHTML) {
+                        imgContainer.innerHTML = imageHTML;
+                        currentSlotContent[idx] = imageHTML;
                     }
                 } else {
                     slot.classList.remove('is-card');
                     slot.style.width = cardConfig.fontWidth;
                     slot.style.height = 'auto';
                     slot.style.margin = '0';
-                    currentSlotMedia[idx] = null;
+                    currentSlotContent[idx] = null;
                 }
             });
 
-            // Update UI Indicators
+            // Update UI
             const scrubber = document.getElementById('scrubber');
             if (document.activeElement !== scrubber) {
                 scrubber.value = timeMs;
             }
-            document.getElementById('phase-badge').innerHTML = currentFrame.badge;
+            document.getElementById('phase-badge').innerText = currentFrame.badge;
             
             const seconds = Math.floor(timeMs / 1000);
             const millis = Math.floor((timeMs % 1000) / 10);
@@ -455,7 +474,7 @@
             isLooping = !isLooping;
             const btn = document.getElementById('loop-toggle');
             btn.innerText = `Loop: ${isLooping ? 'ON' : 'OFF'}`;
-            btn.className = `text-xs font-medium px-3 py-1.5 rounded-full transition ${isLooping ? 'text-white bg-white/20' : 'text-neutral-400 bg-white/5'}`;
+            btn.className = `text-xs font-medium px-3.5 py-1.5 rounded-full transition ${isLooping ? 'text-white bg-white/20' : 'text-neutral-400 bg-white/5'}`;
         }
 
         function stepFrame(deltaMs) {
@@ -464,7 +483,45 @@
             updateScene(currentTime);
         }
 
-        // Manual click to toggle individual letter morph
+        function setPatternMode(mode) {
+            patternMode = mode;
+            const btnSeq = document.getElementById('mode-seq');
+            const btnWave = document.getElementById('mode-wave');
+
+            if (mode === 'sequential') {
+                TIMELINE = getSequentialTimeline();
+                totalDuration = 5200;
+                btnSeq.className = "px-3.5 py-1 rounded-full transition font-medium bg-white text-black";
+                btnWave.className = "px-3.5 py-1 rounded-full transition font-medium text-neutral-400 hover:text-white";
+            } else {
+                TIMELINE = getWaveTimeline();
+                totalDuration = 5000;
+                btnWave.className = "px-3.5 py-1 rounded-full transition font-medium bg-white text-black";
+                btnSeq.className = "px-3.5 py-1 rounded-full transition font-medium text-neutral-400 hover:text-white";
+            }
+
+            document.getElementById('scrubber').max = totalDuration;
+            document.getElementById('total-time-display').innerText = `00:0${Math.floor(totalDuration/1000)}`;
+            currentTime = 0;
+            updateScene(0);
+            play();
+        }
+
+        function toggleImageSet() {
+            currentImageSet = currentImageSet === 'video' ? 'portfolio' : 'video';
+            const label = document.getElementById('theme-label');
+            label.innerText = currentImageSet === 'video' ? 'Visual Set: Apple Aesthetic' : 'Visual Set: Darshan Portfolio';
+            
+            // Refresh current timeline
+            if (patternMode === 'sequential') TIMELINE = getSequentialTimeline();
+            else TIMELINE = getWaveTimeline();
+
+            // Clear cache so images re-render immediately
+            for (let k in currentSlotContent) currentSlotContent[k] = null;
+            updateScene(currentTime);
+        }
+
+        // Direct letter click interaction
         slots.forEach((slot) => {
             slot.addEventListener('click', () => {
                 pause();
@@ -472,22 +529,17 @@
                 const isCurrentlyCard = slot.classList.contains('is-card');
                 const cardConfig = calculateCardSize();
                 const imgContainer = slot.querySelector('.char-image');
+                const A = getAssets();
 
                 if (isCurrentlyCard) {
                     slot.classList.remove('is-card');
                     slot.style.width = cardConfig.fontWidth;
                     slot.style.height = 'auto';
                     slot.style.margin = '0';
-                    currentSlotMedia[idx] = null;
+                    currentSlotContent[idx] = null;
                 } else {
-                    const fallbackMedia = [
-                        MEDIA_ASSETS.darshan_mind,
-                        MEDIA_ASSETS.taj,
-                        MEDIA_ASSETS.video_093,
-                        MEDIA_ASSETS.darshan_creative,
-                        MEDIA_ASSETS.hawa_mahal,
-                        MEDIA_ASSETS.kolkata,
-                        MEDIA_ASSETS.darshan_portrait
+                    const chosenImage = [
+                        A.portrait, A.flower, A.runner, A.water, A.stairs, A.ferry, A.tennis
                     ][idx];
 
                     slot.classList.add('is-card');
@@ -497,16 +549,13 @@
                     
                     imgContainer.style.width = `${cardConfig.size}px`;
                     imgContainer.style.height = `${cardConfig.size}px`;
-                    imgContainer.innerHTML = fallbackMedia;
-                    currentSlotMedia[idx] = fallbackMedia;
-
-                    const vid = imgContainer.querySelector('video');
-                    if (vid) vid.play().catch(() => {});
+                    imgContainer.innerHTML = chosenImage;
+                    currentSlotContent[idx] = chosenImage;
                 }
             });
         });
 
-        // Event Listeners for controls
+        // Event Listeners for scrubber
         const scrubberInput = document.getElementById('scrubber');
         scrubberInput.addEventListener('input', (e) => {
             pause();
@@ -518,7 +567,7 @@
             updateScene(currentTime);
         });
 
-        // Mouse wheel scrub interaction
+        // Mouse wheel scrub
         window.addEventListener('wheel', (e) => {
             if (Math.abs(e.deltaY) > 5) {
                 pause();
@@ -527,12 +576,10 @@
             }
         }, { passive: true });
 
-        // Touch scrub interaction
+        // Touch scrub
         let touchStartX = 0;
         window.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) {
-                touchStartX = e.touches[0].clientX;
-            }
+            if (e.touches.length === 1) touchStartX = e.touches[0].clientX;
         }, { passive: true });
 
         window.addEventListener('touchmove', (e) => {
@@ -540,31 +587,28 @@
                 const deltaX = e.touches[0].clientX - touchStartX;
                 touchStartX = e.touches[0].clientX;
                 pause();
-                currentTime = Math.max(0, Math.min(totalDuration, currentTime - (deltaX * 15)));
+                currentTime = Math.max(0, Math.min(totalDuration, currentTime - (deltaX * 12)));
                 updateScene(currentTime);
             }
         }, { passive: true });
 
-        // Check URL params for direct preview (e.g. ?t=4000 or ?phase=4)
+        // Support direct phase URL parameter (e.g. ?mode=wave or ?letter=3)
         const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('mode') === 'wave') {
+            setPatternMode('wave');
+        } else {
+            setPatternMode('sequential');
+        }
+
         if (urlParams.has('t')) {
             currentTime = parseInt(urlParams.get('t'), 10);
             pause();
-        } else if (urlParams.has('phase')) {
-            const p = parseInt(urlParams.get('phase'), 10);
-            if (p >= 1 && p <= TIMELINE.length) {
-                currentTime = TIMELINE[p - 1].time + 100;
-                pause();
-            }
+            updateScene(currentTime);
         }
 
         // Start animation loop
-        updateScene(currentTime);
         requestAnimationFrame((ts) => {
             lastTimestamp = ts;
-            if (!urlParams.has('t') && !urlParams.has('phase')) {
-                play();
-            }
             requestAnimationFrame(animationLoop);
         });
     </script>

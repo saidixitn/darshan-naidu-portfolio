@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darshan Naidu — Kinetic Letter Morph & Visual Motion</title>
+    <meta name="description" content="Interactive Apple-inspired letter-to-image morph animation for Darshan Naidu, featuring video and photography swaps powered by GSAP.">
+    <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Apple-style spring ease */
+        .char-slot {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: width 0.48s cubic-bezier(0.25, 1, 0.5, 1),
+                        height 0.48s cubic-bezier(0.25, 1, 0.5, 1),
+                        margin 0.48s cubic-bezier(0.25, 1, 0.5, 1),
+                        transform 0.48s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .char-text {
+            transition: opacity 0.32s ease, transform 0.42s cubic-bezier(0.25, 1, 0.5, 1);
+            display: inline-block;
+            user-select: none;
+        }
+
+        .char-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.65);
+            opacity: 0;
+            border-radius: 22%;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.12);
+            transition: opacity 0.38s ease,
+                        transform 0.48s cubic-bezier(0.25, 1, 0.5, 1),
+                        width 0.48s cubic-bezier(0.25, 1, 0.5, 1),
+                        height 0.48s cubic-bezier(0.25, 1, 0.5, 1),
+                        box-shadow 0.48s ease;
+            pointer-events: none;
+            background-color: #111111;
+        }
+
+        /* Active State when letter becomes photo/video card */
+        .char-slot.is-card .char-text {
+            opacity: 0 !important;
+            transform: scale(0);
+            pointer-events: none;
+        }
+
+        .char-slot.is-card .char-image {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .char-slot.is-card:hover .char-image {
+            transform: translate(-50%, -50%) scale(1.08);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.95), 0 0 0 1.5px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+
+        .glass-panel {
+            background: rgba(25, 25, 28, 0.72);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Glow effects */
+        .glow-subtle {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+        }
+
+        /* Custom range slider thumb styling */
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            transition: transform 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+        }
+
+        /* Subtle grid background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="w-screen h-screen flex flex-col justify-between select-none m-0 p-0 bg-black text-white bg-grid relative overflow-hidden">
+
+    <!-- Top Navigation Bar -->
+    <header class="w-full px-6 py-5 flex items-center justify-between z-30 border-b border-white/5 bg-black/40 backdrop-blur-md">
+        <a href="/" class="flex items-center gap-3 group">
+            <span class="font-bold tracking-tight text-lg text-white group-hover:text-neutral-300 transition">DARSHAN NAIDU</span>
+            <span class="text-xs uppercase tracking-widest text-neutral-500 font-mono hidden sm:inline-block">/ Visual Motion</span>
+        </a>
+
+        <nav class="flex items-center gap-6 text-sm font-medium">
+            <a href="/" class="text-neutral-400 hover:text-white transition">Home</a>
+            <a href="/work" class="text-neutral-400 hover:text-white transition hidden sm:inline-block">Work</a>
+            <a href="/about-me" class="text-neutral-400 hover:text-white transition">About</a>
+            <a href="/darshan" class="text-white border-b border-white pb-0.5 font-semibold">Morph Lab</a>
+            <a href="/contact" class="text-neutral-400 hover:text-white transition hidden md:inline-block">Contact</a>
+            
+            <div class="hidden lg:flex items-center gap-2 pl-4 border-l border-white/10 text-xs text-neutral-400">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Interactive GSAP</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Display Stage -->
+    <main class="relative flex-1 w-full flex flex-col items-center justify-center px-4 overflow-hidden">
+        
+        <!-- Context Tagline -->
+        <div class="text-center mb-6 z-10 transition-opacity duration-300" id="stage-caption">
+            <p class="text-xs md:text-sm uppercase tracking-[0.25em] text-neutral-400 font-mono mb-2">
+                Apple-Style Spring Morph &amp; Visual Direction
+            </p>
+            <h1 class="text-neutral-500 text-xs sm:text-sm font-light max-w-md mx-auto">
+                Letters transform into authentic visual craft, video memories, and design works.
+            </h1>
+        </div>
+
+        <!-- Animated "DARSHAN" Container -->
+        <div id="word-container" class="flex items-center justify-center text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter whitespace-nowrap leading-none glow-subtle">
+            
+            <!-- D (index 0) -->
+            <div class="char-slot" data-char="D" data-index="0" title="Darshan Visionary Portrait">
+                <span class="char-text">D</span>
+                <div class="char-image"></div>
+            </div>
+
+            <!-- a (index 1) -->
+            <div class="char-slot" data-char="a" data-index="1" title="Taj Mahal Visual Design">
+                <span class="char-text">a</span>
+                <div class="char-image"></div>
+            </div>
+
+            <!-- r (index 2) -->
+            <div class="char-slot" data-char="r" data-index="2" title="Video Clip 093">
+                <span class="char-text">r</span>
+                <div class="char-image"></div>
+            </div>
+
+            <!-- s (index 3) -->
+            <div class="char-slot" data-char="s" data-index="3" title="Darshan Creative">
+                <span class="char-text">s</span>
+                <div class="char-image"></div>
+            </div>
+
+            <!-- h (index 4) -->
+            <div class="char-slot" data-char="h" data-index="4" title="Hawa Mahal Architectural Visual">
+                <span class="char-text">h</span>
+                <div class="char-image"></div>
+            </div>
+
+            <!-- a (index 5) -->
+            <div class="char-slot" data-char="a" data-index="5" title="Kolkata Cultural Craft">
+                <span class="char-text">a</span>
+                <div class="char-image"></div>
+            </div>
+
+            <!-- n (index 6) -->
+            <div class="char-slot" data-char="n" data-index="6" title="Darshan Profile">
+                <span class="char-text">n</span>
+                <div class="char-image"></div>
+            </div>
+
+        </div>
+
+        <!-- Interactive Hint / Click helper -->
+        <div class="mt-8 text-neutral-500 text-xs font-mono tracking-wider flex items-center gap-3 z-10">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-white/40"></span>
+            <span>Click any letter to toggle &bull; Drag slider or use controls below</span>
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-white/40"></span>
+        </div>
+
+    </main>
+
+    <!-- Interactive Timebar & Controls -->
+    <footer class="w-full max-w-2xl px-6 pb-8 pt-2 flex flex-col gap-4 z-20 mx-auto">
+        
+        <!-- Scrubber Progress Bar -->
+        <div class="flex items-center gap-4">
+            <span id="time-display" class="font-mono text-xs text-neutral-400 w-14 text-right">00:00</span>
+            <input type="range" id="scrubber" min="0" max="6000" value="0" step="10" 
+                   class="w-full h-1.5 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-white hover:bg-neutral-700 transition-colors">
+            <span class="font-mono text-xs text-neutral-500 w-14">00:06</span>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="flex items-center justify-between glass-panel px-5 py-3 rounded-full">
+            
+            <div class="flex items-center gap-1 sm:gap-2">
+                <!-- Play / Pause -->
+                <button id="play-btn" onclick="togglePlay()" class="p-2 text-white hover:text-neutral-300 transition" title="Play / Pause">
+                    <svg id="play-icon" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <svg id="pause-icon" class="w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                </button>
+                <!-- Step Back -->
+                <button onclick="stepFrame(-1000)" class="p-2 text-neutral-400 hover:text-white transition" title="Previous Phase">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
+                </button>
+                <!-- Step Forward -->
+                <button onclick="stepFrame(1000)" class="p-2 text-neutral-400 hover:text-white transition" title="Next Phase">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
+                </button>
+            </div>
+
+            <!-- Current Active Phase Indicator -->
+            <div id="phase-badge" class="text-xs font-semibold tracking-wider text-neutral-200 bg-white/10 px-3 py-1.5 rounded-full uppercase truncate max-w-[200px] sm:max-w-xs text-center border border-white/10">
+                Phase 1: D &amp; N (Frame)
+            </div>
+
+            <div class="flex items-center gap-2">
+                <!-- Loop Toggle -->
+                <button id="loop-toggle" onclick="toggleLoop()" class="text-xs font-medium text-white bg-white/20 px-3 py-1.5 rounded-full hover:bg-white/30 transition">
+                    Loop: ON
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Video & Image Media Templates & Animation Logic -->
+    <script>
+        // High Quality Media Assets mapped for Darshan
+        const MEDIA_ASSETS = {
+            // 1. Darshan thoughtful visionary portrait
+            darshan_mind: `<img src="/assets/images/darshan_mind.jpg" alt="Darshan" class="w-full h-full object-cover">`,
+
+            // 2. Taj Mahal visual artwork
+            taj: `<img src="/assets/images/work/taj.jpg" alt="Taj Mahal" class="w-full h-full object-cover">`,
+
+            // 3. User Uploaded Video 093 (MP4 with smooth looping and muted inline play)
+            video_093: `<video src="/assets/videos/093.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video>`,
+
+            // 4. Creative Portrait
+            darshan_creative: `<img src="/assets/images/IMG_E1906_Original.jpg" alt="Darshan Creative" class="w-full h-full object-cover">`,
+
+            // 5. Hawa Mahal poster design
+            hawa_mahal: `<img src="/assets/images/work/hawa-mahal.jpg" alt="Hawa Mahal" class="w-full h-full object-cover">`,
+
+            // 6. Kolkata cultural visual design
+            kolkata: `<img src="/assets/images/work/kolkata.jpg" alt="Kolkata" class="w-full h-full object-cover">`,
+
+            // 7. Darshan portrait
+            darshan_portrait: `<img src="/assets/images/darshan.jpeg" alt="Darshan Naidu" class="w-full h-full object-cover">`,
+
+            // Alternate dynamic media for swaps:
+            video_flashbacks: `<video src="/assets/videos/flashbacks.mp4" autoplay loop muted playsinline class="w-full h-full object-cover"></video>`,
+            motion_gif: `<img src="/assets/images/680806a6fe42f1c31342a791_project_teaser_img_1.gif" alt="Motion Graphic" class="w-full h-full object-cover">`,
+            basilica: `<img src="/assets/images/68ac19dd1de59151886116ee_basilica_img_2.avif" alt="Basilica" class="w-full h-full object-cover">`
+        };
+
+        // Frame timeline mapped to character slots (0 to 6):
+        // 0:D, 1:a, 2:r, 3:s, 4:h, 5:a, 6:n
+        const TIMELINE = [
+            {
+                time: 0,
+                phase: "00:00 - 00:01",
+                badge: "Phase 1: D & N (Frame)",
+                active: {
+                    0: MEDIA_ASSETS.darshan_mind,     // D -> Visionary Portrait
+                    6: MEDIA_ASSETS.darshan_portrait  // n -> Profile
+                }
+            },
+            {
+                time: 1200,
+                phase: "00:01 - 00:02.4",
+                badge: "Phase 2: R in Motion (093 Video)",
+                active: {
+                    2: MEDIA_ASSETS.video_093,        // r -> 093 Video
+                    3: MEDIA_ASSETS.darshan_creative  // s -> Creative photo
+                }
+            },
+            {
+                time: 2500,
+                phase: "00:02.5 - 00:04",
+                badge: "Phase 3: Visual Craft (A, R, H, A)",
+                active: {
+                    1: MEDIA_ASSETS.taj,              // a -> Taj Mahal
+                    2: MEDIA_ASSETS.video_093,        // r -> 093 Video
+                    4: MEDIA_ASSETS.hawa_mahal,       // h -> Hawa Mahal
+                    5: MEDIA_ASSETS.kolkata           // a -> Kolkata
+                }
+            },
+            {
+                time: 4000,
+                phase: "00:04 - 00:05.2",
+                badge: "Phase 4: Full Symphony (All 7 Cards)",
+                active: {
+                    0: MEDIA_ASSETS.darshan_mind,     // D
+                    1: MEDIA_ASSETS.taj,              // a
+                    2: MEDIA_ASSETS.video_093,        // r
+                    3: MEDIA_ASSETS.darshan_creative, // s
+                    4: MEDIA_ASSETS.hawa_mahal,       // h
+                    5: MEDIA_ASSETS.kolkata,          // a
+                    6: MEDIA_ASSETS.darshan_portrait  // n
+                }
+            },
+            {
+                time: 5400,
+                phase: "00:05.4 - 00:06",
+                badge: "Phase 5: Kinetic Return",
+                active: {} // Smoothly collapses back to pristine typography
+            }
+        ];
+
+        // Player State
+        let currentTime = 0;
+        let isPlaying = true;
+        let isLooping = true;
+        let lastTimestamp = null;
+        const totalDuration = 6000; // 6 seconds loop
+        const slots = document.querySelectorAll('.char-slot');
+
+        // Dynamic dimension calculations tailored for 7 letters
+        function calculateCardSize() {
+            const w = window.innerWidth;
+            if (w < 480) return { size: 44, fontWidth: '0.62em', margin: '0 2px' };
+            if (w < 640) return { size: 60, fontWidth: '0.65em', margin: '0 3px' };
+            if (w < 768) return { size: 84, fontWidth: '0.65em', margin: '0 4px' };
+            if (w < 1024) return { size: 110, fontWidth: '0.65em', margin: '0 6px' };
+            if (w < 1280) return { size: 130, fontWidth: '0.65em', margin: '0 8px' };
+            return { size: 150, fontWidth: '0.65em', margin: '0 10px' };
+        }
+
+        // Cache currently rendered media to prevent unnecessary reloads of video/img
+        const currentSlotMedia = {};
+
+        function updateScene(timeMs) {
+            // Find appropriate frame configuration based on current scrub time
+            let currentFrame = TIMELINE[0];
+            for (let i = TIMELINE.length - 1; i >= 0; i--) {
+                if (timeMs >= TIMELINE[i].time) {
+                    currentFrame = TIMELINE[i];
+                    break;
+                }
+            }
+
+            const cardConfig = calculateCardSize();
+
+            slots.forEach((slot) => {
+                const idx = parseInt(slot.dataset.index, 10);
+                const imgContainer = slot.querySelector('.char-image');
+                const mediaHTML = currentFrame.active[idx];
+
+                if (mediaHTML) {
+                    slot.classList.add('is-card');
+                    slot.style.width = `${cardConfig.size}px`;
+                    slot.style.height = `${cardConfig.size}px`;
+                    slot.style.margin = cardConfig.margin;
+                    
+                    imgContainer.style.width = `${cardConfig.size}px`;
+                    imgContainer.style.height = `${cardConfig.size}px`;
+
+                    // Only update innerHTML if media actually changed to avoid video restarting
+                    if (currentSlotMedia[idx] !== mediaHTML) {
+                        imgContainer.innerHTML = mediaHTML;
+                        currentSlotMedia[idx] = mediaHTML;
+                        
+                        // If it's a video, ensure it plays
+                        const vid = imgContainer.querySelector('video');
+                        if (vid) {
+                            vid.play().catch(() => {});
+                        }
+                    }
+                } else {
+                    slot.classList.remove('is-card');
+                    slot.style.width = cardConfig.fontWidth;
+                    slot.style.height = 'auto';
+                    slot.style.margin = '0';
+                    currentSlotMedia[idx] = null;
+                }
+            });
+
+            // Update UI Indicators
+            const scrubber = document.getElementById('scrubber');
+            if (document.activeElement !== scrubber) {
+                scrubber.value = timeMs;
+            }
+            document.getElementById('phase-badge').innerHTML = currentFrame.badge;
+            
+            const seconds = Math.floor(timeMs / 1000);
+            const millis = Math.floor((timeMs % 1000) / 10);
+            document.getElementById('time-display').innerText = 
+                `0${seconds}:${millis < 10 ? '0' : ''}${millis}`;
+        }
+
+        function animationLoop(timestamp) {
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const delta = timestamp - lastTimestamp;
+            lastTimestamp = timestamp;
+
+            if (isPlaying) {
+                currentTime += delta;
+                if (currentTime >= totalDuration) {
+                    if (isLooping) {
+                        currentTime = 0;
+                    } else {
+                        currentTime = totalDuration;
+                        pause();
+                    }
+                }
+                updateScene(currentTime);
+            }
+
+            requestAnimationFrame(animationLoop);
+        }
+
+        function play() {
+            isPlaying = true;
+            document.getElementById('play-icon').classList.add('hidden');
+            document.getElementById('pause-icon').classList.remove('hidden');
+            if (currentTime >= totalDuration) currentTime = 0;
+        }
+
+        function pause() {
+            isPlaying = false;
+            document.getElementById('play-icon').classList.remove('hidden');
+            document.getElementById('pause-icon').classList.add('hidden');
+        }
+
+        function togglePlay() {
+            if (isPlaying) pause();
+            else play();
+        }
+
+        function toggleLoop() {
+            isLooping = !isLooping;
+            const btn = document.getElementById('loop-toggle');
+            btn.innerText = `Loop: ${isLooping ? 'ON' : 'OFF'}`;
+            btn.className = `text-xs font-medium px-3 py-1.5 rounded-full transition ${isLooping ? 'text-white bg-white/20' : 'text-neutral-400 bg-white/5'}`;
+        }
+
+        function stepFrame(deltaMs) {
+            pause();
+            currentTime = Math.max(0, Math.min(totalDuration, currentTime + deltaMs));
+            updateScene(currentTime);
+        }
+
+        // Manual click to toggle individual letter morph
+        slots.forEach((slot) => {
+            slot.addEventListener('click', () => {
+                pause();
+                const idx = parseInt(slot.dataset.index, 10);
+                const isCurrentlyCard = slot.classList.contains('is-card');
+                const cardConfig = calculateCardSize();
+                const imgContainer = slot.querySelector('.char-image');
+
+                if (isCurrentlyCard) {
+                    slot.classList.remove('is-card');
+                    slot.style.width = cardConfig.fontWidth;
+                    slot.style.height = 'auto';
+                    slot.style.margin = '0';
+                    currentSlotMedia[idx] = null;
+                } else {
+                    const fallbackMedia = [
+                        MEDIA_ASSETS.darshan_mind,
+                        MEDIA_ASSETS.taj,
+                        MEDIA_ASSETS.video_093,
+                        MEDIA_ASSETS.darshan_creative,
+                        MEDIA_ASSETS.hawa_mahal,
+                        MEDIA_ASSETS.kolkata,
+                        MEDIA_ASSETS.darshan_portrait
+                    ][idx];
+
+                    slot.classList.add('is-card');
+                    slot.style.width = `${cardConfig.size}px`;
+                    slot.style.height = `${cardConfig.size}px`;
+                    slot.style.margin = cardConfig.margin;
+                    
+                    imgContainer.style.width = `${cardConfig.size}px`;
+                    imgContainer.style.height = `${cardConfig.size}px`;
+                    imgContainer.innerHTML = fallbackMedia;
+                    currentSlotMedia[idx] = fallbackMedia;
+
+                    const vid = imgContainer.querySelector('video');
+                    if (vid) vid.play().catch(() => {});
+                }
+            });
+        });
+
+        // Event Listeners for controls
+        const scrubberInput = document.getElementById('scrubber');
+        scrubberInput.addEventListener('input', (e) => {
+            pause();
+            currentTime = parseInt(e.target.value, 10);
+            updateScene(currentTime);
+        });
+
+        window.addEventListener('resize', () => {
+            updateScene(currentTime);
+        });
+
+        // Mouse wheel scrub interaction
+        window.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaY) > 5) {
+                pause();
+                currentTime = Math.max(0, Math.min(totalDuration, currentTime + (e.deltaY * 3)));
+                updateScene(currentTime);
+            }
+        }, { passive: true });
+
+        // Touch scrub interaction
+        let touchStartX = 0;
+        window.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                touchStartX = e.touches[0].clientX;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 1) {
+                const deltaX = e.touches[0].clientX - touchStartX;
+                touchStartX = e.touches[0].clientX;
+                pause();
+                currentTime = Math.max(0, Math.min(totalDuration, currentTime - (deltaX * 15)));
+                updateScene(currentTime);
+            }
+        }, { passive: true });
+
+        // Check URL params for direct preview (e.g. ?t=4000 or ?phase=4)
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('t')) {
+            currentTime = parseInt(urlParams.get('t'), 10);
+            pause();
+        } else if (urlParams.has('phase')) {
+            const p = parseInt(urlParams.get('phase'), 10);
+            if (p >= 1 && p <= TIMELINE.length) {
+                currentTime = TIMELINE[p - 1].time + 100;
+                pause();
+            }
+        }
+
+        // Start animation loop
+        updateScene(currentTime);
+        requestAnimationFrame((ts) => {
+            lastTimestamp = ts;
+            if (!urlParams.has('t') && !urlParams.has('phase')) {
+                play();
+            }
+            requestAnimationFrame(animationLoop);
+        });
+    </script>
+</body>
+</html>

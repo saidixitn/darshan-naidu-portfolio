@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DARSHAN — Kinetic Typography Loader</title>
+    <title>Darshan Naidu — Kinetic Editorial Typography</title>
     <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
     <!-- GSAP 3 CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -40,9 +40,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(38px, 6.2vw, 84px);
-            font-weight: 500;
-            letter-spacing: -0.015em;
+            font-size: clamp(32px, 5.2vw, 76px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
             line-height: 1;
             white-space: nowrap;
             color: #ffffff;
@@ -57,6 +57,12 @@
             vertical-align: middle;
             height: 1.22em;
             will-change: width, margin;
+        }
+
+        .char-space {
+            display: inline-block;
+            width: 0.32em;
+            pointer-events: none;
         }
 
         .char-glyph {
@@ -78,6 +84,7 @@
             pointer-events: none;
             will-change: transform, opacity, width, height;
             background-color: #080808;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
             z-index: 5;
         }
 
@@ -87,6 +94,18 @@
             object-fit: cover;
             display: block;
             border-radius: 20%;
+        }
+
+        /* Subtle interactive hints */
+        .controls-hint {
+            position: absolute;
+            bottom: 32px;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.28);
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -100,31 +119,50 @@
 <body>
 
     <main class="hero-stage">
-        <div id="word" class="word-container" aria-label="DARSHAN">
-            <!-- DARSHAN (7 letters: D(0), A(1), R(2), S(3), H(4), A(5), N(6)) -->
+        <div id="word" class="word-container" aria-label="Darshan Naidu">
+            <!-- Darshan (indices 0 to 6) -->
             <span class="char-slot" data-index="0" data-char="D"><span class="char-glyph">D</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="1" data-char="A"><span class="char-glyph">A</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="2" data-char="R"><span class="char-glyph">R</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="3" data-char="S"><span class="char-glyph">S</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="4" data-char="H"><span class="char-glyph">H</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="5" data-char="A"><span class="char-glyph">A</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="6" data-char="N"><span class="char-glyph">N</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="1" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="2" data-char="r"><span class="char-glyph">r</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="3" data-char="s"><span class="char-glyph">s</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="4" data-char="h"><span class="char-glyph">h</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="5" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="6" data-char="n"><span class="char-glyph">n</span><div class="image-tile"><img src="" alt=""></div></span>
+
+            <!-- Space separator -->
+            <span class="char-space">&nbsp;</span>
+
+            <!-- Naidu (indices 7 to 11) -->
+            <span class="char-slot" data-index="7" data-char="N"><span class="char-glyph">N</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="8" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="9" data-char="i"><span class="char-glyph">i</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="10" data-char="d"><span class="char-glyph">d</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="11" data-char="u"><span class="char-glyph">u</span><div class="image-tile"><img src="" alt=""></div></span>
         </div>
+
+        <div class="controls-hint">Click to replay • Space to pause</div>
     </main>
 
     <script>
-        // Darshan Authentic Photography & Design Works
+        // High-aesthetic photography & portfolio images
         const IMAGES = {
-            darshan_mind:     '/assets/images/darshan_mind.jpg',
-            taj:              '/assets/images/work/taj.jpg',
-            basilica:         '/assets/images/68ac19dd1de59151886116ee_basilica_img_2.avif',
-            darshan_studio:   '/assets/images/IMG_E1906_Original.jpg',
-            hawa_mahal:       '/assets/images/work/hawa-mahal.jpg',
-            kolkata:          '/assets/images/work/kolkata.jpg',
-            darshan_portrait: '/assets/images/darshan.jpeg'
+            water:     '/assets/images/morph/card_water.png',
+            stairs:    '/assets/images/morph/card_stairs.png',
+            runner:    '/assets/images/morph/card_runner.png',
+            flower:    '/assets/images/morph/card_flower.png',
+            ferry:     '/assets/images/morph/card_ferry.png',
+            tennis:    '/assets/images/morph/card_tennis.png',
+            stadium:   '/assets/images/morph/card_stadium.png',
+            taj:       '/assets/images/work/taj.jpg',
+            hawa:      '/assets/images/work/hawa-mahal.jpg',
+            kolkata:   '/assets/images/work/kolkata.jpg',
+            mind:      '/assets/images/darshan_mind.jpg',
+            portrait:  '/assets/images/darshan.jpeg',
+            basilica:  '/assets/images/68ac19dd1de59151886116ee_basilica_img_2.avif',
+            studio:    '/assets/images/IMG_E1906_Original.jpg'
         };
 
-        // Preload all photographic assets to prevent frame drops or flickering
+        // Preload all photographic assets
         function preloadAssets(urls, callback) {
             let loaded = 0;
             const keys = Object.keys(urls);
@@ -158,13 +196,13 @@
                 slot.style.width = `${rect.width}px`;
             });
 
-            // Tile size matches the character line height
+            // Square tile matches line height
             const sampleSlot = slots[0];
             const sampleRect = sampleSlot.getBoundingClientRect();
             tileDimension = Math.round(sampleRect.height);
         }
 
-        // Helper to animate slot state (glyph vs tile) via GSAP
+        // Helper to animate slot state (glyph vs card tile)
         function setSlotState(tl, index, config, position) {
             const slot = slots[index];
             const glyph = slot.querySelector('.char-glyph');
@@ -173,7 +211,7 @@
 
             const naturalW = naturalWidths[index];
             const targetW = config.active ? tileDimension : naturalW;
-            const duration = config.duration || 0.32;
+            const duration = config.duration || 0.44;
             const ease = config.ease || "power2.out";
 
             if (config.active && config.image) {
@@ -234,15 +272,30 @@
             }
         }
 
-        // Build 3.0s Loader Timeline for DARSHAN:
-        // D(0), A(1), R(2), S(3), H(4), A(5), N(6)
-        // Sequence requested by user:
-        // 1) A - 2 (index 5)
-        // 2) then h (index 4)
-        // 3) then N (index 6) and r (index 2)
-        // 4) and d (index 0) and a (index 1)
-        // 5) S (index 3) solo
-        // Total loading time: exactly 3 seconds!
+        // Micro image-swap on an already active card
+        function swapSlotImage(tl, index, newImage, position, duration = 0.32) {
+            const slot = slots[index];
+            const tile = slot.querySelector('.image-tile');
+            const img = tile.querySelector('img');
+
+            tl.to(tile, {
+                scale: 0.88,
+                duration: duration * 0.5,
+                ease: "power1.in"
+            }, position);
+
+            tl.set(img, { attr: { src: newImage } }, position + (duration * 0.5));
+
+            tl.to(tile, {
+                scale: 1,
+                duration: duration * 0.5,
+                ease: "back.out(1.4)"
+            }, position + (duration * 0.5));
+        }
+
+        // Build the relaxed, editorial timeline for "Darshan Naidu":
+        // D(0), a(1), r(2), s(3), h(4), a(5), n(6)  [space]  N(7), a(8), i(9), d(10), u(11)
+        // Strictly max 1 to 2 letters active at any time, never 4 or 5!
         function buildTimeline() {
             if (masterTimeline) {
                 masterTimeline.kill();
@@ -252,11 +305,11 @@
 
             const tl = gsap.timeline({
                 repeat: -1,
-                repeatDelay: 1.2,
+                repeatDelay: 1.6,
                 defaults: { ease: "power2.out" }
             });
 
-            // 0.00s - 0.25s: Clean Opening (Stationary white DARSHAN on black)
+            // 0.00s - 0.50s: Clean Opening (Stationary white Darshan Naidu on #080808)
             slots.forEach((slot, idx) => {
                 const glyph = slot.querySelector('.char-glyph');
                 const tile = slot.querySelector('.image-tile');
@@ -266,45 +319,50 @@
             });
 
             // ----------------------------------------------------
-            // Step 1: "A - 2" (index 5) blooms (0.28s - 0.72s)
+            // Beat 1 (0.50s - 1.45s): 1 letter opens (i in Naidu, index 9)
             // ----------------------------------------------------
-            setSlotState(tl, 5, { active: true, image: IMAGES.kolkata, duration: 0.32 }, 0.28);
+            setSlotState(tl, 9, { active: true, image: IMAGES.water, duration: 0.46 }, 0.50);
 
             // ----------------------------------------------------
-            // Step 2: "then h" (index 4) blooms, A-2 closes (0.72s - 1.18s)
+            // Beat 2 (1.45s - 2.50s): 2 letters across both words
+            // i resolves; r (index 2) & d (index 10) bloom
             // ----------------------------------------------------
-            setSlotState(tl, 5, { active: false, duration: 0.28 }, 0.72);
-            setSlotState(tl, 4, { active: true, image: IMAGES.hawa_mahal, duration: 0.32 }, 0.76);
+            setSlotState(tl, 9, { active: false, duration: 0.40 }, 1.45);
+            setSlotState(tl, 2, { active: true, image: IMAGES.taj, duration: 0.46 }, 1.50);
+            setSlotState(tl, 10, { active: true, image: IMAGES.stairs, duration: 0.46 }, 1.58);
 
             // ----------------------------------------------------
-            // Step 3: "then N and r" (indices 6 and 2) bloom (1.18s - 1.70s)
+            // Beat 3 (2.50s - 3.55s): 1 letter with dynamic photo swap
+            // r and d resolve; a (index 5) blooms into flower, then pops to runner
             // ----------------------------------------------------
-            setSlotState(tl, 4, { active: false, duration: 0.28 }, 1.18);
-            setSlotState(tl, 6, { active: true, image: IMAGES.darshan_portrait, duration: 0.32 }, 1.22);
-            setSlotState(tl, 2, { active: true, image: IMAGES.basilica, duration: 0.32 }, 1.28);
+            setSlotState(tl, 10, { active: false, duration: 0.38 }, 2.50);
+            setSlotState(tl, 2, { active: false, duration: 0.38 }, 2.52);
+            setSlotState(tl, 5, { active: true, image: IMAGES.flower, duration: 0.44 }, 2.56);
+            swapSlotImage(tl, 5, IMAGES.runner, 3.00, 0.30);
 
             // ----------------------------------------------------
-            // Step 4: "and d and a" (indices 0 and 1) bloom (1.70s - 2.22s)
+            // Beat 4 (3.55s - 4.60s): 2 letters flanking the space
+            // a resolves; h (index 4) & N (index 7) bloom into hawa & mind
             // ----------------------------------------------------
-            setSlotState(tl, 6, { active: false, duration: 0.28 }, 1.70);
-            setSlotState(tl, 2, { active: false, duration: 0.28 }, 1.70);
-            setSlotState(tl, 0, { active: true, image: IMAGES.darshan_mind, duration: 0.32 }, 1.74);
-            setSlotState(tl, 1, { active: true, image: IMAGES.taj, duration: 0.32 }, 1.80);
+            setSlotState(tl, 5, { active: false, duration: 0.40 }, 3.55);
+            setSlotState(tl, 4, { active: true, image: IMAGES.hawa, duration: 0.46 }, 3.60);
+            setSlotState(tl, 7, { active: true, image: IMAGES.mind, duration: 0.46 }, 3.68);
 
             // ----------------------------------------------------
-            // Step 5: "S" (index 3) solo bloom & hold (2.22s - 2.68s)
+            // Beat 5 (4.60s - 5.65s): 1 letter solo spotlight
+            // h and N resolve; s (index 3) blooms into Darshan's portrait
             // ----------------------------------------------------
-            setSlotState(tl, 0, { active: false, duration: 0.28 }, 2.22);
-            setSlotState(tl, 1, { active: false, duration: 0.28 }, 2.22);
-            setSlotState(tl, 3, { active: true, image: IMAGES.darshan_studio, duration: 0.32 }, 2.26);
+            setSlotState(tl, 4, { active: false, duration: 0.40 }, 4.60);
+            setSlotState(tl, 7, { active: false, duration: 0.40 }, 4.60);
+            setSlotState(tl, 3, { active: true, image: IMAGES.portrait, duration: 0.48 }, 4.65);
 
             // ----------------------------------------------------
-            // Final Reset: clean white DARSHAN (2.68s - 3.00s)
+            // Beat 6 (5.65s - 6.25s): Soft resolve to clean white text
             // ----------------------------------------------------
-            setSlotState(tl, 3, { active: false, duration: 0.30 }, 2.68);
+            setSlotState(tl, 3, { active: false, duration: 0.44 }, 5.65);
 
-            // Text hold until 3.00s before repeatDelay
-            tl.to({}, { duration: 0.32 }, 2.98);
+            // 6.25s - 7.80s: Resting hold of complete white word before repeat
+            tl.to({}, { duration: 1.55 }, 6.25);
 
             masterTimeline = tl;
         }
@@ -319,7 +377,7 @@
             }
         });
 
-        // Recalculate accurately on resize
+        // Recalculate accurately on window resize
         let resizeTimer = null;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
@@ -330,7 +388,7 @@
             }, 120);
         });
 
-        // Interactive controls: Space = pause/play, Click = replay
+        // Keyboard & click controls: Space = pause/play, Click = replay
         window.addEventListener('keydown', (e) => {
             if (e.code === 'Space') {
                 e.preventDefault();

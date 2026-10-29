@@ -152,13 +152,13 @@ button:hover,
 
 .btn_text_wrap:hover .btn_text_line {
   background-color: #ff5500 !important;
-  box-shadow: 0 0 12px rgba(255, 85, 0, 0.45);
+  /* box-shadow removed */
   transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .navigation_menu_item:hover {
   color: #ff5500 !important;
-  text-shadow: 0 0 14px rgba(255, 85, 0, 0.4);
+  /* text-shadow removed */
 }
 
 /* Brand logo typography */
@@ -311,8 +311,8 @@ html[data-theme="light"] .navigation_logo:not(.is-preloader) path {
 .navigation_logo:hover,
 .navigation_logo:active,
 .navigation_logo.is-clicked {
-  color: #ff5500 !important;
-  fill: #ff5500 !important;
+  color: currentColor !important;
+  fill: currentColor !important;
   filter: none !important;
 }
 
@@ -335,8 +335,8 @@ html:not([data-theme="light"]) .navigation_logo_link:hover path,
 html:not([data-theme="light"]) .navigation_logo_link:active path,
 html:not([data-theme="light"]) .navigation_logo_link:focus path,
 html:not([data-theme="light"]) .navigation_logo_link.is-clicked path {
-  fill: #ff5500 !important;
-  color: #ff5500 !important;
+  fill: currentColor !important;
+  color: currentColor !important;
 }
 
 /* Preloader Logo & Text: Always brilliant white on dark curtain in all themes */
@@ -408,8 +408,8 @@ html[data-theme="light"] .theme_toggle_btn {
 
 html[data-theme="light"] .theme_toggle_btn:hover,
 html[data-theme="light"] .theme_toggle_btn:active {
-  color: #ff5500 !important;
-  stroke: #ff5500 !important;
+  color: #111113 !important;
+  stroke: #111113 !important;
   opacity: 1 !important;
 }
 
@@ -422,9 +422,9 @@ html[data-theme="light"] .theme_toggle_btn svg {
 
 html[data-theme="light"] .theme_toggle_btn:hover svg,
 html[data-theme="light"] .theme_toggle_btn:active svg {
-  stroke: #ff5500 !important;
-  color: #ff5500 !important;
-  fill: #ff5500 !important;
+  stroke: #111113 !important;
+  color: #111113 !important;
+  fill: #111113 !important;
 }
 
 html[data-theme="light"] .navigation_menu_trigger_wrap {
@@ -452,8 +452,8 @@ html[data-theme="dark"] .theme_toggle_btn:hover,
 html:not([data-theme="light"]) .theme_toggle_btn:hover,
 html[data-theme="dark"] .theme_toggle_btn:active,
 html:not([data-theme="light"]) .theme_toggle_btn:active {
-  color: #ff5500 !important;
-  stroke: #ff5500 !important;
+  color: #ffffff !important;
+  stroke: #ffffff !important;
   opacity: 1 !important;
 }
 
@@ -468,8 +468,8 @@ html[data-theme="dark"] .theme_toggle_btn:hover svg,
 html:not([data-theme="light"]) .theme_toggle_btn:hover svg,
 html[data-theme="dark"] .theme_toggle_btn:active svg,
 html:not([data-theme="light"]) .theme_toggle_btn:active svg {
-  stroke: #ff5500 !important;
-  color: #ff5500 !important;
+  stroke: #ffffff !important;
+  color: #ffffff !important;
 }
 
 html[data-theme="dark"] .navigation_menu_trigger_wrap,
@@ -1121,9 +1121,9 @@ html:not([data-theme="light"]) .footer_target {
 
 .g_project_teaser:hover {
   transform: translateY(-8px) !important;
-  border-color: rgba(255, 85, 0, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
   background: rgba(255, 255, 255, 0.035) !important;
-  box-shadow: 0 24px 60px -15px rgba(255, 85, 0, 0.16),
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.5),
               0 12px 30px -8px rgba(0, 0, 0, 0.6) !important;
 }
 
@@ -1134,8 +1134,8 @@ html:not([data-theme="light"]) .footer_target {
 }
 
 [data-theme="light"] .g_project_teaser:hover {
-  border-color: rgba(255, 85, 0, 0.45) !important;
-  box-shadow: 0 20px 45px -10px rgba(255, 85, 0, 0.14) !important;
+  border-color: rgba(0, 0, 0, 0.18) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Card Visual Frame & Aspect Ratios */
@@ -1230,7 +1230,7 @@ html:not([data-theme="light"]) .footer_target {
 }
 
 .g_project_teaser:hover .g_project_teaser_text_wrap .g_image_card_text_headline {
-  color: #ff5500 !important;
+  color: inherit !important;
 }
 
 .g_project_teaser_text_wrap .g_image_card_text {
@@ -1307,7 +1307,7 @@ html:not([data-theme="light"]) .footer_target {
 }
 
 .g_project_teaser:hover .atmos-palette-strip {
-  border-color: rgba(255, 85, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 .g_project_teaser:hover .atmos-palette-strip .palette-dot {
@@ -1693,12 +1693,14 @@ html[data-theme="light"] .contact_drawer_checkbox_label {
   cursor: pointer !important;
 }
 
-/* Drawer option indicator line: ALWAYS signature orange #ff5500 in both modes */
+/* Drawer option indicator line: clean neutral */
 .contact_drawer_line,
 html[data-theme="dark"] .contact_drawer_line,
-html:not([data-theme="light"]) .contact_drawer_line,
+html:not([data-theme="light"]) .contact_drawer_line {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
 html[data-theme="light"] .contact_drawer_line {
-  background-color: #ff5500 !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Hover & Selected states for drawer options in BOTH dark & light mode */
@@ -1727,7 +1729,7 @@ html[data-theme="dark"] .contact_drawer_radio_wrap.is-selected .contact_drawer_r
 html[data-theme="dark"] .contact_drawer_checkbox_wrap.is-selected .contact_drawer_checkbox_label,
 html:not([data-theme="light"]) .contact_drawer_radio_wrap.is-selected .contact_drawer_radio_label,
 html:not([data-theme="light"]) .contact_drawer_checkbox_wrap.is-selected .contact_drawer_checkbox_label {
-  color: #ff5500 !important;
+  color: inherit !important;
   font-weight: 600;
 }
 
@@ -1746,12 +1748,12 @@ html:not([data-theme="light"]) .contact_drawer_checkbox_wrap:hover .contact_draw
 /* Drawer confirm button */
 .checkbox-confirm .btn_text_line,
 html[data-theme="light"] .checkbox-confirm .btn_text_line {
-  background-color: #ff5500 !important;
+  background-color: currentColor !important;
 }
 
 .checkbox-confirm:hover .btn_text_text,
 html[data-theme="light"] .checkbox-confirm:hover .btn_text_text {
-  color: #ff5500 !important;
+  color: inherit !important;
 }
 
 /* Contact mail wrap & input */
@@ -1776,7 +1778,7 @@ html[data-theme="light"] .contact_send_mail_input {
 }
 
 .contact_send_mail_input:focus {
-  border-bottom-color: #ff5500 !important;
+  border-bottom-color: currentColor !important;
   outline: none !important;
 }
 
@@ -2059,6 +2061,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 /* 1. Atmospheric Aurora Gradient Background (fourmula.ai & GSAP Cloud) */
 .ambient-aurora-layer {
+  display: none !important;
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -2119,8 +2122,8 @@ html:not([data-theme="light"]) .breadcrumb_current {
   letter-spacing: 0.04em;
   padding: 0.35rem 0.85rem;
   border-radius: 9999px;
-  background: rgba(255, 85, 0, 0.08);
-  border: 1px solid rgba(255, 85, 0, 0.22);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   color: var(--theme-color-text, #ffffff);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -2132,13 +2135,13 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 [data-theme="light"] .live-status-pill {
   color: #111111;
-  background: rgba(255, 85, 0, 0.06);
-  border-color: rgba(255, 85, 0, 0.28);
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.12);
 }
 
 .live-status-pill:hover {
-  background: rgba(255, 85, 0, 0.15);
-  border-color: #ff5500;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-1px);
 }
 
@@ -2228,7 +2231,8 @@ html:not([data-theme="light"]) .breadcrumb_current {
 }
 
 .velocity-marquee-content span.star {
-  color: #ff5500;
+  color: currentColor;
+  opacity: 0.5;
   font-size: 1.25rem;
   display: inline-block;
   transform: translateY(-1px);
@@ -2438,10 +2442,10 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 .grace-shot-btn.is-active,
 .grace-shot-btn:hover {
-  background: #ff5500;
-  color: #ffffff;
-  border-color: #ff5500;
-  box-shadow: 0 0 16px rgba(255, 85, 0, 0.4);
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Grace Fashion AI Signature Interactive Before/After Split Comparison Slider */
@@ -2533,9 +2537,9 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 .grace-compare-badge.is-after {
   left: 20px;
-  background: rgba(255, 85, 0, 0.9);
+  background: rgba(255, 255, 255, 0.15);
   color: #ffffff;
-  border: 1px solid rgba(255, 85, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .grace-compare-handle {
@@ -2577,7 +2581,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ff5500;
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 0.75rem;
 }
 
@@ -2649,8 +2653,8 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 .grace-lookbook-card:hover {
   transform: translateY(-8px);
-  border-color: rgba(255, 85, 0, 0.4);
-  box-shadow: 0 24px 60px -12px rgba(255, 85, 0, 0.16);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.5);
 }
 
 .grace-lookbook-visual {
@@ -2741,7 +2745,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 .grace-craft-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 85, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.035);
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5);
 }
@@ -2803,7 +2807,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 }
 
 .grace-workflow-step:hover {
-  border-color: rgba(255, 85, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-4px);
 }
 
@@ -2970,7 +2974,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 }
 
 .grace-faq-item.is-open {
-  border-color: rgba(255, 85, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .grace-faq-header {
@@ -3030,8 +3034,8 @@ html:not([data-theme="light"]) .breadcrumb_current {
 .grace-cta-card {
   padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3.5rem);
   border-radius: clamp(20px, 3vw, 32px);
-  background: radial-gradient(circle at 50% 0%, rgba(255, 85, 0, 0.15) 0%, rgba(15, 15, 15, 0.95) 70%);
-  border: 1px solid rgba(255, 85, 0, 0.25);
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(15, 15, 15, 0.95) 70%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -3080,20 +3084,20 @@ html:not([data-theme="light"]) .breadcrumb_current {
   gap: 8px;
   padding: 14px 28px;
   border-radius: 999px;
-  background: #ff5500;
-  color: #ffffff !important;
+  background: #ffffff;
+  color: #000000 !important;
   font-weight: 700;
   font-size: 0.95rem;
   letter-spacing: 0.02em;
   text-decoration: none;
-  box-shadow: 0 10px 25px rgba(255, 85, 0, 0.35);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .grace-btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 35px rgba(255, 85, 0, 0.5);
-  background: #ff661a;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.5);
+  background: #eeeeee;
 }
 
 .grace-btn-secondary {
@@ -3315,7 +3319,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ff5500;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .grace-feature-grid {
@@ -3352,7 +3356,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 .grace-feature-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 85, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.18);
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.5);
 }
 
@@ -3516,7 +3520,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 }
 
 .grace-poster-hero:hover {
-  border-color: rgba(255, 85, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.18);
   box-shadow: 0 35px 90px -15px rgba(0, 0, 0, 0.8);
 }
 
@@ -3574,11 +3578,11 @@ html:not([data-theme="light"]) .breadcrumb_current {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #ff5500;
+  color: rgba(255, 255, 255, 0.8);
   padding: 6px 14px;
   border-radius: 999px;
-  background: rgba(255, 85, 0, 0.12);
-  border: 1px solid rgba(255, 85, 0, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   width: fit-content;
 }
 
@@ -3823,7 +3827,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 
 .travel-exhibition-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 85, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .travel-exhibition-card img {
@@ -3963,7 +3967,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 }
 
 .grace-card:hover .grace-card-frame {
-  border-color: rgba(255, 85, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6);
   transform: none !important;
 }
@@ -4020,12 +4024,12 @@ html:not([data-theme="light"]) .breadcrumb_current {
   gap: 6px;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(255, 85, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   color: #ffffff;
   font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.04em;
-  box-shadow: 0 6px 16px rgba(255, 85, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 /* Clean Editorial Card Metadata */
@@ -4053,7 +4057,7 @@ html:not([data-theme="light"]) .breadcrumb_current {
 .grace-card-arrow {
   display: inline-block;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  color: #ff5500;
+  color: inherit;
   font-size: 1.1rem;
 }
 

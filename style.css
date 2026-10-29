@@ -1100,42 +1100,38 @@ html:not([data-theme="light"]) .footer_target {
   }
 }
 
-/* Card Container with Dark Luxury Glassmorphism */
+/* Frameless Project Teaser: Authentic Deztopia Layout */
 .g_project_teaser {
   position: relative !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 1.25rem !important;
+  gap: 1rem !important;
   width: 100% !important;
-  background: rgba(255, 255, 255, 0.02) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 20px !important;
-  padding: 1.25rem !important;
-  box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.5) !important;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.4s ease,
-              box-shadow 0.6s ease,
-              background 0.4s ease !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
   box-sizing: border-box !important;
 }
 
 .g_project_teaser:hover {
-  transform: translateY(-8px) !important;
-  border-color: rgba(255, 255, 255, 0.18) !important;
-  background: rgba(255, 255, 255, 0.035) !important;
-  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.5),
-              0 12px 30px -8px rgba(0, 0, 0, 0.6) !important;
+  transform: none !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 [data-theme="light"] .g_project_teaser {
-  background: rgba(0, 0, 0, 0.015) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.06) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 [data-theme="light"] .g_project_teaser:hover {
-  border-color: rgba(0, 0, 0, 0.18) !important;
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 /* Card Visual Frame & Aspect Ratios */
@@ -1145,17 +1141,17 @@ html:not([data-theme="light"]) .footer_target {
   width: 100% !important;
   aspect-ratio: 4 / 3 !important;
   overflow: hidden !important;
-  border-radius: 14px !important;
+  border-radius: 6px !important;
   background: #0d0d0d !important;
 }
 
 /* Asymmetric Row 2: Featured 4th item spans 2 columns in widescreen */
 [data-project-teaser="teaser"]:nth-child(5n + 4) {
-  grid-column: span 2 !important;
+  grid-column: span 1 !important;
 }
 
 [data-project-teaser="teaser"]:nth-child(5n + 4) .g_project_visual_wrap {
-  aspect-ratio: 16 / 9 !important;
+  aspect-ratio: 4 / 3 !important;
 }
 
 @media (max-width: 991px) {
@@ -1211,22 +1207,19 @@ html:not([data-theme="light"]) .footer_target {
 
 /* Typography & Metadata (Atmos Gallery / Grace Fashion AI style) */
 .g_project_teaser_text_wrap {
-  padding: 0.25rem 0.25rem 0.1rem !important;
+  padding: 0.35rem 0 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.35rem !important;
+  gap: 0.25rem !important;
 }
 
 .g_project_teaser_text_wrap .g_image_card_text_headline {
-  font-size: 1.35rem !important;
+  font-size: 1.15rem !important;
   font-weight: 700 !important;
-  letter-spacing: -0.015em !important;
-  color: #ffffff !important;
+  letter-spacing: -0.01em !important;
+  color: var(--swatch--dark, #ffffff) !important;
   margin: 0 !important;
   transition: color 0.3s ease !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
 }
 
 .g_project_teaser:hover .g_project_teaser_text_wrap .g_image_card_text_headline {
@@ -1250,6 +1243,7 @@ html:not([data-theme="light"]) .footer_target {
 
 /* Atmos Gallery & Grace Fashion AI Floating Tag */
 .atmos-project-tag {
+  display: none !important;
   position: absolute;
   top: 1rem;
   left: 1rem;
@@ -1281,6 +1275,7 @@ html:not([data-theme="light"]) .footer_target {
 
 /* Atmos Color Palette Swatch Accent Strip */
 .atmos-palette-strip {
+  display: none !important;
   position: absolute;
   bottom: 0.85rem;
   right: 0.85rem;
@@ -1307,6 +1302,7 @@ html:not([data-theme="light"]) .footer_target {
 }
 
 .g_project_teaser:hover .atmos-palette-strip {
+  display: none !important;
   border-color: rgba(255, 255, 255, 0.15);
 }
 

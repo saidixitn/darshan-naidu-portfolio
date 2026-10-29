@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darshan Naidu — Kinetic Editorial Typography</title>
+    <title>Darshan Naidu — Kinetic Typography Hero</title>
     <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
     <!-- GSAP 3 CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -34,14 +34,13 @@
             position: relative;
             user-select: none;
             background-color: #080808;
-            cursor: pointer;
         }
 
         .word-container {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(34px, 5.4vw, 78px);
+            font-size: clamp(32px, 5.2vw, 76px);
             font-weight: 400;
             letter-spacing: -0.02em;
             line-height: 1;
@@ -97,17 +96,6 @@
             border-radius: 20%;
         }
 
-        .controls-hint {
-            position: absolute;
-            bottom: 32px;
-            font-size: 12px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.28);
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
         @media (prefers-reduced-motion: reduce) {
             .char-slot, .char-glyph, .image-tile {
                 transition: none !important;
@@ -139,37 +127,36 @@
             <span class="char-slot" data-index="10" data-char="d"><span class="char-glyph">d</span><div class="image-tile"><img src="" alt=""></div></span>
             <span class="char-slot" data-index="11" data-char="u"><span class="char-glyph">u</span><div class="image-tile"><img src="" alt=""></div></span>
         </div>
-
-        <div class="controls-hint">Click to randomize • Space to pause</div>
     </main>
 
     <script>
         // Only authentic Darshan photos from /darshan-images
-        const DARSHAN_IMAGES = [
-            '/assets/images/darshan/darshan.jpeg',
-            '/assets/images/darshan/IMG_1499.JPG',
-            '/assets/images/darshan/IMG_2461.JPG',
-            '/assets/images/darshan/IMG_3763.JPG',
-            '/assets/images/darshan/IMG_4192.JPG',
-            '/assets/images/darshan/IMG_4364.jpg',
-            '/assets/images/darshan/IMG_6965.jpg',
-            '/assets/images/darshan/IMG_7845.JPG',
-            '/assets/images/darshan/IMG_8213.jpg',
-            '/assets/images/darshan/IMG_8863-EDIT.jpg',
-            '/assets/images/darshan/IMG_E1906_Original.JPG'
-        ];
+        const IMAGES = {
+            portrait: '/assets/images/darshan/darshan.jpeg',
+            studio:   '/assets/images/darshan/IMG_E1906_Original.JPG',
+            edit:     '/assets/images/darshan/IMG_8863-EDIT.jpg',
+            shot1:    '/assets/images/darshan/IMG_1499.JPG',
+            shot2:    '/assets/images/darshan/IMG_2461.JPG',
+            shot3:    '/assets/images/darshan/IMG_3763.JPG',
+            shot4:    '/assets/images/darshan/IMG_4192.JPG',
+            shot5:    '/assets/images/darshan/IMG_4364.jpg',
+            shot6:    '/assets/images/darshan/IMG_6965.jpg',
+            shot7:    '/assets/images/darshan/IMG_7845.JPG',
+            shot8:    '/assets/images/darshan/IMG_8213.jpg'
+        };
 
         // Preload all assets to guarantee zero flicker
         function preloadAssets(urls, callback) {
             let loaded = 0;
-            const total = urls.length;
-            urls.forEach(src => {
+            const keys = Object.keys(urls);
+            const total = keys.length;
+            keys.forEach(k => {
                 const img = new Image();
                 img.onload = img.onerror = () => {
                     loaded++;
                     if (loaded >= total) callback();
                 };
-                img.src = src;
+                img.src = urls[k];
             });
         }
 
@@ -207,7 +194,7 @@
 
             const naturalW = naturalWidths[index];
             const targetW = config.active ? tileDimension : naturalW;
-            const duration = config.duration || 0.44;
+            const duration = config.duration || 0.42;
             const ease = config.ease || "power2.out";
 
             if (config.active && config.image) {
@@ -216,8 +203,8 @@
                 // Slot width expansion
                 tl.to(slot, {
                     width: targetW,
-                    marginRight: 4,
-                    marginLeft: 4,
+                    marginRight: 3,
+                    marginLeft: 3,
                     duration: duration,
                     ease: ease
                 }, position);
@@ -272,7 +259,7 @@
         }
 
         // Micro image-swap pop on active card
-        function swapSlotImage(tl, index, newImage, position, duration = 0.30) {
+        function swapSlotImage(tl, index, newImage, position, duration = 0.28) {
             const slot = slots[index];
             const tile = slot.querySelector('.image-tile');
             const img = tile.querySelector('img');
@@ -292,20 +279,10 @@
             }, position + (duration * 0.5));
         }
 
-        // Utility: shuffle an array
-        function shuffleArray(arr) {
-            const copy = [...arr];
-            for (let i = copy.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [copy[i], copy[j]] = [copy[j], copy[i]];
-            }
-            return copy;
-        }
-
-        // Build 1-at-a-time random timeline across "Darshan Naidu":
+        // Build the Celebrations-style timeline for "Darshan Naidu":
         // D(0), a(1), r(2), s(3), h(4), a(5), n(6)  [space]  N(7), a(8), i(9), d(10), u(11)
-        // STRICTLY 1 LETTER AT A TIME. NEVER TWO SIMULTANEOUSLY!
-        function buildTimeline(seedLetters = null) {
+        // Keeps the name readable at all times with balanced card clusters
+        function buildTimeline() {
             if (masterTimeline) {
                 masterTimeline.kill();
             }
@@ -314,15 +291,14 @@
 
             const tl = gsap.timeline({
                 repeat: -1,
-                repeatDelay: 1.6,
-                defaults: { ease: "power2.out" },
-                onRepeat: () => {
-                    // Re-randomize sequence on each loop for continuous organic variety
-                    buildTimeline();
-                }
+                repeatDelay: 1.8,
+                defaults: { ease: "power2.out" }
             });
 
-            // 0.00s - 0.45s: Clean Opening (Stationary white Darshan Naidu on #080808)
+            // ----------------------------------------------------
+            // PHASE A: Clean Opening (0.00s - 0.40s)
+            // Complete word "Darshan Naidu" centered, stationary white on black
+            // ----------------------------------------------------
             slots.forEach((slot, idx) => {
                 const glyph = slot.querySelector('.char-glyph');
                 const tile = slot.querySelector('.image-tile');
@@ -331,72 +307,73 @@
                 tl.set(tile, { opacity: 0, scale: 0.6 }, 0);
             });
 
-            // Available indices: 0 through 11
-            const allIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-            
-            // Choose a sequence of 6 distinct letters jumping across both words
-            let letterSequence;
-            if (seedLetters && Array.isArray(seedLetters)) {
-                letterSequence = seedLetters;
-            } else {
-                // Ensure balanced spread between first name (0-6) and last name (7-11)
-                const firstPart = shuffleArray([0, 1, 2, 3, 4, 5, 6]);
-                const secondPart = shuffleArray([7, 8, 9, 10, 11]);
-                letterSequence = [
-                    secondPart[0], // e.g. letter in Naidu
-                    firstPart[0],  // e.g. letter in Darshan
-                    secondPart[1], // e.g. letter in Naidu
-                    firstPart[1],  // e.g. letter in Darshan
-                    secondPart[2], // e.g. letter in Naidu
-                    firstPart[2]   // e.g. letter in Darshan
-                ];
-            }
+            // ----------------------------------------------------
+            // PHASE B: First Image Insertion (0.40s - 1.20s)
+            // Two photographic tiles appear near right side at i(9) and d(10)
+            // Rest of "Darshan Na...u" remains clearly readable
+            // ----------------------------------------------------
+            setSlotState(tl, 9, { active: true, image: IMAGES.shot1, duration: 0.44 }, 0.40);
+            setSlotState(tl, 10, { active: true, image: IMAGES.shot2, duration: 0.44 }, 0.48);
 
-            const shuffledImages = shuffleArray(DARSHAN_IMAGES);
-            let timeCursor = 0.50;
+            // ----------------------------------------------------
+            // PHASE C: Progressive Image Expansion & Rapid Swaps (1.20s - 2.15s)
+            // Expands toward middle: a(8) in Naidu, n(6) in Darshan
+            // Right-side tiles release, while i(9) swaps photos before resolving
+            // ----------------------------------------------------
+            swapSlotImage(tl, 9, IMAGES.shot3, 1.20, 0.26);
+            setSlotState(tl, 8, { active: true, image: IMAGES.shot4, duration: 0.42 }, 1.26);
+            setSlotState(tl, 6, { active: true, image: IMAGES.shot5, duration: 0.42 }, 1.36);
 
-            letterSequence.forEach((slotIdx, step) => {
-                const img1 = shuffledImages[(step * 2) % shuffledImages.length];
-                const img2 = (step === 2 || step === 5) ? shuffledImages[(step * 2 + 1) % shuffledImages.length] : null;
+            // Release right tiles back to text so name remains readable
+            setSlotState(tl, 10, { active: false, duration: 0.38 }, 1.48);
+            setSlotState(tl, 9, { active: false, duration: 0.38 }, 1.58);
 
-                const openDur = 0.44;
-                const closeDur = 0.40;
+            // ----------------------------------------------------
+            // PHASE D: Controlled Shift across First Name (2.15s - 3.10s)
+            // Photographic flow moves leftward to s(3) and h(4) in Darshan
+            // Tiles 8 and 6 release cleanly
+            // ----------------------------------------------------
+            setSlotState(tl, 8, { active: false, duration: 0.38 }, 2.05);
+            setSlotState(tl, 6, { active: false, duration: 0.38 }, 2.12);
 
-                // 1. Open letter into card
-                setSlotState(tl, slotIdx, { active: true, image: img1, duration: openDur }, timeCursor);
-                timeCursor += openDur;
+            setSlotState(tl, 3, { active: true, image: IMAGES.shot6, duration: 0.42 }, 2.12);
+            setSlotState(tl, 4, { active: true, image: IMAGES.shot7, duration: 0.42 }, 2.22);
+            swapSlotImage(tl, 3, IMAGES.shot8, 2.55, 0.26);
 
-                // 2. Hold or micro-swap photo
-                if (img2) {
-                    timeCursor += 0.15;
-                    swapSlotImage(tl, slotIdx, img2, timeCursor, 0.30);
-                    timeCursor += 0.35;
-                } else {
-                    timeCursor += 0.45;
-                }
+            // ----------------------------------------------------
+            // PHASE E: Collapse to One Image (3.10s - 4.30s)
+            // Collapse remaining tiles until only ONE remains immediately after initial letter 'D':
+            // Letter a(1) in Darshan blooms with Darshan's portrait and holds
+            // ----------------------------------------------------
+            setSlotState(tl, 4, { active: false, duration: 0.38 }, 3.10);
+            setSlotState(tl, 3, { active: false, duration: 0.38 }, 3.18);
 
-                // 3. Close back to typography (strictly before next letter can open!)
-                setSlotState(tl, slotIdx, { active: false, duration: closeDur }, timeCursor);
-                timeCursor += closeDur + 0.12; // Small breathing gap before next letter starts
-            });
+            // Solo hero card holds right after initial letter 'D' (Celebrations Phase E)
+            setSlotState(tl, 1, { active: true, image: IMAGES.portrait, duration: 0.46 }, 3.16);
 
-            // Resting state of stationary white text before loop repeats
-            tl.to({}, { duration: 1.4 }, timeCursor);
+            // ----------------------------------------------------
+            // PHASE F: Final Reset (4.30s - 5.00s)
+            // Clean transition revealing complete white word "Darshan Naidu"
+            // ----------------------------------------------------
+            setSlotState(tl, 1, { active: false, duration: 0.42 }, 4.30);
+
+            // ----------------------------------------------------
+            // PHASE G: Resting Hold (5.00s - 6.80s)
+            // Clean stationary readable state before repeat
+            // ----------------------------------------------------
+            tl.to({}, { duration: 1.8 }, 4.90);
 
             masterTimeline = tl;
             return tl;
         }
 
         // Initialize once all Darshan photos are preloaded
-        preloadAssets(DARSHAN_IMAGES, () => {
+        preloadAssets(IMAGES, () => {
+            buildTimeline();
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('seek')) {
-                // Fixed seed for deterministic test captures
-                buildTimeline([9, 2, 10, 4, 7, 3]);
                 masterTimeline.pause();
                 masterTimeline.seek(parseFloat(urlParams.get('seek')));
-            } else {
-                buildTimeline();
             }
         });
 
@@ -411,7 +388,7 @@
             }, 120);
         });
 
-        // Click to generate a brand new random sequence; Space to pause/play
+        // Space to pause/play; Click to restart
         window.addEventListener('keydown', (e) => {
             if (e.code === 'Space') {
                 e.preventDefault();
@@ -423,7 +400,7 @@
         });
 
         document.querySelector('.hero-stage').addEventListener('click', () => {
-            buildTimeline();
+            if (masterTimeline) masterTimeline.restart();
         });
     </script>
 </body>

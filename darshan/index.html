@@ -3,613 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Darshan — Kinetic Morph Animation</title>
-    <meta name="description" content="Apple-style letter-to-image morph animation for Darshan, featuring smooth fluid physics, sequential letter transformations, and curated visual direction.">
+    <title>Celebrations — GSAP Image-Swap Typography Hero</title>
     <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP 3 CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: #000000;
-            color: #ffffff;
-            overflow: hidden;
-            -webkit-font-smoothing: antialiased;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Apple-style spring easing */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #080808;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .hero-stage {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            user-select: none;
+            background-color: #080808;
+        }
+
+        .word-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(32px, 5.2vw, 72px);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            white-space: nowrap;
+            color: #ffffff;
+            position: relative;
+        }
+
         .char-slot {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: width 0.46s cubic-bezier(0.25, 1, 0.5, 1),
-                        height 0.46s cubic-bezier(0.25, 1, 0.5, 1),
-                        margin 0.46s cubic-bezier(0.25, 1, 0.5, 1),
-                        transform 0.46s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
-            cursor: pointer;
             vertical-align: middle;
+            height: 1.2em;
+            will-change: width, margin;
         }
 
-        .char-text {
-            transition: opacity 0.28s ease, transform 0.38s cubic-bezier(0.25, 1, 0.5, 1);
+        .char-glyph {
             display: inline-block;
-            user-select: none;
             line-height: 1;
+            color: #ffffff;
+            will-change: transform, opacity;
+            pointer-events: none;
         }
 
-        .char-image {
+        .image-tile {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.65);
+            transform: translate(-50%, -50%) scale(0.6);
             opacity: 0;
-            border-radius: 22%;
+            border-radius: 20%;
             overflow: hidden;
-            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.85);
-            transition: opacity 0.32s ease,
-                        transform 0.46s cubic-bezier(0.25, 1, 0.5, 1),
-                        width 0.46s cubic-bezier(0.25, 1, 0.5, 1),
-                        height 0.46s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: none;
-            background-color: #000000;
+            will-change: transform, opacity, width, height;
+            background-color: #080808;
             z-index: 5;
         }
 
-        .char-image img {
+        .image-tile img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            border-radius: 22%;
+            border-radius: 20%;
         }
 
-        /* Active State when letter becomes photo card */
-        .char-slot.is-card .char-text {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            transform: scale(0) !important;
-            pointer-events: none;
-        }
-
-        .char-slot.is-card .char-image {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .char-slot.is-card:hover .char-image {
-            transform: translate(-50%, -50%) scale(1.06);
-            z-index: 10;
-        }
-
-        .glass-panel {
-            background: rgba(28, 28, 30, 0.78);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-        }
-
-        /* Scrubber styling */
-        input[type="range"]::-webkit-slider-thumb {
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #ffffff;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-            transition: transform 0.15s ease;
-        }
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.3);
+        @media (prefers-reduced-motion: reduce) {
+            .char-slot, .char-glyph, .image-tile {
+                transition: none !important;
+                animation: none !important;
+            }
         }
     </style>
 </head>
-<body class="w-screen h-screen flex flex-col items-center justify-between select-none m-0 p-0 bg-black text-white relative">
+<body>
 
-    <!-- Top Navigation -->
-    <header class="w-full px-8 py-5 flex items-center justify-between z-30">
-        <a href="/" class="flex items-center gap-2 group text-neutral-400 hover:text-white transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            <span class="font-medium text-xs tracking-wider uppercase font-mono">Back to Portfolio</span>
-        </a>
-
-        <!-- Pattern Mode Pills -->
-        <div class="flex items-center gap-1.5 glass-panel p-1 rounded-full text-xs">
-            <button id="mode-seq" onclick="setPatternMode('sequential')" class="px-3.5 py-1 rounded-full transition font-medium bg-white text-black">
-                1 by 1 (Sequential)
-            </button>
-            <button id="mode-wave" onclick="setPatternMode('wave')" class="px-3.5 py-1 rounded-full transition font-medium text-neutral-400 hover:text-white">
-                Video Pattern (Wave)
-            </button>
+    <main class="hero-stage">
+        <div id="word" class="word-container" aria-label="Celebrations">
+            <span class="char-slot" data-index="0" data-char="C"><span class="char-glyph">C</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="1" data-char="e"><span class="char-glyph">e</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="2" data-char="l"><span class="char-glyph">l</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="3" data-char="e"><span class="char-glyph">e</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="4" data-char="b"><span class="char-glyph">b</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="5" data-char="r"><span class="char-glyph">r</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="6" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="7" data-char="t"><span class="char-glyph">t</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="8" data-char="i"><span class="char-glyph">i</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="9" data-char="o"><span class="char-glyph">o</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="10" data-char="n"><span class="char-glyph">n</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="11" data-char="s"><span class="char-glyph">s</span><div class="image-tile"><img src="" alt=""></div></span>
         </div>
-
-        <!-- Image Set Toggle -->
-        <div class="flex items-center gap-2 text-xs">
-            <button id="theme-btn" onclick="toggleImageSet()" class="glass-panel px-3.5 py-1.5 rounded-full text-neutral-300 hover:text-white transition flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                <span id="theme-label">Visual Set: Apple Aesthetic</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Main Display Stage (Dead-Center Just Like the Reference Video) -->
-    <main class="relative flex-1 w-full flex items-center justify-center px-4 overflow-hidden">
-        
-        <!-- Animated Word Container -->
-        <div id="word-container" class="flex items-center justify-center text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-semibold tracking-tight whitespace-nowrap leading-none select-none">
-            
-            <!-- D (index 0) -->
-            <div class="char-slot" data-char="D" data-index="0">
-                <span class="char-text">D</span>
-                <div class="char-image"></div>
-            </div>
-
-            <!-- a (index 1) -->
-            <div class="char-slot" data-char="a" data-index="1">
-                <span class="char-text">a</span>
-                <div class="char-image"></div>
-            </div>
-
-            <!-- r (index 2) -->
-            <div class="char-slot" data-char="r" data-index="2">
-                <span class="char-text">r</span>
-                <div class="char-image"></div>
-            </div>
-
-            <!-- s (index 3) -->
-            <div class="char-slot" data-char="s" data-index="3">
-                <span class="char-text">s</span>
-                <div class="char-image"></div>
-            </div>
-
-            <!-- h (index 4) -->
-            <div class="char-slot" data-char="h" data-index="4">
-                <span class="char-text">h</span>
-                <div class="char-image"></div>
-            </div>
-
-            <!-- a (index 5) -->
-            <div class="char-slot" data-char="a" data-index="5">
-                <span class="char-text">a</span>
-                <div class="char-image"></div>
-            </div>
-
-            <!-- n (index 6) -->
-            <div class="char-slot" data-char="n" data-index="6">
-                <span class="char-text">n</span>
-                <div class="char-image"></div>
-            </div>
-
-        </div>
-
     </main>
 
-    <!-- Interactive Timebar & Controls (Apple Celebrations Style) -->
-    <footer class="w-full max-w-2xl px-6 pb-8 pt-2 flex flex-col gap-4 z-20 mx-auto">
-        
-        <!-- Scrubber Progress Bar -->
-        <div class="flex items-center gap-4">
-            <span id="time-display" class="font-mono text-xs text-neutral-400 w-12 text-right">00:00</span>
-            <input type="range" id="scrubber" min="0" max="5000" value="0" step="10" 
-                   class="w-full h-1.5 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-white hover:bg-neutral-700 transition-colors">
-            <span id="total-time-display" class="font-mono text-xs text-neutral-500 w-12">00:05</span>
-        </div>
-
-        <!-- Controls Bar -->
-        <div class="flex items-center justify-between glass-panel px-6 py-3 rounded-full">
-            
-            <div class="flex items-center gap-2">
-                <!-- Play / Pause -->
-                <button id="play-btn" onclick="togglePlay()" class="p-2 text-white hover:text-neutral-300 transition" title="Play / Pause">
-                    <svg id="play-icon" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                    <svg id="pause-icon" class="w-5 h-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                </button>
-                <!-- Step Back -->
-                <button onclick="stepFrame(-600)" class="p-2 text-neutral-400 hover:text-white transition" title="Previous Frame">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/></svg>
-                </button>
-                <!-- Step Forward -->
-                <button onclick="stepFrame(600)" class="p-2 text-neutral-400 hover:text-white transition" title="Next Frame">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"/></svg>
-                </button>
-            </div>
-
-            <!-- Current Active Phase Indicator -->
-            <div id="phase-badge" class="text-xs font-medium tracking-wider text-neutral-200 bg-white/10 px-3.5 py-1.5 rounded-full uppercase truncate max-w-[220px] text-center border border-white/10">
-                1 by 1: Letter D
-            </div>
-
-            <!-- Loop Toggle -->
-            <button id="loop-toggle" onclick="toggleLoop()" class="text-xs font-medium text-white bg-white/20 px-3.5 py-1.5 rounded-full hover:bg-white/30 transition">
-                Loop: ON
-            </button>
-        </div>
-    </footer>
-
-    <!-- Video & Vector Visual Assets & Fluid Choreography -->
     <script>
-        // Set 1: Exact High-Contrast Aesthetic Images extracted from the Reference Video
-        const ASSETS_VIDEO = {
-            portrait: `<img src="/assets/images/morph/card_portrait.png" alt="Portrait">`,
-            flower: `<img src="/assets/images/morph/card_flower.png" alt="Botanical Flower">`,
-            stadium: `<img src="/assets/images/morph/card_stadium.png" alt="Stadium">`,
-            runner: `<img src="/assets/images/morph/card_runner.png" alt="Runner on Track">`,
-            water: `<img src="/assets/images/morph/card_water.png" alt="Crystal Water">`,
-            stairs: `<img src="/assets/images/morph/card_stairs.png" alt="Yellow Stairs">`,
-            ferry: `<img src="/assets/images/morph/card_ferry.png" alt="Ferry Ocean">`,
-            tennis: `<img src="/assets/images/morph/card_tennis.png" alt="Tennis Court">`
+        // High-contrast, clean photographic assets directly matching the reference video
+        const IMAGES = {
+            portrait: '/assets/images/morph/card_portrait.png',
+            flower:   '/assets/images/morph/card_flower.png',
+            stadium:  '/assets/images/morph/card_stadium.png',
+            runner:   '/assets/images/morph/card_runner.png',
+            water:    '/assets/images/morph/card_water.png',
+            stairs:   '/assets/images/morph/card_stairs.png',
+            ferry:    '/assets/images/morph/card_ferry.png',
+            tennis:   '/assets/images/morph/card_tennis.png'
         };
 
-        // Set 2: Darshan Creative Portfolio Works & Portraits
-        const ASSETS_PORTFOLIO = {
-            portrait: `<img src="/assets/images/darshan_mind.jpg" alt="Darshan Mind">`,
-            flower: `<img src="/assets/images/work/taj.jpg" alt="Taj Mahal Craft">`,
-            stadium: `<img src="/assets/images/IMG_E1906_Original.jpg" alt="Darshan Studio">`,
-            runner: `<img src="/assets/images/work/hawa-mahal.jpg" alt="Hawa Mahal Design">`,
-            water: `<img src="/assets/images/68ac19dd1de59151886116ee_basilica_img_2.avif" alt="Basilica">`,
-            stairs: `<img src="/assets/images/work/kolkata.jpg" alt="Kolkata Visual">`,
-            ferry: `<img src="/assets/images/680806a6fe42f1c31342a791_project_teaser_img_1.gif" alt="Motion Graphic">`,
-            tennis: `<img src="/assets/images/darshan.jpeg" alt="Darshan Profile">`
-        };
-
-        let currentImageSet = 'video'; // 'video' or 'portfolio'
-        function getAssets() {
-            return currentImageSet === 'video' ? ASSETS_VIDEO : ASSETS_PORTFOLIO;
+        // Preload all photographic assets to prevent frame drops or flickering
+        function preloadAssets(urls, callback) {
+            let loaded = 0;
+            const keys = Object.keys(urls);
+            const total = keys.length;
+            keys.forEach(k => {
+                const img = new Image();
+                img.onload = img.onerror = () => {
+                    loaded++;
+                    if (loaded >= total) callback();
+                };
+                img.src = urls[k];
+            });
         }
 
-        // PATTERN 1: 1 Letter 1 Time (Smooth Sequential Wave across D - a - r - s - h - a - n)
-        // Exactly what user asked: "1 letter 1 one time and some good pattern"
-        function getSequentialTimeline() {
-            const A = getAssets();
-            return [
-                {
-                    time: 0,
-                    badge: "Letter 1: D",
-                    active: { 0: A.portrait }
-                },
-                {
-                    time: 650,
-                    badge: "Letter 2: a",
-                    active: { 1: A.flower }
-                },
-                {
-                    time: 1300,
-                    badge: "Letter 3: r",
-                    active: { 2: A.runner }
-                },
-                {
-                    time: 1950,
-                    badge: "Letter 4: s",
-                    active: { 3: A.water }
-                },
-                {
-                    time: 2600,
-                    badge: "Letter 5: h",
-                    active: { 4: A.stairs }
-                },
-                {
-                    time: 3250,
-                    badge: "Letter 6: a",
-                    active: { 5: A.ferry }
-                },
-                {
-                    time: 3900,
-                    badge: "Letter 7: n",
-                    active: { 6: A.tennis }
-                },
-                {
-                    time: 4600,
-                    badge: "Resolved: Darshan",
-                    active: {} // Reverts smoothly to typography
-                }
-            ];
-        }
-
-        // PATTERN 2: Video Pattern (Shifting Wave from the 150-frame reference video)
-        // Frame analysis: pair -> 5 cards -> shift left trio -> solo card -> resolve
-        function getWaveTimeline() {
-            const A = getAssets();
-            return [
-                {
-                    time: 0,
-                    badge: "Phase 1: i, o (Center Pair)",
-                    active: {
-                        3: A.ferry,   // s -> Ferry
-                        4: A.tennis   // h -> Tennis
-                    }
-                },
-                {
-                    time: 1100,
-                    badge: "Phase 2: r, a, t, i, o (Five Center Cards)",
-                    active: {
-                        1: A.runner,  // a -> Runner
-                        2: A.water,   // r -> Water
-                        3: A.stairs,  // s -> Yellow Stairs
-                        4: A.ferry,   // h -> Ferry
-                        5: A.tennis   // a -> Tennis
-                    }
-                },
-                {
-                    time: 2300,
-                    badge: "Phase 3: e, l, e (Left Shift Trio)",
-                    active: {
-                        0: A.portrait,// D -> Portrait
-                        1: A.flower,  // a -> Flower
-                        2: A.stadium  // r -> Stadium
-                    }
-                },
-                {
-                    time: 3500,
-                    badge: "Phase 4: Solo Card D",
-                    active: {
-                        0: A.portrait // D -> Portrait
-                    }
-                },
-                {
-                    time: 4400,
-                    badge: "Phase 5: Resolved",
-                    active: {} // Reverts cleanly to Darshan text
-                }
-            ];
-        }
-
-        let patternMode = 'sequential'; // 'sequential' or 'wave'
-        let TIMELINE = getSequentialTimeline();
-        let totalDuration = 5200; // 5.2 seconds
-
-        // Player State
-        let currentTime = 0;
-        let isPlaying = true;
-        let isLooping = true;
-        let lastTimestamp = null;
         const slots = document.querySelectorAll('.char-slot');
+        let naturalWidths = [];
+        let tileDimension = 0;
+        let masterTimeline = null;
 
-        // Apple Pro Card Sizing: smooth, proportionate to viewport
-        function calculateCardSize() {
-            const w = window.innerWidth;
-            if (w < 480) return { size: 52, fontWidth: '0.62em', margin: '0 2px' };
-            if (w < 640) return { size: 68, fontWidth: '0.65em', margin: '0 3px' };
-            if (w < 768) return { size: 88, fontWidth: '0.65em', margin: '0 4px' };
-            if (w < 1024) return { size: 108, fontWidth: '0.65em', margin: '0 5px' };
-            if (w < 1280) return { size: 124, fontWidth: '0.65em', margin: '0 6px' };
-            return { size: 136, fontWidth: '0.65em', margin: '0 8px' };
-        }
-
-        const currentSlotContent = {};
-
-        function updateScene(timeMs) {
-            // Find current frame in TIMELINE
-            let currentFrame = TIMELINE[0];
-            for (let i = TIMELINE.length - 1; i >= 0; i--) {
-                if (timeMs >= TIMELINE[i].time) {
-                    currentFrame = TIMELINE[i];
-                    break;
-                }
-            }
-
-            const cardConfig = calculateCardSize();
-
-            slots.forEach((slot) => {
-                const idx = parseInt(slot.dataset.index, 10);
-                const imgContainer = slot.querySelector('.char-image');
-                const imageHTML = currentFrame.active[idx];
-
-                if (imageHTML) {
-                    slot.classList.add('is-card');
-                    slot.style.width = `${cardConfig.size}px`;
-                    slot.style.height = `${cardConfig.size}px`;
-                    slot.style.margin = cardConfig.margin;
-                    
-                    imgContainer.style.width = `${cardConfig.size}px`;
-                    imgContainer.style.height = `${cardConfig.size}px`;
-
-                    if (currentSlotContent[idx] !== imageHTML) {
-                        imgContainer.innerHTML = imageHTML;
-                        currentSlotContent[idx] = imageHTML;
-                    }
-                } else {
-                    slot.classList.remove('is-card');
-                    slot.style.width = cardConfig.fontWidth;
-                    slot.style.height = 'auto';
-                    slot.style.margin = '0';
-                    currentSlotContent[idx] = null;
-                }
+        // Measure natural rendered character widths
+        function measureLayout() {
+            naturalWidths = [];
+            slots.forEach(slot => {
+                const glyph = slot.querySelector('.char-glyph');
+                slot.style.width = 'auto';
+                slot.style.margin = '0';
+                glyph.style.transform = 'none';
+                glyph.style.opacity = '1';
+                const rect = glyph.getBoundingClientRect();
+                naturalWidths.push(rect.width);
+                slot.style.width = `${rect.width}px`;
             });
 
-            // Update UI
-            const scrubber = document.getElementById('scrubber');
-            if (document.activeElement !== scrubber) {
-                scrubber.value = timeMs;
-            }
-            document.getElementById('phase-badge').innerText = currentFrame.badge;
-            
-            const seconds = Math.floor(timeMs / 1000);
-            const millis = Math.floor((timeMs % 1000) / 10);
-            document.getElementById('time-display').innerText = 
-                `0${seconds}:${millis < 10 ? '0' : ''}${millis}`;
+            // Tile size matches the character line height
+            const sampleSlot = slots[0];
+            const sampleRect = sampleSlot.getBoundingClientRect();
+            tileDimension = Math.round(sampleRect.height);
         }
 
-        function animationLoop(timestamp) {
-            if (!lastTimestamp) lastTimestamp = timestamp;
-            const delta = timestamp - lastTimestamp;
-            lastTimestamp = timestamp;
+        // Helper to animate slot state (glyph vs tile) via GSAP
+        function setSlotState(tl, index, config, position) {
+            const slot = slots[index];
+            const glyph = slot.querySelector('.char-glyph');
+            const tile = slot.querySelector('.image-tile');
+            const img = tile.querySelector('img');
 
-            if (isPlaying) {
-                currentTime += delta;
-                if (currentTime >= totalDuration) {
-                    if (isLooping) {
-                        currentTime = 0;
-                    } else {
-                        currentTime = totalDuration;
-                        pause();
-                    }
-                }
-                updateScene(currentTime);
-            }
+            const naturalW = naturalWidths[index];
+            const targetW = config.active ? tileDimension : naturalW;
+            const duration = config.duration || 0.40;
+            const ease = config.ease || "power2.out";
 
-            requestAnimationFrame(animationLoop);
-        }
+            if (config.active && config.image) {
+                // Set image source at exact position in timeline
+                tl.set(img, { attr: { src: config.image } }, position);
 
-        function play() {
-            isPlaying = true;
-            document.getElementById('play-icon').classList.add('hidden');
-            document.getElementById('pause-icon').classList.remove('hidden');
-            if (currentTime >= totalDuration) currentTime = 0;
-        }
+                // Expand slot and fade out glyph
+                tl.to(slot, {
+                    width: targetW,
+                    marginRight: 3,
+                    marginLeft: 3,
+                    duration: duration,
+                    ease: ease
+                }, position);
 
-        function pause() {
-            isPlaying = false;
-            document.getElementById('play-icon').classList.remove('hidden');
-            document.getElementById('pause-icon').classList.add('hidden');
-        }
+                tl.to(glyph, {
+                    opacity: 0,
+                    scale: 0.15,
+                    duration: duration * 0.7,
+                    ease: "power2.in"
+                }, position);
 
-        function togglePlay() {
-            if (isPlaying) pause();
-            else play();
-        }
+                tl.set(tile, {
+                    width: tileDimension,
+                    height: tileDimension
+                }, position);
 
-        function toggleLoop() {
-            isLooping = !isLooping;
-            const btn = document.getElementById('loop-toggle');
-            btn.innerText = `Loop: ${isLooping ? 'ON' : 'OFF'}`;
-            btn.className = `text-xs font-medium px-3.5 py-1.5 rounded-full transition ${isLooping ? 'text-white bg-white/20' : 'text-neutral-400 bg-white/5'}`;
-        }
+                tl.to(tile, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: duration,
+                    ease: ease
+                }, position);
 
-        function stepFrame(deltaMs) {
-            pause();
-            currentTime = Math.max(0, Math.min(totalDuration, currentTime + deltaMs));
-            updateScene(currentTime);
-        }
-
-        function setPatternMode(mode) {
-            patternMode = mode;
-            const btnSeq = document.getElementById('mode-seq');
-            const btnWave = document.getElementById('mode-wave');
-
-            if (mode === 'sequential') {
-                TIMELINE = getSequentialTimeline();
-                totalDuration = 5200;
-                btnSeq.className = "px-3.5 py-1 rounded-full transition font-medium bg-white text-black";
-                btnWave.className = "px-3.5 py-1 rounded-full transition font-medium text-neutral-400 hover:text-white";
             } else {
-                TIMELINE = getWaveTimeline();
-                totalDuration = 5000;
-                btnWave.className = "px-3.5 py-1 rounded-full transition font-medium bg-white text-black";
-                btnSeq.className = "px-3.5 py-1 rounded-full transition font-medium text-neutral-400 hover:text-white";
+                // Revert to typography
+                tl.to(tile, {
+                    opacity: 0,
+                    scale: 0.5,
+                    duration: duration * 0.75,
+                    ease: "power2.in"
+                }, position);
+
+                tl.to(slot, {
+                    width: targetW,
+                    marginRight: 0,
+                    marginLeft: 0,
+                    duration: duration,
+                    ease: ease
+                }, position);
+
+                tl.to(glyph, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: duration,
+                    ease: ease
+                }, position + (duration * 0.2));
+            }
+        }
+
+        // Build the complete GSAP master timeline matching the specification
+        function buildTimeline() {
+            if (masterTimeline) {
+                masterTimeline.kill();
             }
 
-            document.getElementById('scrubber').max = totalDuration;
-            document.getElementById('total-time-display').innerText = `00:0${Math.floor(totalDuration/1000)}`;
-            currentTime = 0;
-            updateScene(0);
-            play();
-        }
+            measureLayout();
 
-        function toggleImageSet() {
-            currentImageSet = currentImageSet === 'video' ? 'portfolio' : 'video';
-            const label = document.getElementById('theme-label');
-            label.innerText = currentImageSet === 'video' ? 'Visual Set: Apple Aesthetic' : 'Visual Set: Darshan Portfolio';
-            
-            // Refresh current timeline
-            if (patternMode === 'sequential') TIMELINE = getSequentialTimeline();
-            else TIMELINE = getWaveTimeline();
-
-            // Clear cache so images re-render immediately
-            for (let k in currentSlotContent) currentSlotContent[k] = null;
-            updateScene(currentTime);
-        }
-
-        // Direct letter click interaction
-        slots.forEach((slot) => {
-            slot.addEventListener('click', () => {
-                pause();
-                const idx = parseInt(slot.dataset.index, 10);
-                const isCurrentlyCard = slot.classList.contains('is-card');
-                const cardConfig = calculateCardSize();
-                const imgContainer = slot.querySelector('.char-image');
-                const A = getAssets();
-
-                if (isCurrentlyCard) {
-                    slot.classList.remove('is-card');
-                    slot.style.width = cardConfig.fontWidth;
-                    slot.style.height = 'auto';
-                    slot.style.margin = '0';
-                    currentSlotContent[idx] = null;
-                } else {
-                    const chosenImage = [
-                        A.portrait, A.flower, A.runner, A.water, A.stairs, A.ferry, A.tennis
-                    ][idx];
-
-                    slot.classList.add('is-card');
-                    slot.style.width = `${cardConfig.size}px`;
-                    slot.style.height = `${cardConfig.size}px`;
-                    slot.style.margin = cardConfig.margin;
-                    
-                    imgContainer.style.width = `${cardConfig.size}px`;
-                    imgContainer.style.height = `${cardConfig.size}px`;
-                    imgContainer.innerHTML = chosenImage;
-                    currentSlotContent[idx] = chosenImage;
-                }
+            // Word: C(0) e(1) l(2) e(3) b(4) r(5) a(6) t(7) i(8) o(9) n(10) s(11)
+            const tl = gsap.timeline({
+                repeat: -1,
+                repeatDelay: 1.6,
+                defaults: { ease: "power2.out" }
             });
+
+            // ----------------------------------------------------
+            // PHASE A: Clean opening (0.00s - 0.35s)
+            // Complete word "Celebrations" centered on black
+            // ----------------------------------------------------
+            slots.forEach((slot, idx) => {
+                const glyph = slot.querySelector('.char-glyph');
+                const tile = slot.querySelector('.image-tile');
+                tl.set(slot, { width: naturalWidths[idx], margin: 0 }, 0);
+                tl.set(glyph, { opacity: 1, scale: 1 }, 0);
+                tl.set(tile, { opacity: 0, scale: 0.6 }, 0);
+            });
+
+            // ----------------------------------------------------
+            // PHASE B: First image insertion (0.35s - 1.00s)
+            // Two small photographic tiles appear near right side at i(8) and o(9)
+            // ----------------------------------------------------
+            setSlotState(tl, 8, { active: true, image: IMAGES.ferry, duration: 0.44 }, 0.35);
+            setSlotState(tl, 9, { active: true, image: IMAGES.tennis, duration: 0.44 }, 0.42);
+
+            // ----------------------------------------------------
+            // PHASE C: Progressive image expansion (1.00s - 1.85s)
+            // Progressive expansion from right toward middle: r(5), a(6), t(7), i(8), o(9)
+            // ----------------------------------------------------
+            setSlotState(tl, 5, { active: true, image: IMAGES.runner, duration: 0.42 }, 1.02);
+            setSlotState(tl, 6, { active: true, image: IMAGES.water, duration: 0.42 }, 1.10);
+            setSlotState(tl, 7, { active: true, image: IMAGES.stairs, duration: 0.42 }, 1.18);
+
+            // ----------------------------------------------------
+            // PHASE D: Peak image composition (1.85s - 2.65s)
+            // Shift photographic strip toward left:
+            // e(1), l(2), e(3), b(4), r(5)
+            // Right-side tiles 6, 7, 8, 9 release back to white text
+            // ----------------------------------------------------
+            setSlotState(tl, 8, { active: false, duration: 0.38 }, 1.85);
+            setSlotState(tl, 9, { active: false, duration: 0.38 }, 1.85);
+            setSlotState(tl, 7, { active: false, duration: 0.38 }, 1.92);
+            setSlotState(tl, 6, { active: false, duration: 0.38 }, 1.92);
+
+            setSlotState(tl, 1, { active: true, image: IMAGES.flower, duration: 0.42 }, 1.90);
+            setSlotState(tl, 2, { active: true, image: IMAGES.stadium, duration: 0.42 }, 1.98);
+            setSlotState(tl, 3, { active: true, image: IMAGES.runner, duration: 0.42 }, 2.06);
+            setSlotState(tl, 4, { active: true, image: IMAGES.water, duration: 0.42 }, 2.14);
+            setSlotState(tl, 5, { active: true, image: IMAGES.stairs, duration: 0.42 }, 2.22);
+
+            // ----------------------------------------------------
+            // PHASE E: Collapse to one image (2.65s - 3.75s)
+            // Collapse remaining tiles until only ONE remains immediately after initial letter 'C':
+            // e(1) swaps to Portrait and holds
+            // ----------------------------------------------------
+            setSlotState(tl, 5, { active: false, duration: 0.38 }, 2.65);
+            setSlotState(tl, 4, { active: false, duration: 0.38 }, 2.72);
+            setSlotState(tl, 3, { active: false, duration: 0.38 }, 2.79);
+            setSlotState(tl, 2, { active: false, duration: 0.38 }, 2.86);
+
+            // e(1) swaps to portrait and holds
+            setSlotState(tl, 1, { active: true, image: IMAGES.portrait, duration: 0.40 }, 2.80);
+
+            // ----------------------------------------------------
+            // PHASE F: Final reset (3.75s - 4.80s)
+            // Remove remaining tile, revealing clean white "Celebrations"
+            // ----------------------------------------------------
+            setSlotState(tl, 1, { active: false, duration: 0.44 }, 3.85);
+
+            // Stationary text hold before loop
+            tl.to({}, { duration: 0.7 }, 4.30);
+
+            masterTimeline = tl;
+        }
+
+        // Initialize once assets are preloaded
+        preloadAssets(IMAGES, () => {
+            buildTimeline();
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('seek')) {
+                masterTimeline.pause();
+                masterTimeline.seek(parseFloat(urlParams.get('seek')));
+            }
         });
 
-        // Event Listeners for scrubber
-        const scrubberInput = document.getElementById('scrubber');
-        scrubberInput.addEventListener('input', (e) => {
-            pause();
-            currentTime = parseInt(e.target.value, 10);
-            updateScene(currentTime);
-        });
-
+        // Recalculate accurately on resize
+        let resizeTimer = null;
         window.addEventListener('resize', () => {
-            updateScene(currentTime);
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const progress = masterTimeline ? masterTimeline.progress() : 0;
+                buildTimeline();
+                if (masterTimeline) masterTimeline.progress(progress);
+            }, 120);
         });
 
-        // Mouse wheel scrub
-        window.addEventListener('wheel', (e) => {
-            if (Math.abs(e.deltaY) > 5) {
-                pause();
-                currentTime = Math.max(0, Math.min(totalDuration, currentTime + (e.deltaY * 3)));
-                updateScene(currentTime);
+        // Interactive controls: Space = pause/play, Click = replay
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (masterTimeline) {
+                    if (masterTimeline.paused()) masterTimeline.play();
+                    else masterTimeline.pause();
+                }
             }
-        }, { passive: true });
+        });
 
-        // Touch scrub
-        let touchStartX = 0;
-        window.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1) touchStartX = e.touches[0].clientX;
-        }, { passive: true });
-
-        window.addEventListener('touchmove', (e) => {
-            if (e.touches.length === 1) {
-                const deltaX = e.touches[0].clientX - touchStartX;
-                touchStartX = e.touches[0].clientX;
-                pause();
-                currentTime = Math.max(0, Math.min(totalDuration, currentTime - (deltaX * 12)));
-                updateScene(currentTime);
-            }
-        }, { passive: true });
-
-        // Support direct phase URL parameter (e.g. ?mode=wave or ?letter=3)
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('mode') === 'wave') {
-            setPatternMode('wave');
-        } else {
-            setPatternMode('sequential');
-        }
-
-        if (urlParams.has('t')) {
-            currentTime = parseInt(urlParams.get('t'), 10);
-            pause();
-            updateScene(currentTime);
-        }
-
-        // Start animation loop
-        requestAnimationFrame((ts) => {
-            lastTimestamp = ts;
-            requestAnimationFrame(animationLoop);
+        document.querySelector('.hero-stage').addEventListener('click', () => {
+            if (masterTimeline) masterTimeline.restart();
         });
     </script>
 </body>

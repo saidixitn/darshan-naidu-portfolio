@@ -48,6 +48,8 @@ ROUTE_ALIASES = {
     "/services/": "/service/index.html",
     "/for-startups": "/service/index.html",
     "/for-startups/": "/service/index.html",
+    "/gsap": "/gsap/index.html",
+    "/gsap/": "/gsap/index.html",
 }
 
 class Handler(http.server.SimpleHTTPRequestHandler):

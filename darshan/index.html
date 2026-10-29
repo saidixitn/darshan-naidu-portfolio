@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celebrations — GSAP Image-Swap Typography Hero</title>
+    <title>DARSHAN — Kinetic Typography Loader</title>
     <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
     <!-- GSAP 3 CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -40,9 +40,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(32px, 5.2vw, 72px);
-            font-weight: 400;
-            letter-spacing: -0.02em;
+            font-size: clamp(38px, 6.2vw, 84px);
+            font-weight: 500;
+            letter-spacing: -0.015em;
             line-height: 1;
             white-space: nowrap;
             color: #ffffff;
@@ -55,7 +55,7 @@
             justify-content: center;
             position: relative;
             vertical-align: middle;
-            height: 1.2em;
+            height: 1.22em;
             will-change: width, margin;
         }
 
@@ -100,33 +100,28 @@
 <body>
 
     <main class="hero-stage">
-        <div id="word" class="word-container" aria-label="Celebrations">
-            <span class="char-slot" data-index="0" data-char="C"><span class="char-glyph">C</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="1" data-char="e"><span class="char-glyph">e</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="2" data-char="l"><span class="char-glyph">l</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="3" data-char="e"><span class="char-glyph">e</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="4" data-char="b"><span class="char-glyph">b</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="5" data-char="r"><span class="char-glyph">r</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="6" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="7" data-char="t"><span class="char-glyph">t</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="8" data-char="i"><span class="char-glyph">i</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="9" data-char="o"><span class="char-glyph">o</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="10" data-char="n"><span class="char-glyph">n</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="11" data-char="s"><span class="char-glyph">s</span><div class="image-tile"><img src="" alt=""></div></span>
+        <div id="word" class="word-container" aria-label="DARSHAN">
+            <!-- DARSHAN (7 letters: D(0), A(1), R(2), S(3), H(4), A(5), N(6)) -->
+            <span class="char-slot" data-index="0" data-char="D"><span class="char-glyph">D</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="1" data-char="A"><span class="char-glyph">A</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="2" data-char="R"><span class="char-glyph">R</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="3" data-char="S"><span class="char-glyph">S</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="4" data-char="H"><span class="char-glyph">H</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="5" data-char="A"><span class="char-glyph">A</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="6" data-char="N"><span class="char-glyph">N</span><div class="image-tile"><img src="" alt=""></div></span>
         </div>
     </main>
 
     <script>
-        // High-contrast, clean photographic assets directly matching the reference video
+        // Darshan Authentic Photography & Design Works
         const IMAGES = {
-            portrait: '/assets/images/morph/card_portrait.png',
-            flower:   '/assets/images/morph/card_flower.png',
-            stadium:  '/assets/images/morph/card_stadium.png',
-            runner:   '/assets/images/morph/card_runner.png',
-            water:    '/assets/images/morph/card_water.png',
-            stairs:   '/assets/images/morph/card_stairs.png',
-            ferry:    '/assets/images/morph/card_ferry.png',
-            tennis:   '/assets/images/morph/card_tennis.png'
+            darshan_mind:     '/assets/images/darshan_mind.jpg',
+            taj:              '/assets/images/work/taj.jpg',
+            basilica:         '/assets/images/68ac19dd1de59151886116ee_basilica_img_2.avif',
+            darshan_studio:   '/assets/images/IMG_E1906_Original.jpg',
+            hawa_mahal:       '/assets/images/work/hawa-mahal.jpg',
+            kolkata:          '/assets/images/work/kolkata.jpg',
+            darshan_portrait: '/assets/images/darshan.jpeg'
         };
 
         // Preload all photographic assets to prevent frame drops or flickering
@@ -178,7 +173,7 @@
 
             const naturalW = naturalWidths[index];
             const targetW = config.active ? tileDimension : naturalW;
-            const duration = config.duration || 0.40;
+            const duration = config.duration || 0.32;
             const ease = config.ease || "power2.out";
 
             if (config.active && config.image) {
@@ -188,8 +183,8 @@
                 // Expand slot and fade out glyph
                 tl.to(slot, {
                     width: targetW,
-                    marginRight: 3,
-                    marginLeft: 3,
+                    marginRight: 4,
+                    marginLeft: 4,
                     duration: duration,
                     ease: ease
                 }, position);
@@ -239,7 +234,15 @@
             }
         }
 
-        // Build the complete GSAP master timeline matching the specification
+        // Build 3.0s Loader Timeline for DARSHAN:
+        // D(0), A(1), R(2), S(3), H(4), A(5), N(6)
+        // Sequence requested by user:
+        // 1) A - 2 (index 5)
+        // 2) then h (index 4)
+        // 3) then N (index 6) and r (index 2)
+        // 4) and d (index 0) and a (index 1)
+        // 5) S (index 3) solo
+        // Total loading time: exactly 3 seconds!
         function buildTimeline() {
             if (masterTimeline) {
                 masterTimeline.kill();
@@ -247,17 +250,13 @@
 
             measureLayout();
 
-            // Word: C(0) e(1) l(2) e(3) b(4) r(5) a(6) t(7) i(8) o(9) n(10) s(11)
             const tl = gsap.timeline({
                 repeat: -1,
-                repeatDelay: 1.6,
+                repeatDelay: 1.2,
                 defaults: { ease: "power2.out" }
             });
 
-            // ----------------------------------------------------
-            // PHASE A: Clean opening (0.00s - 0.35s)
-            // Complete word "Celebrations" centered on black
-            // ----------------------------------------------------
+            // 0.00s - 0.25s: Clean Opening (Stationary white DARSHAN on black)
             slots.forEach((slot, idx) => {
                 const glyph = slot.querySelector('.char-glyph');
                 const tile = slot.querySelector('.image-tile');
@@ -267,58 +266,45 @@
             });
 
             // ----------------------------------------------------
-            // PHASE B: First image insertion (0.35s - 1.00s)
-            // Two small photographic tiles appear near right side at i(8) and o(9)
+            // Step 1: "A - 2" (index 5) blooms (0.28s - 0.72s)
             // ----------------------------------------------------
-            setSlotState(tl, 8, { active: true, image: IMAGES.ferry, duration: 0.44 }, 0.35);
-            setSlotState(tl, 9, { active: true, image: IMAGES.tennis, duration: 0.44 }, 0.42);
+            setSlotState(tl, 5, { active: true, image: IMAGES.kolkata, duration: 0.32 }, 0.28);
 
             // ----------------------------------------------------
-            // PHASE C: Progressive image expansion (1.00s - 1.85s)
-            // Progressive expansion from right toward middle: r(5), a(6), t(7), i(8), o(9)
+            // Step 2: "then h" (index 4) blooms, A-2 closes (0.72s - 1.18s)
             // ----------------------------------------------------
-            setSlotState(tl, 5, { active: true, image: IMAGES.runner, duration: 0.42 }, 1.02);
-            setSlotState(tl, 6, { active: true, image: IMAGES.water, duration: 0.42 }, 1.10);
-            setSlotState(tl, 7, { active: true, image: IMAGES.stairs, duration: 0.42 }, 1.18);
+            setSlotState(tl, 5, { active: false, duration: 0.28 }, 0.72);
+            setSlotState(tl, 4, { active: true, image: IMAGES.hawa_mahal, duration: 0.32 }, 0.76);
 
             // ----------------------------------------------------
-            // PHASE D: Peak image composition (1.85s - 2.65s)
-            // Shift photographic strip toward left:
-            // e(1), l(2), e(3), b(4), r(5)
-            // Right-side tiles 6, 7, 8, 9 release back to white text
+            // Step 3: "then N and r" (indices 6 and 2) bloom (1.18s - 1.70s)
             // ----------------------------------------------------
-            setSlotState(tl, 8, { active: false, duration: 0.38 }, 1.85);
-            setSlotState(tl, 9, { active: false, duration: 0.38 }, 1.85);
-            setSlotState(tl, 7, { active: false, duration: 0.38 }, 1.92);
-            setSlotState(tl, 6, { active: false, duration: 0.38 }, 1.92);
-
-            setSlotState(tl, 1, { active: true, image: IMAGES.flower, duration: 0.42 }, 1.90);
-            setSlotState(tl, 2, { active: true, image: IMAGES.stadium, duration: 0.42 }, 1.98);
-            setSlotState(tl, 3, { active: true, image: IMAGES.runner, duration: 0.42 }, 2.06);
-            setSlotState(tl, 4, { active: true, image: IMAGES.water, duration: 0.42 }, 2.14);
-            setSlotState(tl, 5, { active: true, image: IMAGES.stairs, duration: 0.42 }, 2.22);
+            setSlotState(tl, 4, { active: false, duration: 0.28 }, 1.18);
+            setSlotState(tl, 6, { active: true, image: IMAGES.darshan_portrait, duration: 0.32 }, 1.22);
+            setSlotState(tl, 2, { active: true, image: IMAGES.basilica, duration: 0.32 }, 1.28);
 
             // ----------------------------------------------------
-            // PHASE E: Collapse to one image (2.65s - 3.75s)
-            // Collapse remaining tiles until only ONE remains immediately after initial letter 'C':
-            // e(1) swaps to Portrait and holds
+            // Step 4: "and d and a" (indices 0 and 1) bloom (1.70s - 2.22s)
             // ----------------------------------------------------
-            setSlotState(tl, 5, { active: false, duration: 0.38 }, 2.65);
-            setSlotState(tl, 4, { active: false, duration: 0.38 }, 2.72);
-            setSlotState(tl, 3, { active: false, duration: 0.38 }, 2.79);
-            setSlotState(tl, 2, { active: false, duration: 0.38 }, 2.86);
-
-            // e(1) swaps to portrait and holds
-            setSlotState(tl, 1, { active: true, image: IMAGES.portrait, duration: 0.40 }, 2.80);
+            setSlotState(tl, 6, { active: false, duration: 0.28 }, 1.70);
+            setSlotState(tl, 2, { active: false, duration: 0.28 }, 1.70);
+            setSlotState(tl, 0, { active: true, image: IMAGES.darshan_mind, duration: 0.32 }, 1.74);
+            setSlotState(tl, 1, { active: true, image: IMAGES.taj, duration: 0.32 }, 1.80);
 
             // ----------------------------------------------------
-            // PHASE F: Final reset (3.75s - 4.80s)
-            // Remove remaining tile, revealing clean white "Celebrations"
+            // Step 5: "S" (index 3) solo bloom & hold (2.22s - 2.68s)
             // ----------------------------------------------------
-            setSlotState(tl, 1, { active: false, duration: 0.44 }, 3.85);
+            setSlotState(tl, 0, { active: false, duration: 0.28 }, 2.22);
+            setSlotState(tl, 1, { active: false, duration: 0.28 }, 2.22);
+            setSlotState(tl, 3, { active: true, image: IMAGES.darshan_studio, duration: 0.32 }, 2.26);
 
-            // Stationary text hold before loop
-            tl.to({}, { duration: 0.7 }, 4.30);
+            // ----------------------------------------------------
+            // Final Reset: clean white DARSHAN (2.68s - 3.00s)
+            // ----------------------------------------------------
+            setSlotState(tl, 3, { active: false, duration: 0.30 }, 2.68);
+
+            // Text hold until 3.00s before repeatDelay
+            tl.to({}, { duration: 0.32 }, 2.98);
 
             masterTimeline = tl;
         }

@@ -14,6 +14,15 @@ export function applyTheme(theme) {
     btn.setAttribute("title", label);
     btn.setAttribute("aria-label", label);
   });
+
+  // Notify all kinetic wordmark iframes in footer immediately
+  document.querySelectorAll(".footer-wordmark iframe, .footer-kinetic-iframe").forEach((frame) => {
+    try {
+      if (frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: "THEME_CHANGE", theme }, "*");
+      }
+    } catch (e) {}
+  });
 }
 
 export function initThemeToggle() {

@@ -1048,7 +1048,7 @@ html:not([data-theme="light"]) .footer_target {
   border: 0 !important;
   display: block !important;
   overflow: hidden !important;
-  background-color: #080808 !important;
+  background-color: transparent !important;
   pointer-events: auto !important;
 }
 

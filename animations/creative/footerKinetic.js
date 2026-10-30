@@ -4,16 +4,31 @@
  */
 
 export function createWordmarkMarkup() {
-  return `<iframe src="/darshan/" class="footer-kinetic-iframe" title="Darshan Naidu" scrolling="no" loading="lazy"></iframe>`;
+  const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+  return `<iframe src="/darshan/?theme=${currentTheme}" class="footer-kinetic-iframe" title="Darshan Naidu" scrolling="no" loading="lazy"></iframe>`;
 }
 
 export function initFooterKinetic() {
+  const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
   const wordmarks = document.querySelectorAll(".footer-wordmark");
   if (!wordmarks.length) return;
 
   wordmarks.forEach((el) => {
-    if (!el.querySelector("iframe")) {
+    let iframe = el.querySelector("iframe");
+    if (!iframe) {
       el.innerHTML = createWordmarkMarkup();
+      iframe = el.querySelector("iframe");
+    }
+    if (iframe) {
+      const send = () => {
+        try {
+          if (iframe.contentWindow) {
+            iframe.contentWindow.postMessage({ type: "THEME_CHANGE", theme: currentTheme }, "*");
+          }
+        } catch (e) {}
+      };
+      iframe.addEventListener("load", send, { once: true });
+      send();
     }
   });
 }

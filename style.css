@@ -1031,8 +1031,8 @@ html:not([data-theme="light"]) .footer_target {
   justify-content: center !important;
   width: 100% !important;
   max-width: 100% !important;
-  overflow: hidden !important;
-  margin: 3.5rem 0 1rem 0 !important;
+  overflow: visible !important;
+  margin: 3.5rem 0 1.5rem 0 !important;
   padding: 1.5rem 0 !important;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
@@ -1070,14 +1070,14 @@ html:not([data-theme="light"]) .footer_target {
 
 @media screen and (max-width: 480px) {
   .footer-kinetic-container {
-    font-size: clamp(19px, 5.2vw, 26px);
+    font-size: clamp(24px, 6.8vw, 30px);
     letter-spacing: -0.015em;
   }
 }
 
 @media screen and (max-width: 360px) {
   .footer-kinetic-container {
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: -0.01em;
   }
 }

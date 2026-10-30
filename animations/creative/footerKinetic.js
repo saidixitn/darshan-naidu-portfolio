@@ -1,4 +1,4 @@
-import { gsap, ScrollTrigger } from "../../vendor.js";
+import { gsap } from "../../vendor.js";
 
 // Authentic Darshan Photography matching /darshan 1:1
 const IMAGES = {
@@ -13,26 +13,14 @@ const IMAGES = {
 };
 
 let masterTimeline = null;
-let scrollTriggerInstance = null;
+let ioObserver = null;
 let isPreloaded = false;
 
-function preloadAssets(urls, callback) {
-  if (isPreloaded) {
-    if (callback) callback();
-    return;
-  }
-  let loaded = 0;
-  const keys = Object.keys(urls);
-  const total = keys.length;
-  keys.forEach((k) => {
+function preloadAssets(urls) {
+  if (isPreloaded) return;
+  isPreloaded = true;
+  Object.keys(urls).forEach((k) => {
     const img = new Image();
-    img.onload = img.onerror = () => {
-      loaded++;
-      if (loaded >= total) {
-        isPreloaded = true;
-        if (callback) callback();
-      }
-    };
     img.src = urls[k];
   });
 }
@@ -194,14 +182,16 @@ export function initFooterKinetic() {
   if (!wordmarks.length) return;
 
   wordmarks.forEach((el) => {
-    // Inject full kinetic markup if only static text is present
+    // Inject full kinetic markup if container is missing
     if (!el.querySelector(".footer-kinetic-container")) {
       el.innerHTML = createWordmarkMarkup();
     }
     el.classList.add("is-kinetic-ready", "footer-kinetic-wordmark");
   });
 
-  const container = document.querySelector(".footer-kinetic-container");
+  const container =
+    document.querySelector('[data-barba="container"] .footer-kinetic-container') ||
+    document.querySelector(".footer-kinetic-container");
   if (!container) return;
 
   const slots = container.querySelectorAll(".char-slot");
@@ -231,7 +221,7 @@ export function initFooterKinetic() {
 
     const sample = slots[0];
     const rect = sample.getBoundingClientRect();
-    tileDimension = Math.round(rect.height) || 36;
+    tileDimension = Math.max(28, Math.round(rect.height) || 36);
   }
 
   function build() {
@@ -307,40 +297,37 @@ export function initFooterKinetic() {
 
     masterTimeline = tl;
 
-    // Viewport-aware playback with ScrollTrigger
-    if (typeof ScrollTrigger !== "undefined") {
-      if (scrollTriggerInstance) scrollTriggerInstance.kill();
-      scrollTriggerInstance = ScrollTrigger.create({
-        trigger: container,
-        start: "top bottom-=30",
-        end: "bottom top",
-        onEnter: () => {
-          if (masterTimeline) masterTimeline.restart();
+    // Viewport-aware playback with native IntersectionObserver (300px root margin)
+    // Keeps it actively running ahead of user arrival with zero ScrollTrigger lockups
+    if ("IntersectionObserver" in window) {
+      if (ioObserver) ioObserver.disconnect();
+      ioObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              if (masterTimeline && masterTimeline.paused()) {
+                masterTimeline.play();
+              }
+            } else {
+              if (masterTimeline && !masterTimeline.paused()) {
+                masterTimeline.pause();
+              }
+            }
+          });
         },
-        onLeave: () => {
-          if (masterTimeline) masterTimeline.pause();
-        },
-        onEnterBack: () => {
-          if (masterTimeline) masterTimeline.restart();
-        },
-        onLeaveBack: () => {
-          if (masterTimeline) masterTimeline.pause();
-        },
-      });
-      // Always play/restart if container is already visible
-      if (ScrollTrigger.isInViewport(container, 0.05)) {
-        masterTimeline.restart();
-      }
+        { rootMargin: "300px 0px" }
+      );
+      ioObserver.observe(container);
     }
 
     return tl;
   }
 
-  // Pre-measure and build immediately so animation starts with ZERO delay
+  // Pre-measure and build immediately so animation runs flawlessly
   measure();
   build();
 
-  // Preload authentic Darshan photography in background for smooth caching
+  // Preload authentic Darshan photography in background for instantaneous caching
   preloadAssets(IMAGES);
 
   // Re-measure when custom fonts finish rendering to ensure pixel perfection
@@ -376,9 +363,9 @@ export function cleanup() {
     masterTimeline.kill();
     masterTimeline = null;
   }
-  if (scrollTriggerInstance) {
-    scrollTriggerInstance.kill();
-    scrollTriggerInstance = null;
+  if (ioObserver) {
+    ioObserver.disconnect();
+    ioObserver = null;
   }
 }
 

@@ -20,7 +20,8 @@
             height: 100%;
             min-height: 100dvh;
             min-height: -webkit-fill-available;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: hidden;
             background-color: #080808;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -49,8 +50,10 @@
             overflow: hidden;
         }
 
+        /* Figma Auto-Layout Wordmark Container */
         .word-container {
             display: inline-flex;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
             font-size: clamp(26px, 6.5vw, 68px);
@@ -60,42 +63,52 @@
             white-space: nowrap;
             color: #ffffff;
             position: relative;
-            max-width: 92vw;
-            max-width: 92dvw;
+            max-width: 94vw;
+            max-width: 94dvw;
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
         }
 
-        /* Responsive font adjustments for mobile */
-        @media (max-width: 480px) {
+        /* iPhone and Mobile Auto-Layout Typography Tuning */
+        @media screen and (max-width: 768px) {
             .word-container {
-                font-size: clamp(24px, 6.8vw, 30px);
+                font-size: clamp(22px, 5.8vw, 36px);
                 letter-spacing: -0.015em;
             }
         }
 
-        @media (max-width: 360px) {
+        @media screen and (max-width: 480px) {
             .word-container {
-                font-size: 22px;
+                font-size: clamp(19px, 5.2vw, 26px);
+                letter-spacing: -0.015em;
+            }
+        }
+
+        @media screen and (max-width: 360px) {
+            .word-container {
+                font-size: 18px;
                 letter-spacing: -0.01em;
             }
         }
 
+        /* Auto-Layout Character Slot */
         .char-slot {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             position: relative;
             vertical-align: middle;
-            height: 1.24em;
+            height: 1.25em;
+            flex: 0 0 auto;
             will-change: width, margin;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
         }
 
+        /* Natural space between first and last name */
         .char-space {
             display: inline-block;
-            width: 0.30em;
+            width: 0.32em;
             pointer-events: none;
             flex-shrink: 0;
         }
@@ -110,11 +123,12 @@
             backface-visibility: hidden;
         }
 
+        /* Squircle Card Tile */
         .image-tile {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.6);
+            transform: translate(-50%, -50%) scale(0.5);
             opacity: 0;
             border-radius: 22%;
             -webkit-border-radius: 22%;
@@ -124,8 +138,8 @@
             background-color: #080808;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
             z-index: 5;
-            /* iOS Safari WebKit clipping fixes */
             -webkit-mask-image: -webkit-radial-gradient(white, black);
+            mask-image: radial-gradient(white, black);
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             -webkit-transform-style: preserve-3d;
@@ -154,45 +168,43 @@
 <body>
 
     <main class="hero-stage">
+        <!-- Figma Auto-Layout Wordmark: Darshan Naidu -->
         <div id="word" class="word-container" aria-label="Darshan Naidu">
             <!-- Darshan (indices 0 to 6) -->
-            <span class="char-slot" data-index="0" data-char="D"><span class="char-glyph">D</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="1" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="2" data-char="r"><span class="char-glyph">r</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="3" data-char="s"><span class="char-glyph">s</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="4" data-char="h"><span class="char-glyph">h</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="5" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="6" data-char="n"><span class="char-glyph">n</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="0" data-char="D"><span class="char-glyph">D</span><div class="image-tile"><img src="/assets/images/darshan/darshan.jpeg" alt=""></div></span>
+            <span class="char-slot" data-index="1" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="/assets/images/darshan/darshan.jpeg" alt="Darshan Portrait"></div></span>
+            <span class="char-slot" data-index="2" data-char="r"><span class="char-glyph">r</span><div class="image-tile"><img src="/assets/images/darshan/IMG_3763.JPG" alt="Work"></div></span>
+            <span class="char-slot" data-index="3" data-char="s"><span class="char-glyph">s</span><div class="image-tile"><img src="/assets/images/darshan/IMG_4192.JPG" alt=""></div></span>
+            <span class="char-slot" data-index="4" data-char="h"><span class="char-glyph">h</span><div class="image-tile"><img src="/assets/images/darshan/IMG_4364.jpg" alt="Work"></div></span>
+            <span class="char-slot" data-index="5" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="/assets/images/darshan/IMG_6965.jpg" alt=""></div></span>
+            <span class="char-slot" data-index="6" data-char="n"><span class="char-glyph">n</span><div class="image-tile"><img src="/assets/images/darshan/IMG_7845.JPG" alt=""></div></span>
 
             <!-- Space separator -->
             <span class="char-space">&nbsp;</span>
 
             <!-- Naidu (indices 7 to 11) -->
-            <span class="char-slot" data-index="7" data-char="N"><span class="char-glyph">N</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="8" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="9" data-char="i"><span class="char-glyph">i</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="10" data-char="d"><span class="char-glyph">d</span><div class="image-tile"><img src="" alt=""></div></span>
-            <span class="char-slot" data-index="11" data-char="u"><span class="char-glyph">u</span><div class="image-tile"><img src="" alt=""></div></span>
+            <span class="char-slot" data-index="7" data-char="N"><span class="char-glyph">N</span><div class="image-tile"><img src="/assets/images/darshan/IMG_8863-EDIT.jpg" alt=""></div></span>
+            <span class="char-slot" data-index="8" data-char="a"><span class="char-glyph">a</span><div class="image-tile"><img src="/assets/images/darshan/IMG_2461.JPG" alt=""></div></span>
+            <span class="char-slot" data-index="9" data-char="i"><span class="char-glyph">i</span><div class="image-tile"><img src="/assets/images/darshan/IMG_1499.JPG" alt="Work"></div></span>
+            <span class="char-slot" data-index="10" data-char="d"><span class="char-glyph">d</span><div class="image-tile"><img src="/assets/images/darshan/IMG_6965.jpg" alt="Work"></div></span>
+            <span class="char-slot" data-index="11" data-char="u"><span class="char-glyph">u</span><div class="image-tile"><img src="/assets/images/darshan/IMG_8213.jpg" alt=""></div></span>
         </div>
     </main>
 
     <script>
-        // Only authentic Darshan photos from /darshan-images
+        // Authentic Darshan Photography
         const IMAGES = {
             portrait: '/assets/images/darshan/darshan.jpeg',
-            studio:   '/assets/images/darshan/IMG_E1906_Original.JPG',
-            edit:     '/assets/images/darshan/IMG_8863-EDIT.jpg',
             shot1:    '/assets/images/darshan/IMG_1499.JPG',
             shot2:    '/assets/images/darshan/IMG_2461.JPG',
             shot3:    '/assets/images/darshan/IMG_3763.JPG',
             shot4:    '/assets/images/darshan/IMG_4192.JPG',
             shot5:    '/assets/images/darshan/IMG_4364.jpg',
             shot6:    '/assets/images/darshan/IMG_6965.jpg',
-            shot7:    '/assets/images/darshan/IMG_7845.JPG',
-            shot8:    '/assets/images/darshan/IMG_8213.jpg'
+            shot7:    '/assets/images/darshan/IMG_7845.JPG'
         };
 
-        // Preload all assets to guarantee zero flicker
+        // Preload assets to guarantee zero flicker
         function preloadAssets(urls, callback) {
             let loaded = 0;
             const keys = Object.keys(urls);
@@ -218,11 +230,11 @@
             slots.forEach(slot => {
                 const glyph = slot.querySelector('.char-glyph');
                 slot.style.width = 'auto';
-                slot.style.margin = '0';
+                slot.style.marginLeft = '0';
+                slot.style.marginRight = '0';
                 glyph.style.transform = 'none';
                 glyph.style.opacity = '1';
                 const rect = glyph.getBoundingClientRect();
-                // Sub-pixel precision rounded to 2 decimals to prevent iOS WebKit truncation jitter
                 const exactWidth = Math.ceil(rect.width * 100) / 100;
                 naturalWidths.push(exactWidth);
                 slot.style.width = `${exactWidth}px`;
@@ -237,6 +249,7 @@
         // Helper to animate slot state (glyph vs card tile)
         function setSlotState(tl, index, config, position) {
             const slot = slots[index];
+            if (!slot) return;
             const glyph = slot.querySelector('.char-glyph');
             const tile = slot.querySelector('.image-tile');
             const img = tile.querySelector('img');
@@ -246,13 +259,13 @@
             const duration = config.duration || 0.42;
             const ease = config.ease || "power2.out";
 
-            // Mobile-aware card margin (2px on small screens, 3px on desktop)
+            // Mobile-aware card margin: 2px on phones, 3px on desktop
             const marginValue = window.innerWidth < 480 ? 2 : 3;
 
             if (config.active && config.image) {
                 tl.set(img, { attr: { src: config.image } }, position);
 
-                // Slot width expansion
+                // Slot width expansion with Auto-Layout pushing
                 tl.to(slot, {
                     width: targetW,
                     marginRight: marginValue,
@@ -261,7 +274,7 @@
                     ease: ease
                 }, position);
 
-                // Glyph disappears
+                // Glyph fades and shrinks away
                 tl.to(glyph, {
                     opacity: 0,
                     scale: 0.15,
@@ -274,7 +287,7 @@
                     height: tileDimension
                 }, position);
 
-                // Card tile pops in
+                // Card tile pops in smoothly
                 tl.to(tile, {
                     opacity: 1,
                     scale: 1,
@@ -291,7 +304,7 @@
                     ease: "power2.in"
                 }, position);
 
-                // Slot contracts to natural width
+                // Slot contracts to natural letter width
                 tl.to(slot, {
                     width: targetW,
                     marginRight: 0,
@@ -313,6 +326,7 @@
         // Micro image-swap pop on active card
         function swapSlotImage(tl, index, newImage, position, duration = 0.28) {
             const slot = slots[index];
+            if (!slot) return;
             const tile = slot.querySelector('.image-tile');
             const img = tile.querySelector('img');
 
@@ -331,9 +345,8 @@
             }, position + (duration * 0.5));
         }
 
-        // Build the Celebrations-style timeline for "Darshan Naidu":
+        // Celebrations-style timeline for "Darshan Naidu":
         // D(0), a(1), r(2), s(3), h(4), a(5), n(6)  [space]  N(7), a(8), i(9), d(10), u(11)
-        // Keeps the name readable at all times with balanced card clusters
         function buildTimeline() {
             if (masterTimeline) {
                 masterTimeline.kill();
@@ -348,33 +361,20 @@
             });
 
             // ----------------------------------------------------
-            // PHASE A: Clean Opening (0.00s - 0.40s)
-            // Complete word "Darshan Naidu" centered, stationary white on black
-            // ----------------------------------------------------
-            slots.forEach((slot, idx) => {
-                const glyph = slot.querySelector('.char-glyph');
-                const tile = slot.querySelector('.image-tile');
-                tl.set(slot, { width: naturalWidths[idx], margin: 0 }, 0);
-                tl.set(glyph, { opacity: 1, scale: 1 }, 0);
-                tl.set(tile, { opacity: 0, scale: 0.6 }, 0);
-            });
-
-            // ----------------------------------------------------
             // PHASE A: Clean Opening (0.00s - 0.45s)
             // Complete word "Darshan Naidu" centered, stationary white on black
             // ----------------------------------------------------
             slots.forEach((slot, idx) => {
                 const glyph = slot.querySelector('.char-glyph');
                 const tile = slot.querySelector('.image-tile');
-                tl.set(slot, { width: naturalWidths[idx], margin: 0 }, 0);
+                tl.set(slot, { width: naturalWidths[idx], marginLeft: 0, marginRight: 0 }, 0);
                 tl.set(glyph, { opacity: 1, scale: 1 }, 0);
-                tl.set(tile, { opacity: 0, scale: 0.6 }, 0);
+                tl.set(tile, { opacity: 0, scale: 0.5 }, 0);
             });
 
             // ----------------------------------------------------
             // PHASE B: First Subtle Card Insertion (0.45s - 1.35s)
             // Solo tile at i(9) in Naidu: "Darshan Na [photo] du"
-            // Clean, elegant, 100% readable
             // ----------------------------------------------------
             setSlotState(tl, 9, { active: true, image: IMAGES.shot1, duration: 0.44 }, 0.45);
             swapSlotImage(tl, 9, IMAGES.shot2, 0.90, 0.28);
@@ -391,7 +391,7 @@
             // ----------------------------------------------------
             // PHASE D: Balanced Dual Bloom (2.55s - 3.55s)
             // Exactly 1 tile in each word: h(4) in Darshan & d(10) in Naidu
-            // "Dars [photo] an Nai [photo] u" — perfectly balanced, highly readable!
+            // "Dars [photo] an Nai [photo] u" — perfectly balanced
             // ----------------------------------------------------
             setSlotState(tl, 4, { active: true, image: IMAGES.shot5, duration: 0.44 }, 2.55);
             setSlotState(tl, 10, { active: true, image: IMAGES.shot6, duration: 0.44 }, 2.65);
@@ -422,25 +422,26 @@
             return tl;
         }
 
-        // Initialize once all Darshan photos are preloaded and fonts are ready
-        preloadAssets(IMAGES, () => {
-            const runInit = () => {
-                buildTimeline();
-                const urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.has('seek')) {
-                    masterTimeline.pause();
-                    masterTimeline.seek(parseFloat(urlParams.get('seek')));
-                }
-            };
-
-            if (document.fonts && document.fonts.ready) {
-                document.fonts.ready.then(runInit);
-            } else {
-                runInit();
+        // Initialize immediately for layout stability, then start timeline
+        const runInit = () => {
+            measureLayout();
+            buildTimeline();
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('seek')) {
+                masterTimeline.pause();
+                masterTimeline.seek(parseFloat(urlParams.get('seek')));
             }
-        });
+        };
 
-        // Recalculate accurately on window resize or mobile orientation change
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                preloadAssets(IMAGES, runInit);
+            });
+        } else {
+            preloadAssets(IMAGES, runInit);
+        }
+
+        // Accurate resize and mobile orientation change handling
         let resizeTimer = null;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);

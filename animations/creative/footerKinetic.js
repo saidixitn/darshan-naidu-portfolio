@@ -250,37 +250,31 @@ export function initFooterKinetic() {
       if (tile) tl.set(tile, { opacity: 0, scale: 0.6 }, 0);
     });
 
-    // Phase B: First Image Insertion
-    setSlotState(tl, slots, naturalWidths, tileDimension, 9, { active: true, image: IMAGES.shot1, duration: 0.44 }, 0.40);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 10, { active: true, image: IMAGES.shot2, duration: 0.44 }, 0.48);
+    // Phase B: First Subtle Card Insertion (0.45s - 1.35s)
+    setSlotState(tl, slots, naturalWidths, tileDimension, 9, { active: true, image: IMAGES.shot1, duration: 0.44 }, 0.45);
+    swapSlotImage(tl, slots, 9, IMAGES.shot2, 0.90, 0.28);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 9, { active: false, duration: 0.40 }, 1.35);
 
-    // Phase C: Progressive Expansion & Swaps
-    swapSlotImage(tl, slots, 9, IMAGES.shot3, 1.20, 0.26);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 8, { active: true, image: IMAGES.shot4, duration: 0.42 }, 1.26);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 6, { active: true, image: IMAGES.shot5, duration: 0.42 }, 1.36);
+    // Phase C: Leftward Flow to First Name (1.50s - 2.40s)
+    setSlotState(tl, slots, naturalWidths, tileDimension, 2, { active: true, image: IMAGES.shot3, duration: 0.44 }, 1.50);
+    swapSlotImage(tl, slots, 2, IMAGES.shot4, 1.95, 0.28);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 2, { active: false, duration: 0.40 }, 2.40);
 
-    setSlotState(tl, slots, naturalWidths, tileDimension, 10, { active: false, duration: 0.38 }, 1.48);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 9, { active: false, duration: 0.38 }, 1.58);
+    // Phase D: Balanced Dual Bloom (2.55s - 3.55s)
+    setSlotState(tl, slots, naturalWidths, tileDimension, 4, { active: true, image: IMAGES.shot5, duration: 0.44 }, 2.55);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 10, { active: true, image: IMAGES.shot6, duration: 0.44 }, 2.65);
+    swapSlotImage(tl, slots, 10, IMAGES.shot7, 3.05, 0.28);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 4, { active: false, duration: 0.40 }, 3.55);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 10, { active: false, duration: 0.40 }, 3.60);
 
-    // Phase D: Flow to First Name
-    setSlotState(tl, slots, naturalWidths, tileDimension, 8, { active: false, duration: 0.38 }, 2.05);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 6, { active: false, duration: 0.38 }, 2.12);
+    // Phase E: Collapse to Solo Hero Card (3.75s - 4.85s)
+    setSlotState(tl, slots, naturalWidths, tileDimension, 1, { active: true, image: IMAGES.portrait, duration: 0.46 }, 3.75);
 
-    setSlotState(tl, slots, naturalWidths, tileDimension, 3, { active: true, image: IMAGES.shot6, duration: 0.42 }, 2.12);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 4, { active: true, image: IMAGES.shot7, duration: 0.42 }, 2.22);
-    swapSlotImage(tl, slots, 3, IMAGES.shot8, 2.55, 0.26);
+    // Phase F: Final Reset (4.85s - 5.35s)
+    setSlotState(tl, slots, naturalWidths, tileDimension, 1, { active: false, duration: 0.44 }, 4.85);
 
-    // Phase E: Collapse to Solo Portrait after 'D'
-    setSlotState(tl, slots, naturalWidths, tileDimension, 4, { active: false, duration: 0.38 }, 3.10);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 3, { active: false, duration: 0.38 }, 3.18);
-
-    setSlotState(tl, slots, naturalWidths, tileDimension, 1, { active: true, image: IMAGES.portrait, duration: 0.46 }, 3.16);
-
-    // Phase F: Final Reset
-    setSlotState(tl, slots, naturalWidths, tileDimension, 1, { active: false, duration: 0.42 }, 4.30);
-
-    // Phase G: Resting Hold
-    tl.to({}, { duration: 1.8 }, 4.90);
+    // Phase G: Resting Hold (5.35s - 7.15s)
+    tl.to({}, { duration: 1.8 }, 5.35);
 
     masterTimeline = tl;
     return tl;

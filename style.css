@@ -1023,24 +1023,33 @@ html:not([data-theme="light"]) .footer_target {
 }
 
 /* ========================================================
-   KINETIC TYPOGRAPHY FOOTER WORDMARK (FIGMA AUTO-LAYOUT)
+   KINETIC TYPOGRAPHY FOOTER WORDMARK (/darshan 1:1 EMBED)
    ======================================================== */
 .footer-wordmark {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display: block !important;
   width: 100% !important;
   max-width: 100% !important;
-  overflow: visible !important;
-  margin: 3.5rem 0 1.5rem 0 !important;
-  padding: 1.5rem 0 !important;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: clamp(140px, 18vw, 240px) !important;
+  margin: 2.5rem 0 1rem 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: none !important;
+  background: transparent !important;
   text-align: center;
   user-select: none !important;
   -webkit-user-select: none !important;
   pointer-events: auto !important;
-  cursor: pointer !important;
-  background: transparent !important;
+}
+
+.footer-wordmark iframe,
+.footer-kinetic-iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block !important;
+  overflow: hidden !important;
+  background-color: #080808 !important;
+  pointer-events: auto !important;
 }
 
 .footer-kinetic-container {

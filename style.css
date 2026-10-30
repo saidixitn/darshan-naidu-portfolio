@@ -1,6 +1,52 @@
 @import "./swiper.css";
 
 /* ========================================================
+   MOBILE & IPHONE WEBKIT OVERFLOW & RESPONSIVENESS FIXES
+   ======================================================== */
+@media screen and (max-width: 991px) {
+  .u-text-display.is-m-right {
+    margin-right: 0 !important;
+  }
+  .hero_line_img_wrap.is-about {
+    max-width: 100% !important;
+  }
+  .hero_line.u-grid-subgrid.is-about {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+  }
+  .hero_text_wrap.is-about {
+    max-width: 100% !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .u-text-display {
+    font-size: clamp(1.75rem, 7.5vw, 2.3rem) !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  .hero_contain, .u-container {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .u-text-display {
+    font-size: clamp(1.5rem, 7vw, 2rem) !important;
+  }
+}
+
+html, body {
+  overflow-x: clip !important;
+  max-width: 100vw !important;
+}
+
+/* ========================================================
    GLOBAL TYPOGRAPHY & SMOOTH SCROLL RESET
    ======================================================== */
 [data-enter-page="title"] .line {
@@ -973,41 +1019,125 @@ html:not([data-theme="light"]) .footer_target {
   opacity: 1 !important;
 }
 
-/* Massive Maypop Watermark Wordmark - Subtle by default, vibrant on hover */
+/* ========================================================
+   KINETIC TYPOGRAPHY FOOTER WORDMARK
+   ======================================================== */
 .footer-wordmark {
-  display: block;
-  width: 100%;
-  overflow: visible;
-  margin: 2.5rem 0 0 0;
-  padding: 0;
-  font-size: clamp(96px, 17.5vw, 340px);
-  font-weight: 700;
-  font-family: "FK Grotesk", Fkgrotesk, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  line-height: 0.88;
-  letter-spacing: -0.025em;
-  white-space: nowrap;
-  color: var(--wordmark, rgba(255, 255, 255, 0.08));
-  opacity: 0.45;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow: hidden !important;
+  margin: 3.5rem 0 1rem 0 !important;
+  padding: 1.5rem 0 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
-  user-select: none;
+  user-select: none !important;
+  -webkit-user-select: none !important;
   pointer-events: auto !important;
   cursor: pointer !important;
-  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s ease;
+  background: transparent !important;
 }
 
-/* Hover on Darshan: change color and transparency (desktop fine pointer only) */
-@media (hover: hover) and (pointer: fine) {
-  .footer-wordmark:hover {
-    color: #ff5500 !important;
-    opacity: 1 !important;
-    transform: translateY(-3px);
+.footer-kinetic-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(28px, 8.2vw, 130px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  color: #ffffff;
+  position: relative;
+  max-width: 95vw;
+  max-width: 95dvw;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+@media screen and (max-width: 768px) {
+  .footer-kinetic-container {
+    font-size: clamp(20px, 6.2vw, 36px);
+    letter-spacing: -0.015em;
   }
 }
 
-.footer-wordmark > span {
+@media screen and (max-width: 480px) {
+  .footer-kinetic-container {
+    font-size: clamp(16px, 5.2vw, 22px);
+    letter-spacing: -0.01em;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .footer-kinetic-container {
+    font-size: 15px;
+    letter-spacing: 0;
+  }
+}
+
+.footer-kinetic-container .char-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  vertical-align: middle;
+  height: 1.24em;
+  will-change: width, margin;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.footer-kinetic-container .char-space {
   display: inline-block;
-  will-change: transform, color, opacity;
-  transition: inherit;
+  width: 0.30em;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.footer-kinetic-container .char-glyph {
+  display: inline-block;
+  line-height: 1;
+  color: #ffffff;
+  will-change: transform, opacity;
+  pointer-events: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.footer-kinetic-container .image-tile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  border-radius: 22%;
+  -webkit-border-radius: 22%;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: transform, opacity, width, height;
+  background-color: #080808;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  z-index: 5;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: radial-gradient(white, black);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.footer-kinetic-container .image-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 22%;
+  -webkit-border-radius: 22%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* ========================================================

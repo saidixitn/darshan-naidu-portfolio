@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Darshan Naidu — Kinetic Typography Hero</title>
     <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
     <!-- GSAP 3 CDN -->
@@ -12,41 +12,77 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         html, body {
             width: 100%;
             height: 100%;
+            min-height: 100dvh;
+            min-height: -webkit-fill-available;
             overflow: hidden;
             background-color: #080808;
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            -webkit-text-size-adjust: 100%;
+            text-rendering: optimizeLegibility;
+            touch-action: manipulation;
         }
 
         .hero-stage {
             width: 100vw;
+            width: 100dvw;
             height: 100vh;
+            height: 100dvh;
+            min-height: -webkit-fill-available;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             user-select: none;
+            -webkit-user-select: none;
             background-color: #080808;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            overflow: hidden;
         }
 
         .word-container {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(32px, 5.2vw, 76px);
+            font-size: clamp(24px, 5.2vw, 76px);
             font-weight: 400;
             letter-spacing: -0.02em;
             line-height: 1;
             white-space: nowrap;
             color: #ffffff;
             position: relative;
+            max-width: 90vw;
+            max-width: 90dvw;
+        }
+
+        /* Mobile specific font tuning to prevent any edge clipping */
+        @media (max-width: 768px) {
+            .word-container {
+                font-size: clamp(18px, 4.6vw, 28px);
+                letter-spacing: -0.015em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .word-container {
+                font-size: clamp(16px, 4.3vw, 20px);
+                letter-spacing: -0.01em;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .word-container {
+                font-size: 15px;
+                letter-spacing: 0;
+            }
         }
 
         .char-slot {
@@ -55,14 +91,17 @@
             justify-content: center;
             position: relative;
             vertical-align: middle;
-            height: 1.22em;
+            height: 1.24em;
             will-change: width, margin;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
         .char-space {
             display: inline-block;
-            width: 0.32em;
+            width: 0.30em;
             pointer-events: none;
+            flex-shrink: 0;
         }
 
         .char-glyph {
@@ -71,6 +110,8 @@
             color: #ffffff;
             will-change: transform, opacity;
             pointer-events: none;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
         .image-tile {
@@ -79,13 +120,20 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0.6);
             opacity: 0;
-            border-radius: 20%;
+            border-radius: 22%;
+            -webkit-border-radius: 22%;
             overflow: hidden;
             pointer-events: none;
             will-change: transform, opacity, width, height;
             background-color: #080808;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
             z-index: 5;
+            /* iOS Safari WebKit clipping fixes */
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
         }
 
         .image-tile img {
@@ -93,7 +141,10 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            border-radius: 20%;
+            border-radius: 22%;
+            -webkit-border-radius: 22%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -165,7 +216,7 @@
         let tileDimension = 0;
         let masterTimeline = null;
 
-        // Measure natural rendered character widths
+        // Measure natural rendered character widths accurately
         function measureLayout() {
             naturalWidths = [];
             slots.forEach(slot => {
@@ -175,8 +226,10 @@
                 glyph.style.transform = 'none';
                 glyph.style.opacity = '1';
                 const rect = glyph.getBoundingClientRect();
-                naturalWidths.push(rect.width);
-                slot.style.width = `${rect.width}px`;
+                // Sub-pixel precision rounded to 2 decimals to prevent iOS WebKit truncation jitter
+                const exactWidth = Math.ceil(rect.width * 100) / 100;
+                naturalWidths.push(exactWidth);
+                slot.style.width = `${exactWidth}px`;
             });
 
             // Square squircle tile matches line height
@@ -197,14 +250,17 @@
             const duration = config.duration || 0.42;
             const ease = config.ease || "power2.out";
 
+            // Mobile-aware card margin (2px on small screens, 3px on desktop)
+            const marginValue = window.innerWidth < 480 ? 2 : 3;
+
             if (config.active && config.image) {
                 tl.set(img, { attr: { src: config.image } }, position);
 
                 // Slot width expansion
                 tl.to(slot, {
                     width: targetW,
-                    marginRight: 3,
-                    marginLeft: 3,
+                    marginRight: marginValue,
+                    marginLeft: marginValue,
                     duration: duration,
                     ease: ease
                 }, position);
@@ -367,17 +423,25 @@
             return tl;
         }
 
-        // Initialize once all Darshan photos are preloaded
+        // Initialize once all Darshan photos are preloaded and fonts are ready
         preloadAssets(IMAGES, () => {
-            buildTimeline();
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('seek')) {
-                masterTimeline.pause();
-                masterTimeline.seek(parseFloat(urlParams.get('seek')));
+            const runInit = () => {
+                buildTimeline();
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('seek')) {
+                    masterTimeline.pause();
+                    masterTimeline.seek(parseFloat(urlParams.get('seek')));
+                }
+            };
+
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(runInit);
+            } else {
+                runInit();
             }
         });
 
-        // Recalculate accurately on window resize
+        // Recalculate accurately on window resize or mobile orientation change
         let resizeTimer = null;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
@@ -388,7 +452,7 @@
             }, 120);
         });
 
-        // Space to pause/play; Click to restart
+        // Space to pause/play; Tap to restart
         window.addEventListener('keydown', (e) => {
             if (e.code === 'Space') {
                 e.preventDefault();

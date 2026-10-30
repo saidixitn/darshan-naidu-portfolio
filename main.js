@@ -33,6 +33,7 @@ import interactiveDotMatrix from "./animations/creative/interactiveDotMatrix.js"
 import statCounters from "./animations/creative/statCounters.js";
 // filmGrainAndStatus removed per user request
 import deckStacking from "./animations/creative/deckStacking.js";
+import footerKinetic from "./animations/creative/footerKinetic.js";
 
 console.log("--> MAIN.JS START <--");
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -256,6 +257,7 @@ safeRun(() => flashWords.init(), "flashWords");
 safeRun(() => interactiveDotMatrix.init(), "interactiveDotMatrix");
 safeRun(() => statCounters.init(), "statCounters");
 safeRun(() => deckStacking.init(), "deckStacking");
+safeRun(() => footerKinetic.init(), "footerKinetic");
 
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
@@ -323,6 +325,7 @@ barba.hooks.after((e) => {
     interactiveDotMatrix.init();
     statCounters.init();
     deckStacking.init();
+    footerKinetic.init();
   } catch (err) {}
   const refresh = () => {
     ScrollTrigger.refresh();

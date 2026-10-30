@@ -128,6 +128,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
+            width: 1.25em;
+            height: 1.25em;
+            aspect-ratio: 1 / 1;
             transform: translate(-50%, -50%) scale(0.5);
             opacity: 0;
             border-radius: 22%;
@@ -204,21 +207,6 @@
             shot7:    '/assets/images/darshan/IMG_7845.JPG'
         };
 
-        // Preload assets to guarantee zero flicker
-        function preloadAssets(urls, callback) {
-            let loaded = 0;
-            const keys = Object.keys(urls);
-            const total = keys.length;
-            keys.forEach(k => {
-                const img = new Image();
-                img.onload = img.onerror = () => {
-                    loaded++;
-                    if (loaded >= total) callback();
-                };
-                img.src = urls[k];
-            });
-        }
-
         const slots = document.querySelectorAll('.char-slot');
         let naturalWidths = [];
         let tileDimension = 0;
@@ -243,7 +231,7 @@
             // Square squircle tile matches line height
             const sampleSlot = slots[0];
             const sampleRect = sampleSlot.getBoundingClientRect();
-            tileDimension = Math.round(sampleRect.height);
+            tileDimension = Math.round(sampleRect.height) || 36;
         }
 
         // Helper to animate slot state (glyph vs card tile)
@@ -254,16 +242,18 @@
             const tile = slot.querySelector('.image-tile');
             const img = tile.querySelector('img');
 
-            const naturalW = naturalWidths[index];
+            const naturalW = naturalWidths[index] || 18;
             const targetW = config.active ? tileDimension : naturalW;
-            const duration = config.duration || 0.42;
+            const duration = config.duration || 0.38;
             const ease = config.ease || "power2.out";
 
             // Mobile-aware card margin: 2px on phones, 3px on desktop
             const marginValue = window.innerWidth < 480 ? 2 : 3;
 
             if (config.active && config.image) {
-                tl.set(img, { attr: { src: config.image } }, position);
+                if (img.getAttribute('src') !== config.image) {
+                    img.setAttribute('src', config.image);
+                }
 
                 // Slot width expansion with Auto-Layout pushing
                 tl.to(slot, {
@@ -324,7 +314,7 @@
         }
 
         // Micro image-swap pop on active card
-        function swapSlotImage(tl, index, newImage, position, duration = 0.28) {
+        function swapSlotImage(tl, index, newImage, position, duration = 0.26) {
             const slot = slots[index];
             if (!slot) return;
             const tile = slot.querySelector('.image-tile');
@@ -345,8 +335,7 @@
             }, position + (duration * 0.5));
         }
 
-        // Celebrations-style timeline for "Darshan Naidu":
-        // D(0), a(1), r(2), s(3), h(4), a(5), n(6)  [space]  N(7), a(8), i(9), d(10), u(11)
+        // Lively, fluid Celebrations-style timeline for "Darshan Naidu"
         function buildTimeline() {
             if (masterTimeline) {
                 masterTimeline.kill();
@@ -356,113 +345,105 @@
 
             const tl = gsap.timeline({
                 repeat: -1,
-                repeatDelay: 1.8,
+                repeatDelay: 0.2,
                 defaults: { ease: "power2.out" }
             });
 
             // ----------------------------------------------------
-            // PHASE A: Clean Opening (0.00s - 0.45s)
-            // Complete word "Darshan Naidu" centered, stationary white on black
+            // PHASE A: Clean Initial Opening
             // ----------------------------------------------------
             slots.forEach((slot, idx) => {
                 const glyph = slot.querySelector('.char-glyph');
                 const tile = slot.querySelector('.image-tile');
-                tl.set(slot, { width: naturalWidths[idx], marginLeft: 0, marginRight: 0 }, 0);
+                tl.set(slot, { width: naturalWidths[idx] || 18, marginLeft: 0, marginRight: 0 }, 0);
                 tl.set(glyph, { opacity: 1, scale: 1 }, 0);
-                tl.set(tile, { opacity: 0, scale: 0.5 }, 0);
+                tl.set(tile, { opacity: 0, scale: 0.5, width: tileDimension, height: tileDimension }, 0);
             });
 
             // ----------------------------------------------------
-            // PHASE B: First Subtle Card Insertion (0.45s - 1.35s)
+            // PHASE B: Card 1 blooms immediately (0.18s - 1.08s)
             // Solo tile at i(9) in Naidu: "Darshan Na [photo] du"
             // ----------------------------------------------------
-            setSlotState(tl, 9, { active: true, image: IMAGES.shot1, duration: 0.44 }, 0.45);
-            swapSlotImage(tl, 9, IMAGES.shot2, 0.90, 0.28);
-            setSlotState(tl, 9, { active: false, duration: 0.40 }, 1.35);
+            setSlotState(tl, 9, { active: true, image: IMAGES.shot1, duration: 0.38 }, 0.18);
+            swapSlotImage(tl, 9, IMAGES.shot2, 0.62, 0.26);
+            setSlotState(tl, 9, { active: false, duration: 0.36 }, 1.08);
 
             // ----------------------------------------------------
-            // PHASE C: Leftward Flow to First Name (1.50s - 2.40s)
+            // PHASE C: Card 2 blooms in first name (1.20s - 2.05s)
             // Solo tile at r(2) in Darshan: "Da [photo] shan Naidu"
             // ----------------------------------------------------
-            setSlotState(tl, 2, { active: true, image: IMAGES.shot3, duration: 0.44 }, 1.50);
-            swapSlotImage(tl, 2, IMAGES.shot4, 1.95, 0.28);
-            setSlotState(tl, 2, { active: false, duration: 0.40 }, 2.40);
+            setSlotState(tl, 2, { active: true, image: IMAGES.shot3, duration: 0.38 }, 1.20);
+            swapSlotImage(tl, 2, IMAGES.shot4, 1.58, 0.26);
+            setSlotState(tl, 2, { active: false, duration: 0.36 }, 2.05);
 
             // ----------------------------------------------------
-            // PHASE D: Balanced Dual Bloom (2.55s - 3.55s)
+            // PHASE D: Balanced Dual Bloom (2.18s - 3.12s)
             // Exactly 1 tile in each word: h(4) in Darshan & d(10) in Naidu
-            // "Dars [photo] an Nai [photo] u" — perfectly balanced
+            // "Dars [photo] an Nai [photo] u"
             // ----------------------------------------------------
-            setSlotState(tl, 4, { active: true, image: IMAGES.shot5, duration: 0.44 }, 2.55);
-            setSlotState(tl, 10, { active: true, image: IMAGES.shot6, duration: 0.44 }, 2.65);
-            swapSlotImage(tl, 10, IMAGES.shot7, 3.05, 0.28);
-            setSlotState(tl, 4, { active: false, duration: 0.40 }, 3.55);
-            setSlotState(tl, 10, { active: false, duration: 0.40 }, 3.60);
+            setSlotState(tl, 4, { active: true, image: IMAGES.shot5, duration: 0.38 }, 2.18);
+            setSlotState(tl, 10, { active: true, image: IMAGES.shot6, duration: 0.38 }, 2.26);
+            swapSlotImage(tl, 10, IMAGES.shot7, 2.68, 0.26);
+            setSlotState(tl, 4, { active: false, duration: 0.36 }, 3.12);
+            setSlotState(tl, 10, { active: false, duration: 0.36 }, 3.16);
 
             // ----------------------------------------------------
-            // PHASE E: Collapse to Solo Hero Card (3.75s - 4.85s)
+            // PHASE E: Solo Hero Card (3.30s - 4.30s)
             // Celebrations signature move: solo tile right after initial 'D'
             // "D [Portrait] rshan Naidu"
             // ----------------------------------------------------
-            setSlotState(tl, 1, { active: true, image: IMAGES.portrait, duration: 0.46 }, 3.75);
+            setSlotState(tl, 1, { active: true, image: IMAGES.portrait, duration: 0.42 }, 3.30);
 
             // ----------------------------------------------------
-            // PHASE F: Final Reset (4.85s - 5.35s)
-            // Clean transition revealing complete white word "Darshan Naidu"
+            // PHASE F: Final Reset (4.30s - 4.70s)
+            // Clean transition back to typography
             // ----------------------------------------------------
-            setSlotState(tl, 1, { active: false, duration: 0.44 }, 4.85);
+            setSlotState(tl, 1, { active: false, duration: 0.40 }, 4.30);
 
             // ----------------------------------------------------
-            // PHASE G: Resting Hold (5.35s - 7.15s)
-            // Clean stationary readable state before repeat
+            // PHASE G: Resting Hold (4.70s - 5.50s)
+            // Crisp, confident pause before next cycle
             // ----------------------------------------------------
-            tl.to({}, { duration: 1.8 }, 5.35);
+            tl.to({}, { duration: 0.8 }, 4.70);
 
             masterTimeline = tl;
             return tl;
         }
 
-        // Initialize immediately for layout stability, then start timeline
-        const runInit = () => {
-            measureLayout();
-            buildTimeline();
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('seek')) {
-                masterTimeline.pause();
-                masterTimeline.seek(parseFloat(urlParams.get('seek')));
-            }
-        };
+        // Start animation immediately on load — ZERO waiting!
+        measureLayout();
+        buildTimeline();
 
+        // Handle URL seek if present
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('seek')) {
+            masterTimeline.pause();
+            masterTimeline.seek(parseFloat(urlParams.get('seek')));
+        }
+
+        // Re-measure when custom fonts finish rendering to ensure pixel perfection
         if (document.fonts && document.fonts.ready) {
             document.fonts.ready.then(() => {
-                preloadAssets(IMAGES, runInit);
+                const prog = masterTimeline ? masterTimeline.progress() : 0;
+                buildTimeline();
+                if (masterTimeline) masterTimeline.progress(prog);
             });
-        } else {
-            preloadAssets(IMAGES, runInit);
         }
 
         // Accurate resize and mobile orientation change handling
         let resizeTimer = null;
-        window.addEventListener('resize', () => {
+        const handleResize = () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 const progress = masterTimeline ? masterTimeline.progress() : 0;
                 buildTimeline();
                 if (masterTimeline) masterTimeline.progress(progress);
-            }, 120);
-        });
+            }, 100);
+        };
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('orientationchange', handleResize);
 
-        // Space to pause/play; Tap to restart
-        window.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                e.preventDefault();
-                if (masterTimeline) {
-                    if (masterTimeline.paused()) masterTimeline.play();
-                    else masterTimeline.pause();
-                }
-            }
-        });
-
+        // Tap or click to restart
         document.querySelector('.hero-stage').addEventListener('click', () => {
             if (masterTimeline) masterTimeline.restart();
         });

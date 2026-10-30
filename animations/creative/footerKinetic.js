@@ -65,16 +65,18 @@ function setSlotState(tl, slots, naturalWidths, tileDimension, index, config, po
   const tile = slot.querySelector(".image-tile");
   const img = tile ? tile.querySelector("img") : null;
 
-  const naturalW = naturalWidths[index] || 16;
+  const naturalW = naturalWidths[index] || 18;
   const targetW = config.active ? tileDimension : naturalW;
-  const duration = config.duration || 0.42;
+  const duration = config.duration || 0.38;
   const ease = config.ease || "power2.out";
 
   // Mobile-aware card margin: 2px on phones, 3px on desktop
   const marginVal = window.innerWidth < 480 ? 2 : 3;
 
   if (config.active && config.image) {
-    if (img) tl.set(img, { attr: { src: config.image } }, position);
+    if (img && img.getAttribute("src") !== config.image) {
+      img.setAttribute("src", config.image);
+    }
 
     tl.to(
       slot,
@@ -155,7 +157,7 @@ function setSlotState(tl, slots, naturalWidths, tileDimension, index, config, po
   }
 }
 
-function swapSlotImage(tl, slots, index, newImage, position, duration = 0.28) {
+function swapSlotImage(tl, slots, index, newImage, position, duration = 0.26) {
   const slot = slots[index];
   if (!slot) return;
   const tile = slot.querySelector(".image-tile");
@@ -223,13 +225,13 @@ export function initFooterKinetic() {
         naturalWidths.push(exactW);
         slot.style.width = `${exactW}px`;
       } else {
-        naturalWidths.push(16);
+        naturalWidths.push(18);
       }
     });
 
     const sample = slots[0];
     const rect = sample.getBoundingClientRect();
-    tileDimension = Math.round(rect.height) || 32;
+    tileDimension = Math.round(rect.height) || 36;
   }
 
   function build() {
@@ -241,98 +243,114 @@ export function initFooterKinetic() {
 
     const tl = gsap.timeline({
       repeat: -1,
-      repeatDelay: 1.8,
+      repeatDelay: 0.2,
       defaults: { ease: "power2.out" },
     });
 
     // ----------------------------------------------------
-    // PHASE A: Clean Opening (0.00s - 0.45s)
+    // PHASE A: Clean Opening (0.00s - 0.18s)
     // Complete word "Darshan Naidu" centered, stationary white on black
     // ----------------------------------------------------
     slots.forEach((slot, idx) => {
       const glyph = slot.querySelector(".char-glyph");
       const tile = slot.querySelector(".image-tile");
-      tl.set(slot, { width: naturalWidths[idx] || 16, marginLeft: 0, marginRight: 0 }, 0);
+      tl.set(slot, { width: naturalWidths[idx] || 18, marginLeft: 0, marginRight: 0 }, 0);
       if (glyph) tl.set(glyph, { opacity: 1, scale: 1 }, 0);
-      if (tile) tl.set(tile, { opacity: 0, scale: 0.5 }, 0);
+      if (tile) tl.set(tile, { opacity: 0, scale: 0.5, width: tileDimension, height: tileDimension }, 0);
     });
 
     // ----------------------------------------------------
-    // PHASE B: First Subtle Card Insertion (0.45s - 1.35s)
+    // PHASE B: Card 1 blooms immediately (0.18s - 1.08s)
     // Solo tile at i(9) in Naidu: "Darshan Na [photo] du"
     // ----------------------------------------------------
-    setSlotState(tl, slots, naturalWidths, tileDimension, 9, { active: true, image: IMAGES.shot1, duration: 0.44 }, 0.45);
-    swapSlotImage(tl, slots, 9, IMAGES.shot2, 0.90, 0.28);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 9, { active: false, duration: 0.40 }, 1.35);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 9, { active: true, image: IMAGES.shot1, duration: 0.38 }, 0.18);
+    swapSlotImage(tl, slots, 9, IMAGES.shot2, 0.62, 0.26);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 9, { active: false, duration: 0.36 }, 1.08);
 
     // ----------------------------------------------------
-    // PHASE C: Leftward Flow to First Name (1.50s - 2.40s)
+    // PHASE C: Card 2 blooms in first name (1.20s - 2.05s)
     // Solo tile at r(2) in Darshan: "Da [photo] shan Naidu"
     // ----------------------------------------------------
-    setSlotState(tl, slots, naturalWidths, tileDimension, 2, { active: true, image: IMAGES.shot3, duration: 0.44 }, 1.50);
-    swapSlotImage(tl, slots, 2, IMAGES.shot4, 1.95, 0.28);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 2, { active: false, duration: 0.40 }, 2.40);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 2, { active: true, image: IMAGES.shot3, duration: 0.38 }, 1.20);
+    swapSlotImage(tl, slots, 2, IMAGES.shot4, 1.58, 0.26);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 2, { active: false, duration: 0.36 }, 2.05);
 
     // ----------------------------------------------------
-    // PHASE D: Balanced Dual Bloom (2.55s - 3.55s)
+    // PHASE D: Balanced Dual Bloom (2.18s - 3.12s)
     // Exactly 1 tile in each word: h(4) in Darshan & d(10) in Naidu
     // "Dars [photo] an Nai [photo] u" — perfectly balanced
     // ----------------------------------------------------
-    setSlotState(tl, slots, naturalWidths, tileDimension, 4, { active: true, image: IMAGES.shot5, duration: 0.44 }, 2.55);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 10, { active: true, image: IMAGES.shot6, duration: 0.44 }, 2.65);
-    swapSlotImage(tl, slots, 10, IMAGES.shot7, 3.05, 0.28);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 4, { active: false, duration: 0.40 }, 3.55);
-    setSlotState(tl, slots, naturalWidths, tileDimension, 10, { active: false, duration: 0.40 }, 3.60);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 4, { active: true, image: IMAGES.shot5, duration: 0.38 }, 2.18);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 10, { active: true, image: IMAGES.shot6, duration: 0.38 }, 2.26);
+    swapSlotImage(tl, slots, 10, IMAGES.shot7, 2.68, 0.26);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 4, { active: false, duration: 0.36 }, 3.12);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 10, { active: false, duration: 0.36 }, 3.16);
 
     // ----------------------------------------------------
-    // PHASE E: Collapse to Solo Hero Card (3.75s - 4.85s)
+    // PHASE E: Solo Hero Card (3.30s - 4.30s)
     // Celebrations signature move: solo tile right after initial 'D'
     // "D [Portrait] rshan Naidu"
     // ----------------------------------------------------
-    setSlotState(tl, slots, naturalWidths, tileDimension, 1, { active: true, image: IMAGES.portrait, duration: 0.46 }, 3.75);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 1, { active: true, image: IMAGES.portrait, duration: 0.42 }, 3.30);
 
     // ----------------------------------------------------
-    // PHASE F: Final Reset (4.85s - 5.35s)
+    // PHASE F: Final Reset (4.30s - 4.70s)
     // Clean transition revealing complete white word "Darshan Naidu"
     // ----------------------------------------------------
-    setSlotState(tl, slots, naturalWidths, tileDimension, 1, { active: false, duration: 0.44 }, 4.85);
+    setSlotState(tl, slots, naturalWidths, tileDimension, 1, { active: false, duration: 0.40 }, 4.30);
 
     // ----------------------------------------------------
-    // PHASE G: Resting Hold (5.35s - 7.15s)
-    // Clean stationary readable state before repeat
+    // PHASE G: Resting Hold (4.70s - 5.50s)
+    // Crisp, confident pause before next cycle
     // ----------------------------------------------------
-    tl.to({}, { duration: 1.8 }, 5.35);
+    tl.to({}, { duration: 0.8 }, 4.70);
 
     masterTimeline = tl;
 
-    // Use ScrollTrigger for robust mobile & desktop viewport detection
+    // Viewport-aware playback with ScrollTrigger
     if (typeof ScrollTrigger !== "undefined") {
       if (scrollTriggerInstance) scrollTriggerInstance.kill();
       scrollTriggerInstance = ScrollTrigger.create({
         trigger: container,
-        start: "top bottom+=150",
-        end: "bottom top-=150",
-        onEnter: () => masterTimeline && masterTimeline.play(),
-        onLeave: () => masterTimeline && masterTimeline.pause(),
-        onEnterBack: () => masterTimeline && masterTimeline.play(),
-        onLeaveBack: () => masterTimeline && masterTimeline.pause(),
+        start: "top bottom-=30",
+        end: "bottom top",
+        onEnter: () => {
+          if (masterTimeline) masterTimeline.restart();
+        },
+        onLeave: () => {
+          if (masterTimeline) masterTimeline.pause();
+        },
+        onEnterBack: () => {
+          if (masterTimeline) masterTimeline.restart();
+        },
+        onLeaveBack: () => {
+          if (masterTimeline) masterTimeline.pause();
+        },
       });
+      // Always play/restart if container is already visible
+      if (ScrollTrigger.isInViewport(container, 0.05)) {
+        masterTimeline.restart();
+      }
     }
 
     return tl;
   }
 
-  // Pre-measure immediately so text is never unstyled
+  // Pre-measure and build immediately so animation starts with ZERO delay
   measure();
+  build();
 
-  // Preload authentic Darshan photography then start smooth timeline
-  preloadAssets(IMAGES, () => {
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(build);
-    } else {
+  // Preload authentic Darshan photography in background for smooth caching
+  preloadAssets(IMAGES);
+
+  // Re-measure when custom fonts finish rendering to ensure pixel perfection
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      const prog = masterTimeline ? masterTimeline.progress() : 0;
       build();
-    }
-  });
+      if (masterTimeline) masterTimeline.progress(prog);
+    });
+  }
 
   // Re-measure accurately on resize or mobile orientation change
   let rTimer = null;
@@ -342,7 +360,7 @@ export function initFooterKinetic() {
       const prog = masterTimeline ? masterTimeline.progress() : 0;
       build();
       if (masterTimeline) masterTimeline.progress(prog);
-    }, 150);
+    }, 120);
   };
   window.addEventListener("resize", onResize);
   window.addEventListener("orientationchange", onResize);

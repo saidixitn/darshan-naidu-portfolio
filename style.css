@@ -870,15 +870,15 @@ html:not(.site-scrollbar) [data-preloader="section"] {
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Light Mode Footer (1:1 with Maypop reference screenshot) */
+/* Light Mode Footer (Seamless match with website background) */
 html[data-theme="light"] .footer_wrap,
 html[data-theme="light"] .footer_target {
-  background-color: #ffffff !important;
+  background-color: #f8f8fa !important;
   color: #111113 !important;
-  --wordmark: #ececed;
+  --wordmark: #e2e2e6;
 }
 
-/* Dark Mode Footer */
+/* Dark Mode Footer (Seamless match with website background) */
 html[data-theme="dark"] .footer_wrap,
 html[data-theme="dark"] .footer_target,
 html:not([data-theme="light"]) .footer_wrap,
@@ -893,6 +893,12 @@ html:not([data-theme="light"]) .footer_target {
   max-width: 82rem;
   margin: 0 auto;
   padding: 0 2.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .footer_contain {
+    padding: 0 1.25rem;
+  }
 }
 
 .footer_layout {

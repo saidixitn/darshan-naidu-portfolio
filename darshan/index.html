@@ -7,6 +7,26 @@
     <link href="/assets/images/672d25251d3eb0249521c21b_Fav%20icon.png" rel="shortcut icon" type="image/x-icon">
     <!-- GSAP 3 CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <!-- Immediate Pre-render Theme Initialization -->
+    <script>
+        (function() {
+            var theme = 'dark';
+            try {
+                var params = new URLSearchParams(window.location.search);
+                if (params.has('theme')) {
+                    theme = params.get('theme');
+                } else {
+                    var saved = localStorage.getItem('darshan_portfolio_theme');
+                    if (saved) theme = saved;
+                    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+                }
+            } catch(e) {}
+            document.documentElement.setAttribute('data-theme', theme === 'light' ? 'light' : 'dark');
+            if (window.self !== window.top) {
+                document.documentElement.classList.add('is-embedded-doc');
+            }
+        })();
+    </script>
     <style>
         * {
             box-sizing: border-box;
@@ -16,17 +36,17 @@
         }
 
         :root {
-            --bg-color: #080808;
-            --text-color: #ffffff;
-            --tile-bg: #080808;
+            --bg-color: #0b0b0c;
+            --text-color: #f5f5f7;
+            --tile-bg: #0b0b0c;
             --tile-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
         }
 
         html[data-theme="light"] {
-            --bg-color: #ffffff;
+            --bg-color: #f8f8fa;
             --text-color: #111113;
-            --tile-bg: #ffffff;
-            --tile-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --tile-bg: #f8f8fa;
+            --tile-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
         html, body {
@@ -47,9 +67,22 @@
             touch-action: manipulation;
         }
 
+        html.is-embedded-doc,
+        html.is-embedded-doc body,
         body.is-embedded,
-        body.is-embedded .hero-stage {
+        body.is-embedded .hero-stage,
+        html.is-embedded-doc .hero-stage {
             background-color: transparent !important;
+        }
+
+        html.is-embedded-doc .hero-stage,
+        body.is-embedded .hero-stage {
+            position: relative !important;
+            inset: auto !important;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: auto !important;
+            padding: 0 !important;
         }
 
         .hero-stage {
@@ -85,8 +118,8 @@
             color: var(--text-color);
             transition: color 0.3s ease;
             position: relative;
-            max-width: 94vw;
-            max-width: 94dvw;
+            max-width: 96vw;
+            max-width: 96dvw;
             -webkit-transform: translateZ(0);
             transform: translateZ(0);
         }
@@ -94,21 +127,21 @@
         /* iPhone and Mobile Auto-Layout Typography Tuning */
         @media screen and (max-width: 768px) {
             .word-container {
-                font-size: clamp(22px, 5.8vw, 36px);
+                font-size: clamp(20px, 5.5vw, 34px);
                 letter-spacing: -0.015em;
             }
         }
 
         @media screen and (max-width: 480px) {
             .word-container {
-                font-size: clamp(24px, 6.8vw, 30px);
+                font-size: clamp(18px, 5.4vw, 26px);
                 letter-spacing: -0.015em;
             }
         }
 
         @media screen and (max-width: 360px) {
             .word-container {
-                font-size: 20px;
+                font-size: 16px;
                 letter-spacing: -0.01em;
             }
         }

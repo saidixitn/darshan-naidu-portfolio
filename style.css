@@ -896,6 +896,10 @@ html:not([data-theme="light"]) .footer_target {
 }
 
 @media screen and (max-width: 768px) {
+  .footer_target {
+    padding-top: 4.5rem;
+    padding-bottom: 3.25rem;
+  }
   .footer_contain {
     padding: 0 1.25rem;
   }
@@ -1045,6 +1049,13 @@ html:not([data-theme="light"]) .footer_target {
   user-select: none !important;
   -webkit-user-select: none !important;
   pointer-events: auto !important;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-wordmark {
+    height: clamp(160px, 22vw, 220px) !important;
+    margin: 2rem 0 1rem 0 !important;
+  }
 }
 
 .footer-wordmark iframe,

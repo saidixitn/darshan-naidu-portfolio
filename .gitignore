@@ -7,6 +7,9 @@ scratch/
 .vercel
 .wrangler/
 
+# Local dev cdn symlink
+/cdn
+
 # Heavy video files (hosted on Cloudflare R2 /cdn)
 /*.mp4
 /*.MP4

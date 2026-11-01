@@ -6,6 +6,9 @@ node_modules/
 scratch/
 /tmp/
 
+# Local dev symlink
+/cdn
+
 # Whitelist all site images & assets (ALL footer images, portraits, tiles)
 !assets/images/**
 !assets/css/**

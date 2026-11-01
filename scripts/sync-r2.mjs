@@ -50,7 +50,8 @@ function getAllFiles(dirPath, arrayOfFiles = []) {
 // Check if an object already exists in R2 with the same content length
 async function checkRemoteExists(relPath) {
   try {
-    const res = await fetch(`https://${R2_PUBLIC_HOST}/${relPath}`, { method: 'HEAD' });
+    const encodedPath = relPath.split('/').map(encodeURIComponent).join('/');
+    const res = await fetch(`https://${R2_PUBLIC_HOST}/${encodedPath}`, { method: 'HEAD' });
     if (res.status === 200) {
       const remoteLen = parseInt(res.headers.get('content-length') || '0', 10);
       const localLen = fs.statSync(relPath).size;

@@ -8,10 +8,29 @@
 >
   <head>
     <meta charset="utf-8" />
+    <meta name="theme-color" content="#0b0b0c" />
     <link
-      href="https://cdn.prod.website-files.com"
+      href="https://pub-516aaebe3c6046399fecdd80706924bb.r2.dev"
       rel="preconnect"
       crossorigin="anonymous"
+    />
+    <link
+      href="https://pub-516aaebe3c6046399fecdd80706924bb.r2.dev"
+      rel="dns-prefetch"
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/66dcd86ec19e7dd47d6ff479_FKGrotesk-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/66dcd86e81bf97e67012d0e0_FKGrotesk-Medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <title>Services - Video Editing, Design &amp; Social Media | Darshan Naidu</title>
     <meta
@@ -87,7 +106,8 @@
       })(window);
     </script>
 
-    <link rel="stylesheet" href="/assets/css/swiper.min.css" />
+    <link rel="stylesheet" href="/assets/css/swiper.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="/assets/css/swiper.min.css" /></noscript>
     <style>
       /* Default browser cursor enforcement */
       html,
@@ -1601,21 +1621,31 @@
       type="text/javascript"
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
+      defer
     ></script>
     <script
       src="/assets/js/webflow.schunk.36b8fb49256177c8.js"
       type="text/javascript"
+      defer
     ></script>
     <script
       src="/assets/js/webflow.schunk.0ff37bd8c01492a3.js"
       type="text/javascript"
+      defer
     ></script>
     <script
       src="/assets/js/webflow.1ea624c3.dc17015f0e030ff2.js"
       type="text/javascript"
+      defer
     ></script>
     <script>
-      pageFunctions.executeFunctions();
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          if (window.pageFunctions) pageFunctions.executeFunctions();
+        });
+      } else {
+        if (window.pageFunctions) pageFunctions.executeFunctions();
+      }
     </script>
 
     

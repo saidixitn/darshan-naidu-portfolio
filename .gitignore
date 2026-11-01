@@ -16,6 +16,8 @@ scratch/
 .wrangler/
 
 # Large videos (hosted on Cloudflare R2 /cdn)
+/*.mp4
+/*.MP4
 assets/videos/*.mp4
 assets/videos/*.mov
 assets/videos/*.webm

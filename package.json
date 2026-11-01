@@ -4,7 +4,8 @@
   "description": "Darshan - Portfolio",
   "main": "server.py",
   "scripts": {
-    "start": "python3 server.py"
+    "start": "python3 server.py",
+    "sync:media": "node scripts/sync-r2.mjs"
   },
   "keywords": [
     "portfolio",

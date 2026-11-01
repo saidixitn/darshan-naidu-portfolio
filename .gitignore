@@ -12,4 +12,11 @@ scratch/
 /darshan.HEIC
 /IMG_E1906_Original.JPG
 /spiti 1.mp4
-/spiti 2.mp4
+# Cloudflare & Wrangler cache
+.wrangler/
+
+# Large videos (hosted on Cloudflare R2 /cdn)
+assets/videos/*.mp4
+assets/videos/*.mov
+assets/videos/*.webm
+!assets/videos/.gitkeep

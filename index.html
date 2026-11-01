@@ -125,20 +125,9 @@
         display: none !important;
       }
 
-      /* Critical preloader initial transforms (1:1 Deztopia) */
-      html:not(.site-scrollbar) [data-preloader="section"] {
-        display: block;
-      }
-      [data-preloader="logo"] [data-preloader="logo-char"] {
-        transform: translate(0, 100%);
-      }
-      [data-preloader="text"],
-      [data-preloader="text"] .line {
-        transform: translate(0, -100%);
-      }
-      .preloader-active .navigation_menu_wrap,
-      .preloader-active [data-navigation="logo"] {
-        opacity: 0;
+      /* Preloader styling - Non-blocking */
+      [data-preloader="section"] {
+        display: none;
       }
       .navigation_logo.is-preloader,
       .navigation_logo.is-preloader path,
@@ -154,7 +143,7 @@
       <meta property="og:image" content="https://darshannaidu.vercel.app/assets/images/hero_poster_xentiall.jpg" />
     <meta name="twitter:image" content="https://darshannaidu.vercel.app/assets/images/hero_poster_xentiall.jpg" />
   </head>
-  <body data-barba="wrapper" class="preloader-active">
+  <body data-barba="wrapper">
     <div data-preloader="section" class="preloader_wrap">
       <div class="preloader_contain u-container">
         <div class="preloader_layout u-hflex-between-bottom">
@@ -1067,7 +1056,7 @@
                             class="g_visual_background u-cover-absolute"
                           ></div>
                           <video
-                            src="/cdn/assets/videos/video%201.mp4"
+                            src="/cdn/assets/videos/example%206.mp4"
                             autoplay=""
                             loop=""
                             muted=""

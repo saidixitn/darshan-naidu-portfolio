@@ -828,21 +828,21 @@
                       data-split-type="lines"
                       class="hero_detail_tags_item"
                     >
-                      Poster Series
+                      Short-Form Video
                     </li>
                     <li
                       data-enter-page="text"
                       data-split-type="lines"
                       class="hero_detail_tags_item"
                     >
-                      Visual Direction
+                      Sound Design
                     </li>
                     <li
                       data-enter-page="text"
                       data-split-type="lines"
                       class="hero_detail_tags_item"
                     >
-                      Print Design
+                      Video Editing
                     </li>
                   </div>
                 </ul>
@@ -940,11 +940,10 @@
                   <video
                     class="reel-video"
                     src="/cdn/assets/videos/Video%202.mp4"
-                    autoplay
                     loop
                     muted
                     playsinline
-                    preload="metadata"
+                    preload="none"
                   ></video>
                   <div class="reel-overlay-controls">
                     <div class="reel-top-row">
@@ -975,11 +974,10 @@
                   <video
                     class="reel-video"
                     src="/cdn/assets/videos/video%203.mp4"
-                    autoplay
                     loop
                     muted
                     playsinline
-                    preload="metadata"
+                    preload="none"
                   ></video>
                   <div class="reel-overlay-controls">
                     <div class="reel-top-row">
@@ -1010,11 +1008,10 @@
                   <video
                     class="reel-video"
                     src="/cdn/assets/videos/example%207.mp4"
-                    autoplay
                     loop
                     muted
                     playsinline
-                    preload="metadata"
+                    preload="none"
                   ></video>
                   <div class="reel-overlay-controls">
                     <div class="reel-top-row">
@@ -1045,11 +1042,10 @@
                   <video
                     class="reel-video"
                     src="/cdn/assets/videos/example%206.mp4"
-                    autoplay
                     loop
                     muted
                     playsinline
-                    preload="metadata"
+                    preload="none"
                   ></video>
                   <div class="reel-overlay-controls">
                     <div class="reel-top-row">
@@ -1082,11 +1078,10 @@
                 <video
                   class="reel-video"
                   src="/cdn/assets/videos/Copy%20of%20video%204.mp4"
-                  autoplay
                   loop
                   muted
                   playsinline
-                  preload="metadata"
+                  preload="none"
                 ></video>
                 <div class="reel-overlay-controls">
                   <div class="reel-top-row">
@@ -1119,6 +1114,43 @@
         (function() {
           function initReelControls() {
             var allVideos = document.querySelectorAll('.reel-video');
+
+            // Viewport-aware streaming: only stream & play videos currently in view
+            if ('IntersectionObserver' in window) {
+              var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                  var v = entry.target;
+                  var container = v.closest('.reel-video-container, .reels-cinematic-video-wrap');
+                  var playBtn = container ? container.querySelector('.reel-play-toggle') : null;
+                  if (entry.isIntersecting) {
+                    var playPromise = v.play();
+                    if (playPromise !== undefined) {
+                      playPromise.then(function() {
+                        if (playBtn) {
+                          var p = playBtn.querySelector('.icon-pause');
+                          var pl = playBtn.querySelector('.icon-play');
+                          if (p) p.style.display = 'block';
+                          if (pl) pl.style.display = 'none';
+                        }
+                      }).catch(function() {});
+                    }
+                  } else {
+                    v.pause();
+                    if (playBtn) {
+                      var p = playBtn.querySelector('.icon-pause');
+                      var pl = playBtn.querySelector('.icon-play');
+                      if (p) p.style.display = 'none';
+                      if (pl) pl.style.display = 'block';
+                    }
+                  }
+                });
+              }, { threshold: 0.25 });
+
+              allVideos.forEach(function(v) {
+                observer.observe(v);
+              });
+            }
+
             document.querySelectorAll('.reel-audio-toggle').forEach(function(btn) {
               btn.onclick = function(e) {
                 e.stopPropagation();

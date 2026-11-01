@@ -52,49 +52,22 @@ html, body {
 /* ========================================================
    GLOBAL TYPOGRAPHY & SMOOTH SCROLL RESET
    ======================================================== */
-[data-enter-page="title"] .line {
-  transform: translate(0, 200%);
-}
-@media screen and (max-width: 991px) {
-  [data-enter-page="title"] .line {
-    transform: translate(0, 0);
-    opacity: 0;
-  }
-}
-@media screen and (max-width: 991px) {
-  [data-enter-page="text"] {
-    opacity: 0;
-  }
-}
-[data-enter-page="text"] .line {
-  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-}
-@media screen and (max-width: 991px) {
-  [data-enter-page="text"] .line {
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-}
-[data-enter-page="text-element"] {
-  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-}
-@media screen and (max-width: 991px) {
-  [data-enter-page="text-element"] {
-    opacity: 0;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-}
+/* Ensure all typography, text, and inline images are visible immediately on all screen sizes */
+[data-enter-page="title"] .line,
+[data-enter-page="text"],
+[data-enter-page="text"] .line,
+[data-enter-page="text-element"],
 [data-enter-page="text-image"] {
-  clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%);
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+  visibility: visible !important;
 }
-@media screen and (max-width: 991px) {
-  [data-enter-page="text-image"] {
-    opacity: 0;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-}
+/* Ensure all hero and page visuals are instantly visible without waiting for GSAP */
 [data-enter-page="visual"] {
-  opacity: 0;
-  transform: translateY(2.5rem);
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
 }
 @media screen and (max-width: 991px) {
   [data-enter-page="visual"],

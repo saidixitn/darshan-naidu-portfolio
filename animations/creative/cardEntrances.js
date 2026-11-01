@@ -19,19 +19,18 @@ export function init() {
     const anim = gsap.fromTo(
       card,
       {
-        y: 60,
-        opacity: 0.15,
+        y: 30,
+        opacity: 0.9,
       },
       {
         y: 0,
         opacity: 1,
-        duration: 1.1,
-        ease: "power3.out",
+        duration: 0.8,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: card,
-          start: "top 88%",
-          end: "top 55%",
-          toggleActions: "play none none reverse",
+          start: "top 92%",
+          toggleActions: "play none none none",
           invalidateOnRefresh: true,
         },
       }

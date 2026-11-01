@@ -5,20 +5,27 @@ __pycache__/
 scratch/
 /tmp/
 .vercel
-/000.mp4
-/Copy of video 4.mp4
-/exm.mp4
-/flashbacks.MP4
-/darshan.HEIC
-/IMG_E1906_Original.JPG
-/spiti 1.mp4
-# Cloudflare & Wrangler cache
 .wrangler/
 
-# Large videos (hosted on Cloudflare R2 /cdn)
+# Heavy video files (hosted on Cloudflare R2 /cdn)
 /*.mp4
 /*.MP4
+/*.mov
+/*.MOV
+/*.webm
+/*.WEBM
 assets/videos/*.mp4
+assets/videos/*.MP4
 assets/videos/*.mov
+assets/videos/*.MOV
 assets/videos/*.webm
+assets/videos/*.WEBM
 !assets/videos/.gitkeep
+
+# Ensure all images (especially all footer images) are tracked
+!assets/images/**
+!darshan-images/**
+
+# Unused root camera raw and duplicate
+/darshan.HEIC
+/IMG_E1906_Original.JPG

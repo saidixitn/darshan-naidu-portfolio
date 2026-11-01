@@ -6,18 +6,33 @@ node_modules/
 scratch/
 /tmp/
 
-# Video files (hosted on Cloudflare R2 /cdn)
-*.mp4
-*.MP4
-*.mov
-*.MOV
-*.webm
-*.WEBM
-assets/videos/**
+# Whitelist all site images & assets (ALL footer images, portraits, tiles)
+!assets/images/**
+!assets/css/**
+!assets/js/**
+!darshan/**
 
-# Non-web assets
+# Heavy video files ONLY (hosted on Cloudflare R2 /cdn - zero egress)
+assets/videos/*.mp4
+assets/videos/*.MP4
+assets/videos/*.mov
+assets/videos/*.MOV
+assets/videos/*.webm
+assets/videos/*.WEBM
+/*.mp4
+/*.MP4
+/*.mov
+/*.MOV
+/*.webm
+/*.WEBM
+/000.mp4
+/Copy of video 4.mp4
+/exm.mp4
+/flashbacks.MP4
+/FACE27E8-33CA-45A7-BE73-1DF4E40C50E1.MP4
+/spiti 1.mp4
+/spiti 2.mp4
+/x-entiall.MP4
+
+# Camera raw files at root
 /darshan.HEIC
-/IMG_E1906_Original.JPG
-*.png
-*.jpg
-!assets/**

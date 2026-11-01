@@ -27,7 +27,6 @@ assets/videos/*.WEBM
 
 # Ensure all images (especially all footer images) are tracked
 !assets/images/**
-!darshan-images/**
 
 # Unused root camera raw and duplicate
 /darshan.HEIC

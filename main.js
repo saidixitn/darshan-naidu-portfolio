@@ -18,18 +18,9 @@ import preloader from "./animations/general/preloader.js";
 import magnetic from "./animations/general/magnetic.js";
 import velocitySkew from "./animations/creative/velocitySkew.js";
 import wordScrub from "./animations/creative/wordScrub.js";
-import ambientAurora from "./animations/creative/ambientAurora.js";
-import floatingTags from "./animations/creative/floatingTags.js";
-import cardEntrances from "./animations/creative/cardEntrances.js";
-import imageScrollEffects from "./animations/creative/imageScrollEffects.js";
-import creativeTextEffects from "./animations/creative/creativeTextEffects.js";
-import studioClock from "./animations/creative/studioClock.js";
-import velocityMarquee from "./animations/creative/velocityMarquee.js";
-import graceAbout from "./animations/creative/graceAbout.js";
-import graceScrollText from "./animations/creative/graceScrollText.js";
-// cardTilt3D removed per user request
-import flashWords from "./animations/creative/flashWords.js";
-import interactiveDotMatrix from "./animations/creative/interactiveDotMatrix.js";
+// ambientAurora removed per user request
+// flashWords removed per user request
+// interactiveDotMatrix removed per user request
 import statCounters from "./animations/creative/statCounters.js";
 // filmGrainAndStatus removed per user request
 import deckStacking from "./animations/creative/deckStacking.js";
@@ -242,7 +233,6 @@ safeRun(reinitWebflowFeatures, "reinitWebflowFeatures");
 safeRun(updateCurrentNavLink, "updateCurrentNavLink");
 safeRun(() => preloader.init(), "preloader");
 safeRun(() => magnetic.init(), "magnetic");
-safeRun(() => ambientAurora.init(), "ambientAurora");
 safeRun(() => velocitySkew.init(), "velocitySkew");
 safeRun(() => wordScrub.init(), "wordScrub");
 safeRun(() => floatingTags.init(), "floatingTags");
@@ -253,8 +243,6 @@ safeRun(() => studioClock.init(), "studioClock");
 safeRun(() => velocityMarquee.init(), "velocityMarquee");
 safeRun(() => graceAbout.init(), "graceAbout");
 safeRun(() => graceScrollText.init(), "graceScrollText");
-safeRun(() => flashWords.init(), "flashWords");
-safeRun(() => interactiveDotMatrix.init(), "interactiveDotMatrix");
 safeRun(() => statCounters.init(), "statCounters");
 safeRun(() => deckStacking.init(), "deckStacking");
 safeRun(() => footerKinetic.init(), "footerKinetic");
@@ -310,7 +298,6 @@ barba.hooks.after((e) => {
   initNavbarScroll();
   try {
     magnetic.init();
-    ambientAurora.init();
     velocitySkew.init();
     wordScrub.init();
     floatingTags.init();
@@ -321,8 +308,6 @@ barba.hooks.after((e) => {
     velocityMarquee.init();
     graceAbout.init();
     graceScrollText.init();
-    flashWords.init();
-    interactiveDotMatrix.init();
     statCounters.init();
     deckStacking.init();
     footerKinetic.init();

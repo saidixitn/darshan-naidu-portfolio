@@ -4,6 +4,12 @@
   "trailingSlash": false,
   "headers": [
     {
+      "source": "/cdn/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
       "source": "/vendor.js",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
@@ -17,6 +23,7 @@
     }
   ],
   "rewrites": [
+    { "source": "/cdn/(.*)", "destination": "https://pub-516aaebe3c6046399fecdd80706924bb.r2.dev/$1" },
     { "source": "/about", "destination": "/about-darshan/index.html" },
     { "source": "/about-me", "destination": "/about-darshan/index.html" },
     { "source": "/about-darshan", "destination": "/about-darshan/index.html" },

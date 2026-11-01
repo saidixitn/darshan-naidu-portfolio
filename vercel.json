@@ -24,6 +24,8 @@
   ],
   "rewrites": [
     { "source": "/cdn/(.*)", "destination": "https://pub-516aaebe3c6046399fecdd80706924bb.r2.dev/$1" },
+    { "source": "/reels", "destination": "/projects/instagram-reels" },
+    { "source": "/instagram-reels", "destination": "/projects/instagram-reels" },
     { "source": "/about", "destination": "/about-darshan/index.html" },
     { "source": "/about-me", "destination": "/about-darshan/index.html" },
     { "source": "/about-darshan", "destination": "/about-darshan/index.html" },
